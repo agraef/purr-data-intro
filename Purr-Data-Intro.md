@@ -143,7 +143,7 @@ Another big time-saver is Pd-l2ork's *intelligent patching* facility, which lets
 
 - Also, pressing the shift key while doing connections will let you do multiple connections from the same outlet in one go.
 
-It is worth practicing these so that you can amaze your poor vanilla-running friends with the speed at which you can construct rather complicated patches using these shortcuts. Unfortunately, at present neither Pd-l2ork nor Purr Data supplements this incredibly useful facility with a help patch, so I have provided an [intelligent-patching.pd](intelligent-patching.pd) patch with this primer for your amusement. In the comments, the patch also includes detailed explanations of all the different intelligent patching modes for your perusal.
+It is worth practicing these so that you can amaze your vanilla-running friends with the speed at which you can construct rather complicated patches using these shortcuts. Unfortunately, at present neither Pd-l2ork nor Purr Data supplements this incredibly useful facility with a help patch, so I have provided an [intelligent-patching.pd](intelligent-patching.pd) patch with this primer for your amusement. In the comments, the patch also includes detailed explanations of all the different intelligent patching modes for your perusal.
 
 Other features will be more useful for advanced users, like the reflection capabilities (see the `pdinfo`, `canvasinfo`, `classinfo` and `objectinfo` help patches) and the new SVG graphics for data structure visualizations. The latter have been considerably enhanced in Purr Data, see the "Pd-L2Ork Data Structures" section in the help browser.
 
