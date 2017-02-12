@@ -1,0 +1,32 @@
+#N canvas 489 23 570 690.062 10;
+#X obj 36 48 pack f f f f;
+#X obj 169 8 unpack f f f f;
+#X text 13 144 (1) 1:1 multi-connect: connects o(n+k) -> i(m+k) for
+k=0 \, 1 \, ... \, where o(n)->i(m) is the initial connection and *exactly*
+o and i are selected;
+#X obj 36 8 unpack f f f;
+#X obj 169 48 pack f f f;
+#X text 13 190 (2) 1:N single-connect: connects o(n)->i(m) \, o(n)->i'(m)
+\, o(n)->i''(m) \, ... \, where o(n)->i(m) is the initial connection
+\, o is unselected and at least 2 objects i \, i' \, i'' \, ... are
+selected;
+#X text 13 249 (3) N:1 single-connect: connects o(n)->i(m) \, o'(n)->i(m)
+\, o''(n)->i(m) \, ... \, where o(n)->i(m) is the initial connection
+\, i is unselected and at least 2 objects o \, o' \, o'' \, ... are
+selected;
+#X text 13 308 (4) 1:N multi-connect: connects o(n+k) -> i(m) for each
+other selected object i \, k = 0 \, 1 \, ... \, where o(n)->i(m) is
+the initial connection \, and *both* o and at least two different i's
+are selected;
+#X text 13 367 (4') N:1 multi-connect: connects o(n) -> i(m+k) for
+each other selected object o \, k = 0 \, 1 \, ... \, where o(n)->i(m)
+is the initial connection \, and *both* i and at least two different
+o's are selected;
+#X text 13 426 NOTE: pd-l2ork will do either (4) or (4') \, whichever
+gives the most connections. The "other" selected objects will be considered
+in left-to-right and top-to-bottom order in order to make the connections.
+;
+#X text 13 124 "Intelligent" patching:;
+#X text 13 78 Shift connections: Pressing the shift key while doing
+connections will let you do multiple connections from the same outlet
+in one go.;
