@@ -1,4 +1,4 @@
-# Meet the Cat: A Quick Introduction to Purr Data <img src="purr.png" align="right"/>
+# Meet the Cat: A Quick Introduction to Purr Data
 
 Albert Gräf <aggraef@gmail.com>  
 Computer Music Dept., Institute of Art History and Musicology  
@@ -32,7 +32,7 @@ Purr Data is still comparatively young, but its basis is the tried and proven Pd
 
 ## The Name?
 
-To quote Jonathan from his initial announcement on the [Pd forum][]:
+To quote Jonathan from his initial announcement on the [Pd forum][]: <img src="purr.png" align="right"/>
 
 > I've nicknamed it "Purr Data", because cats.
 
