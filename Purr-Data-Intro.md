@@ -21,7 +21,8 @@ In 2015 Jonathan Wilkes stepped in and started creating **Purr Data** to address
 
 Consequently, Purr Data's GUI is written entirely in JavaScript. Patches are implemented as SVG documents which are generally much more responsive and offer better graphical capabilities than Tk windows. They can also be themed using CSS and zoomed like any browser window, improving usability. These features alone make the switch to Purr Data worthwhile. Purr Data also looks better and is easier on the eyes than Pd-l2ork, let alone vanilla Pd, especially on high-dpi displays (cf. Fig. 1).
 
-![Fig. 1: Purr Data running on Mac OSX.](purr-data.png)
+![Fig. 1: Purr Data running on Mac OSX.](purr-data.png)  
+Fig. 1: Purr Data running on Mac OSX.
 
 Purr Data's nw.js GUI also has some disadvantages. Most notably, some of the included externals still rely on Tcl code, so their GUI features will not work in Purr Data until they get ported to the new GUI. Second, the size of the binary packages is considerably larger than with Pd-l2ork or Pd-extended since, in order to make the packages self-contained, they also include the full nw.js binary distribution. Finally, the browser engine has a much higher memory footprint than Tcl/Tk which might be an issue on embedded platforms with *very* tight memory contraints. So you'll have to weigh the advantages against the disadvantages, considering your use case and target platform.
 
@@ -69,7 +70,8 @@ When you launch Purr Data for the first time, most likely you will have to confi
 
 The following screenshot (Fig. 2) shows how the "Audio" and "MIDI" tabs in this dialog look like on the Mac.
 
-![Fig. 2: Audio and MIDI setup.](prefs-audio+midi.png)
+![Fig. 2: Audio and MIDI setup.](prefs-audio+midi.png)  
+Fig. 2: Audio and MIDI setup.
 
 For most purposes it should be sufficient to just select the audio and MIDI inputs and outputs that you want to use from the corresponding dropdown lists. Pressing the `Apply` button applies the settings *without* closing the dialog or saving the options permanently. If you want to make your changes permanent, you must use the `Ok` button instead. This also closes the dialog.
 
@@ -83,7 +85,8 @@ The GUI theme can be selected on the "GUI" tab (see Fig. 3, left). The changes w
 
 Another useful option on the GUI tab is "save/load zoom level with patch". Purr Data can zoom any patch window to 16 different levels, and this option, when enabled, allows you to store the current zoom level when a patch is saved, and then later restore the zoom level when the patch gets reloaded.
 
-![Fig. 3: GUI and Startup options.](prefs-gui+startup.png)
+![Fig. 3: GUI and Startup options.](prefs-gui+startup.png)  
+Fig. 3: GUI and Startup options.
 
 The final tab in the preferences dialog is the "Startup" tab (Fig. 3, right), which lets you edit the lists of library paths and startup libraries, as well as the additional options the program is to be invoked with. By default, Purr Data loads most bundled external libraries at startup and adds the corresponding directories to its library search path. If you don't need all of these, you can remove individual search paths and/or libraries using the "Search Paths" and "Libraries" lists on the Startup tab. Just click on a search path or library and click the `Delete` button. It is also possible to select an item and add your own search paths and external libraries with the `New` button, or change an existing entry with the `Edit` button.
 
@@ -109,7 +112,8 @@ Purr Data's central point of entry to the help system is its *Help Browser*, dis
 
 Using the Help / Help Browser menu option (shortcut: ctrl + B, or cmd + B on the Mac) fires up Purr Data's help browser, which looks deceptively simple (see Fig. 4) and is actually quite easy to use, but offers a lot of functionality under the hood. You can search for object names or keywords by typing them in the search entry field at the top of the browser, or you can browse the available documentation sections in the browser's *home screen*, which is what gets shown initially below the search entry, by just clicking on one of the section titles.
 
-![Fig. 4: Help browser.](browser.png)
+![Fig. 4: Help browser.](browser.png)  
+Fig. 4: Help browser.
 
 On the right in Fig. 4 you can see how the display changes after you entered a search term like "audio devices" and hit Enter. All related help patches will be shown in the list (with short descriptions of the help patches if available). You can then click on one of the help patches to open it in a canvas window. Clicking on the "x" symbol in the search entry returns you to the home screen.
 
