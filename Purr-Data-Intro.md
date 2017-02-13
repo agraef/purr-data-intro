@@ -23,9 +23,9 @@ Consequently, Purr Data's GUI is written entirely in JavaScript. Patches are imp
 
 ![Fig. 1: Purr Data running on Mac OSX.](purr-data.png)
 
-Purr Data's nw.js GUI also has some disadvantages. Most notably, some of the included externals still rely on Tcl code, so their GUI features will not work in Purr Data until they get ported to the new GUI. Second, the browser engine may have a higher memory footprint than Tcl/Tk which might lead to issues on some embedded platforms. Finally, the size of the binary packages is much larger than with Pd-l2ork or Pd-extended since, in order to make the packages self-contained, they also include the full nw.js binary distribution.
+Purr Data's nw.js GUI also has some disadvantages. Most notably, some of the included externals still rely on Tcl code, so their GUI features will not work in Purr Data until they get ported to the new GUI. Second, the size of the binary packages is considerably larger than with Pd-l2ork or Pd-extended since, in order to make the packages self-contained, they also include the full nw.js binary distribution. Finally, the browser engine has a much higher memory footprint than Tcl/Tk which might be an issue on embedded platforms with *very* tight memory contraints. So you'll have to weigh the advantages against the disadvantages, considering your use case and target platform.
 
-So you'll have to weigh the advantages against the disadvantages, considering your use case. But all in all, even though Purr Data is still comparatively young, it is certainly ready for day-to-day use already, and it offers some really compelling advancements. If you have been looking for a modern and actively-maintained successor of Pd-extended, this is it.
+To summarize, Purr Data is still comparatively young, but the present release has been thoroughly tested and many bugs have been ironed out in the past few months, so it is certainly ready for day-to-day use. It also offers some really compelling advancements over its predecessors. If you have been looking for a modern and actively-maintained successor of Pd-extended, this is it.
 
 ## The Name?
 
@@ -89,11 +89,11 @@ The final tab in the preferences dialog is the "Startup" tab (Fig. 3, right), wh
 
 At the bottom of the Startup tab there is a "Startup Flags" field which lets you specify which additional options the program should be invoked with. This is commonly used to add options like `-legacy` (which enforces bug compatibility with vanilla Pd) as well as the `-path` and `-lib` options which provide an alternative way to add search paths and external libraries. For instance, to add JGU's Pure and Faust extensions to the startup libraries, the Startup Flags field may contain something like the following: `-lib pure -lib faust/pdfaust`
 
-Any desired startup options can be set that way, i.e., anything that Pd usually accepts on the command line. However, note that the startup flags require that you relaunch Purr Data for the options to take effect (the same is true if you change the list of startup libraries). Another common pitfall is that options in the startup flags may override any manual changes done on the lists of search paths and external libraries once you relaunch Purr Data. E.g., if a library gets loaded via a `-lib` option in the startup flags, it will *also* show up in the list of libraries next time you run Purr Data. Thus you'll have to remove *both* the corresponding entry in the libraries list *and* the corresponding `-lib` option to completely get rid of it.
+Any desired startup options can be set that way, i.e., anything that Pd usually accepts on the command line. However, note that the startup flags require that you relaunch Purr Data for the options to take effect (the same is true if you change the list of startup libraries). Also, while setting paths and libraries via the startup flags is often convenient, there are some downsides to having these options in two different places, see "Sticky preferences" in the "Tips and Tricks" section below.
 
 As with the other configuration options, remember to press the `Ok` button in order to have your changes recorded in permanent storage. This will also close the dialog.
 
-Finally, note that if your configuration gets seriously messed up, there are ways to reset Purr Data to its default configuration, see the "Tips and Tricks" section below.
+Finally, note that if your configuration gets seriously messed up, there are ways to reset Purr Data to its default configuration, see "Resetting the preferences" in the "Tips and Tricks" section.
 
 ## Getting Help
 
@@ -164,6 +164,14 @@ Purr Data already bundles many if not most of the 3rd party externals commonly u
 - Windows: `%ProgramFiles%\Common Files\Pd-l2ork` for system-wide, `%UserProfile%\Application Data\Pd-l2ork` for personal installation
 
 For singleton externals it will usually be enough if you just copy them into one of these folders and then relaunch Purr Data. External libraries containing a collection of different externals, on the other hand, will typically require that you also load the library at startup, using the available startup configuration options in the preferences (see "GUI and Startup Options" above). 
+
+### "Sticky" preferences
+
+One pitfall with Purr Data's preferences system (which it shares with its predecessors) is that some options in the startup flags may override other changes done manually in the preferences dialog, and will then appear to "stick" when you relaunch Purr Data. E.g., if a library gets loaded via the `-lib` option in the startup flags, it will *also* show up in the list of libraries next time you run Purr Data. But if you just remove it there, and not also in the startup flags, then the library will *still* be loaded next time you run Purr Data. The same caveat applies if you have some options setting up aspects of the audio and MIDI configuration in the startup flags and then reconfigure your devices in the Audio and MIDI tabs of the dialog. Thus, if Purr Data appears to stick to a certain audio or MIDI setup even though you're certain that you set (and saved) a new configuration, check the startup flags, they're almost certainly to blame. (Another possible culprit are the Linux desktop files, see below.) 
+
+This somewhat confusing behavior is due to how Pd handles the startup flags, especially flags which may override some behavior in other configuration options. The easiest way to get rid of all these mishaps is to remove the relevant options in the startup flags (when in doubt, just delete them all so that the startup flags field is completely empty) and save your options by clicking `Ok` in the preferences dialog.
+
+Sometimes options may seem to stick even if the startup flags field is in fact empty, so that the preferences dialog appears to be partially dysfunctional. This is almost certainly due to some stray startup options in the application's desktop files, most likely on Linux (Pd-l2ork's original desktop files, which Purr Data inherited in the Linux version, seem to be the main culprit here). Remove the offending options in the desktop icons that you use to launch Purr Data, then this will go away. (Again, when in doubt, just remove *all* of the extra options in the desktop file, so that just the program name remains; none of these options are essential for Purr Data's proper operation.)
 
 ### Resetting the preferences
 
