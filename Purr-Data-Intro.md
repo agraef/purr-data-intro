@@ -32,13 +32,16 @@ Purr Data is still comparatively young, but its basis is the tried and proven Pd
 
 ## The Name?
 
-To quote Jonathan from his initial announcement on the [Pd forum][]: <img src="purr.png" align="right"/>
+Purr Data is the official nickname of the Pd-l2ork 2.x branch. To quote chief developer Jonathan Wilkes from his initial announcement on the [Pd forum][]:
 
+<img src="purr.png" align="right"/>
 > I've nicknamed it "Purr Data", because cats.
 
 [Pd forum]: http://forum.pdpatchrepo.info/topic/9956/gui-port-of-pd-l2ork-alpha-0-release
 
-Quite obviously the name is a play on "Pure Data" on which "Purr Data" is ultimately based. It also raises positive connotations of soothing purring sounds, and makes for a nice logo. Under the hood, however, Purr Data still shares a lot of code with Pd-l2ork (essentially all the non-GUI parts), and the executable, library directory etc. are all still named pd-l2ork as well. So for all practical purposes Purr Data in fact *is* Pd-l2ork, namely its latest (2.x) branch. If necessary, we refer to Bukvic's original Pd-l2ork version as Pd-l2ork 1.0 or "classic" Pd-l2ork.
+Quite obviously the name is a play on "Pure Data" on which "Purr Data" is ultimately based. It also raises positive connotations of soothing purring sounds, and makes for a nice logo.
+
+We also refer to Bukvic's original Pd-l2ork version as Pd-l2ork 1.0 or "classic" Pd-l2ork. Note that Purr Data still clearly shows its Pd-l2ork heritage. It shares a lot of code with Pd-l2ork (essentially all the non-GUI parts), and the executable, library directory etc. are all still named pd-l2ork as well.
 
 ## Where to Get It
 
@@ -70,14 +73,12 @@ When you launch Purr Data for the first time, most likely you will have to confi
 
 ### Audio and MIDI Devices
 
-The following screenshot (Fig. 2) shows how the "Audio" and "MIDI" tabs in this dialog look like on the Mac.
+The following screenshot (Fig. 2) shows how the "Audio" and "MIDI" tabs in this dialog look like on the Mac. For most purposes it should be sufficient to just select the audio and MIDI inputs and outputs that you want to use from the corresponding dropdown lists. Pressing the `Apply` button applies the settings *without* closing the dialog or saving the options permanently. If you want to make your changes permanent, you must use the `Ok` button instead. This also closes the dialog.
+
+You can redo this procedure at any time if needed. Note that it is usually possible to select multiple input and output devices, but this depends on the platform and the selected audio/MIDI back-end or "API". Also note that on Linux (using the ALSA API), the MIDI tab will only allow you to set the number of ALSA MIDI input/output ports to be created; you then still have to use a MIDI patchbay program such as [qjackctl](https://qjackctl.sourceforge.io/) to connect these ports to the hardware devices as needed.
 
 ![Fig. 2: Audio and MIDI setup.](prefs-audio+midi.png)  
 Fig. 2: Audio and MIDI setup.
-
-For most purposes it should be sufficient to just select the audio and MIDI inputs and outputs that you want to use from the corresponding dropdown lists. Pressing the `Apply` button applies the settings *without* closing the dialog or saving the options permanently. If you want to make your changes permanent, you must use the `Ok` button instead. This also closes the dialog.
-
-You can redo this procedure at any time if needed. Note that it is usually possible to select multiple input and output devices, but this depends on the platform and the selected audio/MIDI back-end or "API". Also note that on Linux (using the ALSA API), the MIDI tab will only allow you to set the number of ALSA MIDI input/output ports to be created; you then still have to use a MIDI patchbay program such as [qjackctl](https://qjackctl.sourceforge.io/) to connect these ports to the hardware devices as needed.
 
 One pitfall of the Pd engine is that it does not rescan the devices if you connect new external audio or MIDI gear while Purr Data is already running. Thus you need to relaunch the program to make the new devices show up in the preferences. In the case of MIDI, it is easy to work around this limitation by employing virtual MIDI devices, which ALSA MIDI does by default. On the Mac you'd use the [IAC](https://sites.google.com/site/mfalab/mac-stuff/how-to-use-the-iac-driver) devices, on Windows a MIDI loopback driver such as [loopMIDI](http://www.tobias-erichsen.de/software/loopmidi.html) for that purpose. You then wire these up to the MIDI hardware using a separate patchbay program. A similar approach is possible with audio loopback software such as [Jack](http://www.jackaudio.org/).
 
@@ -114,10 +115,10 @@ Purr Data's central point of entry to the help system is its *Help Browser*, dis
 
 Using the Help / Help Browser menu option (shortcut: ctrl + B, or cmd + B on the Mac) fires up Purr Data's help browser, which looks deceptively simple (see Fig. 4) and is actually quite easy to use, but offers a lot of functionality under the hood. You can search for object names or keywords by typing them in the search entry field at the top of the browser, or you can browse the available documentation sections in the browser's *home screen*, which is what gets shown initially below the search entry, by just clicking on one of the section titles.
 
+On the right in Fig. 4 you can see how the display changes after you entered a search term like "audio devices" and hit Enter. All related help patches will be shown in the list (with short descriptions of the help patches if available). You can then click on one of the help patches to open it in a canvas window. Clicking on the "x" symbol in the search entry returns you to the home screen.
+
 ![Fig. 4: Help browser.](browser.png)  
 Fig. 4: Help browser.
-
-On the right in Fig. 4 you can see how the display changes after you entered a search term like "audio devices" and hit Enter. All related help patches will be shown in the list (with short descriptions of the help patches if available). You can then click on one of the help patches to open it in a canvas window. Clicking on the "x" symbol in the search entry returns you to the home screen.
 
 Note that to keep things simple and not to overwhelm novice users with too much information, the search function only covers the "official" documentation (the doc/ hierarchy). To explore all the other help patches which are available in the extra/ hierarchy (which contains all the 3rd party abstractions and externals), you must employ the little folder icon to the right of the search entry. This will open a file browser (initially on the doc/ folder) which can then be used to browse *all* the available help patches. When looking for help patches in the extra/ hierarchy, which is a sibling of doc/, simply point the file browser to that directory and click on one of its subdirectories containing the various abstractions and externals. Double-clicking on a help patch will open the patch in its own window, and then also show the corresponding directory in the help browser, so that additional help patches from the same folder can be accessed without any further ado.
 
