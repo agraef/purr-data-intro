@@ -1,4 +1,4 @@
-# Meet the Cat: A Quick Introduction to Purr Data <img src="purr.png"/>
+# Meet the Cat: A Quick Introduction to Purr Data <img src="purr.png" align="right"/>
 
 Albert Gräf <aggraef@gmail.com>  
 Computer Music Dept., Institute of Art History and Musicology  
