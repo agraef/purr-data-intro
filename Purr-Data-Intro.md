@@ -191,3 +191,17 @@ It happens to the best of us that we mess up our Pd configuration so badly that 
 - On Windows, launch the `regedit` program and look for the registry key `HKEY_CURRENT_USER\Software\Purr-Data` or `HKEY_LOCAL_MACHINE\Software\Purr-Data`. Delete that key and all its subkeys.
 
 Then just relaunch Purr Data. Your preferences should now be in pristine state again, and all the default search paths and startup libraries will be restored. Of course, you will then have to reconfigure your audio and MIDI devices as needed.
+
+### Purr Data hangs during startup
+
+As far as I can tell, this was only reported on Mac OS X so far. The symptom is that the GUI launches, but then hangs during the startup sequence after printing the message `incoming connection to GUI` in the console window. The GUI then becomes totally unresponsive, eating up 100% cpu, and the only way to get rid of it is killing it ("force quit").
+
+The exact causes are unknown right now, but it seems that this behavior may be caused by bad 3rd party externals causing the realtime engine to hang or crash during startup. The GUI then waits for the incoming connection from the engine which never gets established, which makes it hang in turn.
+
+As it's impossible to launch the GUI and remove the offending external in the preferences dialog in this rather unfortunate situation, the only known solution to this problem is to reset the configuration (see "Resetting the preferences" above), after which Purr Data hopefully launches without any hitches again. If you're feeling adventurous, you may then start adding your local externals one by one until the GUI hangs again, at which point you will have identified the culprit, so that you can remove it from your system.
+
+### Purr Data starts up very slowly
+
+Again, this seems to be a Mac-specific issue. Older (pre-2.0) Mac versions of Purr Data had the defect that old search paths and startup libraries from previous installations would keep piling up in the configuration until eventually Purr Data's startup would become *very* slow. This has been fixed in the 2.0 version (and startup time on the Mac has generally been improved as well), but if you're still using an old configuration from the pre-2.0 days, then you might still see remnants of this issue even in the 2.0 version.
+
+One thing you can try in this case is to launch the preferences dialog, press `Ok` and then quit and relaunch Purr Data. If that doesn't help, reset the configuration as explained under "Resetting the preferences" above. (If that doesn't help either, then you probably have a different issue which you should report on Purr Data's [issue tracker](https://git.purrdata.net/jwilkes/purr-data/issues).)
