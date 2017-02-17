@@ -5,7 +5,9 @@ Computer Music Dept., Institute of Art History and Musicology
 Johannes Gutenberg University (JGU) Mainz, Germany  
 February 2017
 
-This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)
+This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)  
+Permanent link: <https://agraef.github.io/purr-data-intro/>
 
 **Purr Data** a.k.a. **Pd-l2ork** 2.0 is an improved version of Miller Puckette's interactive computer music and multimedia software **Pd**. This document provides new or prospective Purr Data users with a gentle introduction to the program and some helpful information to get started.
 
@@ -23,7 +25,7 @@ Despite the many and substantial improvements it offers, Pd-l2ork's GUI is still
 
 In 2015 Jonathan Wilkes stepped in and started creating **Purr Data** to address these problems. In a nutshell, Purr Data is Pd-l2ork with the Tcl/Tk GUI part ripped out and replaced with modern web technology. To these ends, it uses an open-source framework called [nw.js](https://nwjs.io/) a.k.a. "node-webkit", which is essentially a stand-alone web browser engine ([Chromium](http://www.chromium.org/)) combined with a JavaScript runtime ([Node.js](http://nodejs.org/)). While the latter was originally invented for developing server-side web applications, frameworks like nw.js allow the two to be used in concert to create fully-fledged and portable desktop applications. Using nw.js ensures that Purr Data runs on Linux, Mac and Windows, looking the same on all supported platforms, and it paves the way to leverage standard web technologies such as JavaScript, HTML5, CSS3 and SVG.
 
-Purr Data's GUI is written entirely in JavaScript, which is much more advanced than Tcl, offering an abundance of libraries and support materials. This makes the further development of Purr Data's graphical user interface a lot easier now that the initial GUI port is done. Patches are implemented as HTML5 SVG documents which offer better responsiveness and graphical capabilities than Tk windows. They can also be themed using CSS and zoomed like any browser window, improving usability. These features alone make the switch to Purr Data worthwhile. Purr Data also looks better and is easier on the eyes than Pd-l2ork, let alone vanilla Pd, especially on high-dpi displays (cf. Fig. 1).
+Purr Data's GUI is written entirely in JavaScript, which is much more advanced than Tcl, offering an abundance of libraries and support materials. This makes the further development of Purr Data's graphical user interface a lot easier now that the initial GUI port is done. Patches are implemented as HTML5 SVG documents which offer better responsiveness and graphical capabilities than Tk windows. They can also be themed using CSS and zoomed like any browser window, improving usability. Purr Data also looks better and is easier on the eyes than Pd-l2ork, let alone vanilla Pd, especially on high-dpi displays (cf. Fig. 1).
 
 ![Fig. 1: Purr Data running on macOS.](purr-data.png)  
 Fig. 1: Purr Data running on macOS.
