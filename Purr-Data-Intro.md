@@ -5,7 +5,9 @@ Computer Music Dept., Institute of Art History and Musicology
 Johannes Gutenberg University (JGU) Mainz, Germany  
 February 2017
 
-**Purr Data** a.k.a. **Pd-l2ork** 2.0 is an improved version of Miller Puckette's interactive computer music and multimedia software **Pd**. The purpose of this document is to provide new or prospective Purr Data users with a gentle introduction to the program and some helpful information to get started. It also includes some background information to explain Purr Data's role in the Pd ecosystem and how it came about.
+This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)
+
+**Purr Data** a.k.a. **Pd-l2ork** 2.0 is an improved version of Miller Puckette's interactive computer music and multimedia software **Pd**. This document provides new or prospective Purr Data users with a gentle introduction to the program and some helpful information to get started.
 
 ## What is Purr Data?
 
