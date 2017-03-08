@@ -98,7 +98,7 @@ Permanent link: <a href="https://agraef.github.io/purr-data-intro/" class="uri">
 <ul>
 <li><p>If you select <em>exactly</em> two objects A and B, say, and then connect one of the outlets from A to one of the inlets of B, then starting from the initial outlet-inlet pair the remaining outlets of A will be connected to the corresponding inlets of B.</p></li>
 <li><p>If you select two (or more) objects B and C, say, and then connect an outlet of a third, <em>unselected</em> object A to an inlet of B, then the corresponding connection from A to C will be done automatically. Conversely, you can also connect an outlet of B to an inlet of A to have the corresponding C-A connection completed for you.</p></li>
-<li><p>If you select two (or more) objects B and C, say, and then connect an outlet of a third, <em>selected</em> object A with multiple outlets to an inlet of B, then the <em>next</em> outlet of A will be connected to the corresponding inlet of C. Conversely, you can also connect an outlet of B to an inlet of A and have C connected to the next inlet of A. In principle, this works for an arbitrary number of source or target objects (considering the “other” objects in left-to-right, top-to-bottom order), provided that object A has enough inlets or outlets to connect to them all.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p></li>
+<li><p>If you select <em>three</em> (or more) objects A, B and C, say, where A has two outlets or more, and then connect an outlet of A to an inlet of B, then the <em>next</em> outlet of A will be connected to the corresponding inlet of C. Conversely, you can also connect an outlet of B to an inlet of A, and have the corresponding outlet of C connected to the next inlet of A. This works for an arbitrary number of source or target objects, considering the “other” objects in left-to-right, top-to-bottom order.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p></li>
 <li><p>Finally, pressing the shift key while doing connections will let you do multiple connections from the same outlet in one go.</p></li>
 </ul>
 <p>It is worth practicing these so that you can amaze your vanilla-running friends with the speed at which you can construct rather complicated patches using these shortcuts. Unfortunately, neither Pd-l2ork nor Purr Data has a help patch for this incredibly useful facility, so I have provided a little <a href="intelligent-patching.pd" class="uri">intelligent-patching.pd</a> patch with this document for your amusement. In the comments, the patch also includes detailed explanations of all the different intelligent patching modes for your perusal.</p>
@@ -141,7 +141,7 @@ Permanent link: <a href="https://agraef.github.io/purr-data-intro/" class="uri">
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>This operation works best if the “other” objects only have a single out- or inlet. Otherwise Purr Data will often prefer creating outgoing connections, which might lead to unexpected results.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>This operation works best if the “other” objects only have a single out- or inlet, since that makes the outcome unambiguous. Otherwise Purr Data will often prefer creating outgoing connections, in which case you’ll have to hold down the Ctrl key to enforce incoming connections.<a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
 </body>
