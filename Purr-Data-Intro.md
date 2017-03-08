@@ -45,8 +45,8 @@ Quite obviously the name is a play on "Pure Data" on which "Purr Data" is ultima
 
 We also refer to Bukvic's original Pd-l2ork version as Pd-l2ork 1.0 or "classic" Pd-l2ork. Note that Purr Data still clearly shows its Pd-l2ork heritage. It shares a lot of code with Pd-l2ork (essentially all the non-GUI parts), and the executable, library directory etc. are all still named pd-l2ork as well.
 
-<center><img src="purr.png" alt="logo" /></center>
-\begin{center}\includegraphics[width=10mm]{purr.png}\end{center}
+<center><img src="purr.png" alt="logo" style="width: 10%; height: 10%" /></center>
+\begin{center}\includegraphics[width=20mm]{purr.png}\end{center}
 
 ## Where to Get It
 
