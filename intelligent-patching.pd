@@ -1,4 +1,4 @@
-#N canvas 489 23 570 690.062 10;
+#N canvas 489 79 570 730.062 10;
 #X obj 36 48 pack f f f f;
 #X obj 169 8 unpack f f f f;
 #X text 13 144 (1) 1:1 multi-connect: connects o(n+k) -> i(m+k) for
@@ -22,11 +22,12 @@ are selected;
 each other selected object o \, k = 0 \, 1 \, ... \, where o(n)->i(m)
 is the initial connection \, and *both* i and at least two different
 o's are selected;
-#X text 13 426 NOTE: pd-l2ork will do either (4) or (4') \, whichever
-gives the most connections. The "other" selected objects will be considered
-in left-to-right and top-to-bottom order in order to make the connections.
-;
 #X text 13 124 "Intelligent" patching:;
 #X text 13 78 Shift connections: Pressing the shift key while doing
 connections will let you do multiple connections from the same outlet
 in one go.;
+#X text 13 426 NOTE: pd-l2ork will do either (4) or (4') \, whichever
+gives the most connections. This choice can be reversed by holding
+the ctrl key when doing the initial connection. The "other" selected
+objects will be considered in left-to-right and top-to-bottom order.
+;
