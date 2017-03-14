@@ -145,12 +145,12 @@ $endfor$
 
 \usepackage{mathpazo}
 \usepackage[scaled=0.86]{beramono}
-% AG: On my Linux system the Palatino font is actually called "Palatino
-% Linotype", so that's what we use here. You might have to edit this.
-\setromanfont[Mapping=tex-text]{Palatino Linotype}
-\setsansfont[Mapping=tex-text]{Palatino Linotype}
-\setmonofont[Mapping=tex-text,Scale=0.8]{Bitstream Vera Sans Mono}
-
+% AG: Using "Liberation Sans" as the main font here, since it's free and a
+% font without serifs is easier to read on the screen. Edit as needed.
+\setmainfont[Mapping=tex-text]{Liberation Sans}
+\setsansfont[Mapping=tex-text]{Liberation Sans}
+\setmonofont[Mapping=tex-text]{Liberation Mono}
+  
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 

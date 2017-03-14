@@ -82,9 +82,9 @@ When you launch Purr Data for the first time, most likely you will have to confi
 
 The screenshot in [@fig:fig2] shows how the "Audio" and "MIDI" tabs in this dialog look like on the Mac. For most purposes it should be sufficient to just select the audio and MIDI inputs and outputs that you want to use from the corresponding dropdown lists. Pressing the `Apply` button applies the settings *without* closing the dialog or saving the options permanently. If you want to make your changes permanent, you must use the `Ok` button instead. This also closes the dialog.
 
-![Audio and MIDI setup.](prefs-audio+midi.png){#fig:fig2 width=100%}
-
 You can redo this procedure at any time if needed. Note that it is usually possible to select multiple input and output devices, but this depends on the platform and the selected audio/MIDI back-end or "API". Also note that on Linux (using the ALSA API), the MIDI tab will only allow you to set the number of ALSA MIDI input/output ports to be created; you then still have to use a MIDI patchbay program such as [qjackctl](https://qjackctl.sourceforge.io/) to connect these ports to the hardware devices as needed.
+
+![Audio and MIDI setup.](prefs-audio+midi.png){#fig:fig2 width=100%}
 
 One pitfall of the Pd engine is that it does not rescan the devices if you connect new external audio or MIDI gear while Purr Data is already running. Thus you need to relaunch the program to make the new devices show up in the preferences. In the case of MIDI, it is easy to work around this limitation by employing virtual MIDI devices, which ALSA MIDI does by default. On the Mac you'd use the [IAC](https://sites.google.com/site/mfalab/mac-stuff/how-to-use-the-iac-driver) devices, on Windows a MIDI loopback driver such as [loopMIDI](http://www.tobias-erichsen.de/software/loopmidi.html) for that purpose. You then wire these up to the MIDI hardware using a separate patchbay program. A similar approach is possible with audio loopback software such as [Jack](http://www.jackaudio.org/).
 
@@ -92,9 +92,9 @@ One pitfall of the Pd engine is that it does not rescan the devices if you conne
 
 The GUI theme can be selected on the "GUI" tab (see [@fig:fig3], left). The changes will be applied immediately. Purr Data provides various different GUI themes out of the box. Note that the GUI themes are in fact just CSS files in Purr Data's library directory, so if you're familiar with HTML5 and CSS then you can easily change them or create your own. Another useful option on the GUI tab is "save/load zoom level with patch". Purr Data can zoom any patch window to 16 different levels, and this option, when enabled, allows you to store the current zoom level when a patch is saved, and then later restore the zoom level when the patch gets reloaded.
 
-![GUI and Startup options.](prefs-gui+startup.png){#fig:fig3 width=100%}
-
 The final tab in the preferences dialog is the "Startup" tab ([@fig:fig3], right), which lets you edit the lists of library paths and startup libraries, as well as the additional options the program is to be invoked with. By default, Purr Data loads most bundled external libraries at startup and adds the corresponding directories to its library search path. If you don't need all of these, you can remove individual search paths and/or libraries using the "Search Paths" and "Libraries" lists on the Startup tab. Just click on a search path or library and click the `Delete` button. It is also possible to select an item and add your own search paths and external libraries with the `New` button, or change an existing entry with the `Edit` button.
+
+![GUI and Startup options.](prefs-gui+startup.png){#fig:fig3 width=100%}
 
 At the bottom of the Startup tab there is a "Startup Flags" field which lets you specify which additional options the program should be invoked with. This is commonly used to add options like `-legacy` (which enforces bug compatibility with vanilla Pd) as well as the `-path` and `-lib` options which provide an alternative way to add search paths and external libraries. For instance, to add JGU's Pure and Faust extensions to the startup libraries, the Startup Flags field may contain something like the following: `-lib pure -lib faust/pdfaust`
 
