@@ -3,7 +3,7 @@
 Albert Gräf <<aggraef@gmail.com>>  
 Computer Music Dept., Institute of Art History and Musicology  
 Johannes Gutenberg University (JGU) Mainz, Germany  
-February 2017
+December 2017
 
 This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)  
@@ -70,9 +70,13 @@ Purr Data understands basically the same set of command line options as vanilla 
 
 ### Single Application Instance
 
-Unlike vanilla Pd, Purr Data always runs as a *single application instance*. If you load additional patch files (by invoking the `pd-l2ork` executable or by clicking patch files in the file manager), they will be opened as new canvas windows in that single unique instance. This prevents the kind of confusion which often arises with vanilla Pd if you accidentally open different patches in different instances of the application. Pd requires that patches are loaded in the same program instance if they are to communicate via Pd's built-in messaging system (send/receive), or if you'd like to copy/paste subpatches between them using the internal clipboard. Purr Data makes sure that this is always the case.
+Unlike vanilla Pd, Purr Data normally runs as a *single application instance*. If you load additional patch files (by invoking the `pd-l2ork` executable or by clicking patch files in the file manager), they will be opened as new canvas windows in that single unique instance. This prevents the kind of confusion which often arises with vanilla Pd if you accidentally open different patches in different instances of the application. Pd requires that patches are loaded in the same program instance if they are to communicate via Pd's built-in messaging system (send/receive), or if you'd like to copy/paste subpatches between them using the internal clipboard. In its default configuration, Purr Data makes sure that this is always the case.
 
-Please note that this also means that Purr Data's real-time processing is all done in a single process right now. In the future, it will become possible to run different patches on different instances of the real-time engine in order to take advantage of the multi-processing capabilities on modern multi-core systems, but this hasn't been implemented yet.
+### Multiple Application Instances
+
+As of version 2.3.2, Purr Data can also be invoked with the `-unique` flag to create multiple application instances. On Linux, you can do this by just specifying the `-unique` option on the command line or by editing the desktop icon you use to launch Purr Data. On Mac and Windows (as well as Linux), you can put this option into the startup flags in the preferences, see section [GUI and Startup Options] below. (Don't forget to remove the option from the startup flags again when it is not needed any more, in order to revert to the normal single application instance behavior.)
+
+For most applications this shouldn't be needed, and the single application instance will be most convenient. But there are some situations in which you will want to run several instances of Purr Data instead. Because Purr Data's real-time processing is all done in a single process associated with the application instance, a single application instance cannot take advantage of the multi-processing capabilities on modern multi-core systems. Some common use cases for multi-processing are if your Pd application involves both audio and graphics processing (typically using the Gem library), or if you have several independent audio processes which you'd like to be run in parallel. In such cases you will want to use the `-unique` option to launch two or more instances of Purr Data, each with their own sets of Pd patches which will then run on different instances of the real-time engine.
 
 ## Configuration
 
