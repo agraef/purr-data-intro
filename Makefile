@@ -1,7 +1,7 @@
 
 #HTML_FLAGS = -c modern.css
 HTML_FLAGS = -c github-pandoc.css
-TEX_FLAGS = --template=mydefault.latex --latex-engine=xelatex
+TEX_FLAGS = --template=mydefault.latex --pdf-engine=xelatex
 PDF_FLAGS = -V 'geometry:paperwidth=21cm' -V 'geometry:paperheight=29.7cm' -V 'geometry:vmargin=2cm' -V 'geometry:hmargin=2cm' -V 'fontsize:12pt'
 
 filter = -F pandoc-crossref
@@ -14,7 +14,7 @@ clean:
 	rm -f Purr-Data-Intro.html Purr-Data-Intro.pdf
 
 %.html: %.md
-	pandoc $(filter) -s -S $< -o $@ $(HTML_FLAGS)
+	pandoc $(filter) -s $< -o $@ $(HTML_FLAGS)
 
 %.pdf: %.md
-	pandoc $(filter) -s -S $< -o $@ $(TEX_FLAGS) $(PDF_FLAGS)
+	pandoc $(filter) -s $< -o $@ $(TEX_FLAGS) $(PDF_FLAGS)
