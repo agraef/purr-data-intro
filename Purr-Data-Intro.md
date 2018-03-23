@@ -168,6 +168,14 @@ It is worth practicing these so that you can amaze your vanilla-running friends 
 
 Other features will be more useful for advanced users, like the reflection capabilities (see the `pdinfo`, `canvasinfo`, `classinfo` and `objectinfo` help patches) and the new SVG elements for data structure visualizations. The latter have been considerably enhanced in Purr Data, see the "Pd-L2Ork Data Structures" section in the help browser. They also make it possible to create your own custom GUI elements in plain Pd, without having to learn a "real" programming language.
 
+## Purr Data and Pd-Lua
+
+As of version 2.5, Purr Data includes the latest version of Claude Heiland-Allen's excellent [Pd-Lua](https://github.com/agraef/pd-lua) extension for embedding the [Lua](http://www.lua.org/) scripting language in Pd. This provides you with an easy means (much easier than Pd's native C interface) to write your own custom Pd objects if they require the use of a real programming language offering loops, functions and complicated data structures.
+
+Lua is perfectly suited for this purpose, because it is light-weight and easily embeddable by design. It is also small and easy to learn, yet very capable, offering a complete range of imperative, object-oriented and functional programming language elements. Like Pd, Lua is an interpreted language featuring dynamic typing, which makes interfacing between Pd and Lua quite easy.
+
+Pd-Lua requires Lua 5.2 or 5.3, which should be readily available in all Linux distributions (on Mac and Windows the requisite Lua 5.3 library is included in the installer). A fairly extensive collection of examples to get you started can be found in the extra/pdlua/examples folder.
+
 ## Tips and Tricks
 
 We conclude this introduction with a little grab bag of helpful tips and tricks. If your questions aren't answered here, please post them to the DISIS [Pd-l2ork mailing list](http://disis.music.vt.edu/listinfo/l2ork-dev).
