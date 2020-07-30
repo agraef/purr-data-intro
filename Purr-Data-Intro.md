@@ -3,7 +3,7 @@
 Albert Gräf <<aggraef@gmail.com>>  
 Computer Music Dept., Institute of Art History and Musicology  
 Johannes Gutenberg University (JGU) Mainz, Germany  
-May 2020
+July 2020
 
 This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)  
@@ -172,11 +172,11 @@ Other features will be more useful for advanced users, like the reflection capab
 
 ## Purr Data and Pd-Lua
 
-As of version 2.5, Purr Data includes the latest version of Claude Heiland-Allen's excellent [Pd-Lua](https://github.com/agraef/pd-lua) extension for embedding the [Lua](http://www.lua.org/) scripting language in Pd. This provides you with an easy means (much easier than Pd's native C interface) to write your own custom Pd objects if they require the use of a real programming language offering loops, functions and complicated data structures.
+As of version 2.5, Purr Data includes the latest version of Claude Heiland-Allen's excellent [Pd-Lua](https://agraef.github.io/pd-lua/) extension for embedding the [Lua](http://www.lua.org/) scripting language in Pd. This provides you with an easy means (much easier than Pd's native C interface) to write your own custom Pd objects if they require the use of a real programming language offering loops, functions and complicated data structures.
 
 Lua is perfectly suited for this purpose, because it is light-weight and easily embeddable by design. It is also small and easy to learn, yet very capable, offering a complete range of imperative, object-oriented and functional programming language elements. Like Pd, Lua is an interpreted language featuring dynamic typing, which makes interfacing between Pd and Lua quite easy.
 
-Pd-Lua requires Lua 5.2 or 5.3, which should be readily available in all Linux distributions (on Mac and Windows the requisite Lua 5.3 library is included in the installer). A fairly extensive collection of examples to get you started can be found in the extra/pdlua/examples folder.
+Pd-Lua requires Lua 5.2 or 5.3, which should be readily available in all Linux distributions (on Mac and Windows the requisite Lua 5.3 library is included in the installer). There's a [tutorial](https://agraef.github.io/pd-lua/tutorial/pd-lua-intro.html) available to get you started, and a fairly extensive collection of examples can be found in the extra/pdlua/examples folder.
 
 ## Tips and Tricks
 
