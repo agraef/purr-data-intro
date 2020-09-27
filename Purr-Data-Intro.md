@@ -162,9 +162,13 @@ Once the browser has been launched for the first time and the index has been bui
 
 Compared to vanilla Pd, Pd-l2ork and Purr Data provide a comprehensive set of new and improved features, way too many to even just mention them all, so we refer the interested reader to the [PdCon 2016 paper](http://ico.bukvic.net/PDF/PdCon16_paper_84.pdf) for details. The paper also covers the history and motivation of the Pd-l2ork project.
 
-One of Pd-l2ork's major advancements over vanilla Pd is its *infinite undo* capability, which makes it easy to revert accidental changes without having to worry about taking snapshots of patches while they're under development. Many of the other new features are simply GUI and usability improvements which, if done right, quickly become second nature to the user, so that they aren't even consciously noticed any more, such as the graphical improvements and the ability to resize the IEM GUI elements and "graph on parent" areas using the mouse. A helpful change also worth mentioning here is the improved *tidy up* option in the Edit menu, which first aligns objects and then spaces them equidistantly.
+One of Pd-l2ork's major advancements, which has only recently been ported to vanilla Pd, is its *infinite undo* capability, which makes it easy to revert accidental changes without having to worry about taking snapshots of patches while they're under development. A helpful change also worth mentioning here is the improved *tidy up* option in the Edit menu, which first aligns objects and then spaces them equidistantly. Many of the other new features are simply GUI and usability improvements which quickly become second nature to the user, such as the graphical improvements, the ability to resize the IEM GUI elements and "graph on parent" areas using the mouse, and the extended key bindings for number and number2 objects.
 
-Another big time-saver is Pd-l2ork's *intelligent patching* facility, which lets you select two or more objects in order to connect multiple outlets and inlets in one go. Intelligent patching offers a number of different modes:
+Other features will be more useful for advanced users, like the reflection capabilities (see the `pdinfo`, `canvasinfo`, `classinfo` and `objectinfo` help patches) and the new SVG elements for data structure visualizations. The latter have been considerably enhanced in Purr Data, see the "Pd-L2Ork Data Structures" section in the help browser. They also make it possible to create your own custom GUI elements in plain Pd, without having to learn a "real" programming language.
+
+### Intelligent Patching
+
+Another big time-saver is Pd-l2ork's *intelligent patching* facility, which lets you select two or more objects in order to connect multiple outlets and inlets in one go. A similar feature was recently added to vanilla Pd, but Pd-l2ork has had this for a long time. In Pd-l2ork and Purr Data, intelligent patching offers a number of different modes:
 
 - If you select *exactly* two objects A and B, say, and then connect one of the outlets from A to one of the inlets of B, then starting from the initial outlet-inlet pair the remaining outlets of A will be connected to the corresponding inlets of B.
 
@@ -174,11 +178,19 @@ Another big time-saver is Pd-l2ork's *intelligent patching* facility, which lets
 
 - Finally, pressing the shift key while doing connections will let you do multiple connections from the same outlet in one go.
 
-It is worth practicing these so that you can amaze your vanilla-running friends with the speed at which you can construct rather complicated patches using these shortcuts. As of version 2.1, Purr Data has a help patch for this incredibly useful facility, which I have also provided with this document in the [intelligent-patching.pd](intelligent-patching.pd) patch for your amusement. In the comments, the patch also includes detailed explanations of all the different intelligent patching modes for your perusal, and you can find some subpatches with exercises in the margin of the main patch.
+Purr Data has a help patch for this incredibly useful facility, which I have also provided with this document in the [intelligent-patching.pd](intelligent-patching.pd) patch for your perusal. In the comments, the patch also includes detailed explanations of all the different intelligent patching modes, and you can find some subpatches with exercises in the margin of the main patch.
 
-Other features will be more useful for advanced users, like the reflection capabilities (see the `pdinfo`, `canvasinfo`, `classinfo` and `objectinfo` help patches) and the new SVG elements for data structure visualizations. The latter have been considerably enhanced in Purr Data, see the "Pd-L2Ork Data Structures" section in the help browser. They also make it possible to create your own custom GUI elements in plain Pd, without having to learn a "real" programming language.
+### Subpatch and Abstraction Features
 
-TODO: Add a description of Guillem's subpatch creation, abstraction saving and private abstraction features.
+A recent addition are the extended subpatch and abstraction creation and saving facilities, which were contributed by Guillem Bartrina during the Google Summer of Code 2020:
+
+- A new "Encapsulate" option in the Edit menu lets you turn a collection of selected objects into a corresponding one-off subpatch in a fully automatic way. This finally makes creating one-offs from parts of your patches a very quick and easy operation.
+
+- You can also turn an existing one-off subpatch into an abstraction simply by right-clicking on the object and choosing the new "Save as" option from the context menu. This will also give you the option to replace the existing subpatch, as well as all its other instances with the newly created abstraction.
+
+- There's a new [ab] object, to be invoked as [ab name args ...], which lets you create *private abstractions*. These are embedded in their parent patch just like a one-off subpatch [pd name], but otherwise behave like real abstractions in that they have their own `$0` and can have arguments, too. So they work just like the plain old abstractions, but become a part of your main patch, pretty much like the subroutines of a C program. This makes shipping a patch much more convenient, as you don't have to send a bunch of abstraction files along with it any more.
+
+- The [ab] object is accompanied by a number of supplemental objects (abinfo, abdefs, abclone) which let you inspect and clone private abstractions, as well as an "Abstractions" dialog which can be accessed via the Window menu.
 
 ## Purr Data and Pd-Lua
 
