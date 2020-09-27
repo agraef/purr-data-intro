@@ -3,7 +3,7 @@
 Albert Gräf <<aggraef@gmail.com>>  
 Computer Music Dept., Institute of Art History and Musicology  
 Johannes Gutenberg University (JGU) Mainz, Germany  
-July 2020
+September 2020
 
 This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)  
@@ -96,7 +96,7 @@ One pitfall of the Pd engine is that it does not rescan the devices if you conne
 
 ### GUI and Startup Options
 
-The GUI theme can be selected on the "GUI" tab (see [@fig:fig3], left). The changes will be applied immediately. Purr Data provides various different GUI themes out of the box. Note that the GUI themes are in fact just CSS files in Purr Data's library directory, so if you're familiar with HTML5 and CSS then you can easily change them or create your own. Another useful option on the GUI tab is "save/load zoom level with patch". Purr Data can zoom any patch window to 16 different levels, and this option, when enabled, allows you to store the current zoom level when a patch is saved, and then later restore the zoom level when the patch gets reloaded. The remaining options on the GUI tab are related to the help browser, we'll discuss these in section [Configuring The Help Browser] below.
+The GUI theme can be selected on the "GUI" tab (see [@fig:fig3], left). The changes will be applied immediately. Purr Data provides various different GUI themes out of the box. Note that the GUI themes are in fact just CSS files in Purr Data's library directory, so if you're familiar with HTML5 and CSS then you can easily change them or create your own. In Purr Data version 2.14.1 and later, the "grid background in edit mode mode" option enables the edit mode grid, which helps positioning objects and lets you see at a glance when edit mode is active. Another useful option on the GUI tab is "save/load zoom level with patch". Purr Data can zoom any patch window to 16 different levels, and this option, when enabled, allows you to store the current zoom level when a patch is saved, and then later restore the zoom level when the patch gets reloaded. The remaining options on the GUI tab are related to the help browser, we'll discuss these in section [Configuring The Help Browser] below.
 
 ![GUI and Startup options.](prefs-gui+startup.png){#fig:fig3}
 
@@ -124,31 +124,39 @@ Purr Data's central point of entry to the help system is its *Help Browser*, dis
 
 Using the Help / Help Browser menu option (shortcut: ctrl + B, or cmd + B on the Mac) fires up Purr Data's help browser, which looks deceptively simple (see [@fig:fig4]) and is actually quite easy to use, but offers a lot of functionality under the hood. You can search for object names or keywords by typing them in the search entry field at the top of the browser, or you can browse the available documentation sections in the browser's *home screen*, which is what gets shown initially below the search entry, by just clicking on one of the section titles.
 
-![Help browser.](browser.png){#fig:fig4}
+![Help browser.](browser+search.png){#fig:fig4}
 
 On the right in [@fig:fig4] you can see how the display changes after you entered some search terms like "audio devices" and hit Enter. As indicated, you can enter multiple search terms and they will all be searched for in one go (which amounts to matching any of the given search terms, i.e., all patches will be shown for which at least one of the search terms matches). The found help patches will be shown in the list (with short descriptions of the patches if available). You can then click on one of the patches to open it in a canvas window. Clicking on the "x" symbol in the search entry returns you to the home screen.
 
-Note that to keep things simple and not to overwhelm novice users with too much information, the search function only covers the "official" documentation (the doc/ hierarchy) by default. There are ways to change the scope of the keyword search in the GUI preferences, see [Configuring The Help Browser] below. But in any case it is also possible to explore all the other help patches which are available in the extra/ hierarchy (which contains all the 3rd party abstractions and externals), by employing the little folder icon to the right of the search entry. This will open a file browser (initially on the doc/ folder) which can then be used to browse *all* the available help patches. When looking for help patches in the extra/ hierarchy, which is a sibling of doc/, simply navigate to that directory in the file browser and click on one of its subdirectories containing the various abstractions and externals. Double-clicking on a help patch will open the patch in its own window, and then also show the corresponding directory in the help browser, so that additional help patches from the same folder can be accessed without any further ado.
+Note that to keep things simple and not to overwhelm novice users with too much information, the search function only covers the "official" documentation (the doc/ hierarchy) by default. There are ways to change the scope of the keyword search in the GUI preferences, see [Configuring The Help Browser] below. But in any case it is also possible to explore all the other help patches which are available in the extra/ hierarchy (which contains all the 3rd party abstractions and externals), by employing the little folder icon to the right of the search entry. This will open a file browser (initially on the doc/ folder) which can then be used to browse *all* the available help patches located *anywhere* on your hard drive. When looking for help patches in the extra/ hierarchy, which is a sibling of doc/, simply navigate to that directory in the file browser and click on one of its subdirectories containing the various abstractions and externals. Double-clicking on a help patch will open the patch in its own window, and then also show the corresponding directory in the help browser, so that additional help patches from the same folder can be accessed without any further ado.
 
-If you already know the name of a subdirectory with interesting help patches, you can also just type its name in the search entry (including the doc/ or extra/ prefix) to have the corresponding folder displayed in the help browser. For instance, typing "extra/mrpeach" and Enter provides a quick way to access the help patches for the mrpeach externals.
+If you already know the name of a subdirectory with interesting help patches, you can also just type its name in the search entry (including the doc/ or extra/ prefix) to have the corresponding folder displayed in the help browser. For instance, typing "extra/mrpeach" and Enter provides a quick way to access the help patches for the mrpeach externals. If you have help patches which live outside the program directory (e.g., somewhere in your home directory), you can also type an absolute directory name to access these.
 
-Note that in any case, you can always return to the home screen of the help browser by clicking that tiny "x" symbol in the search entry (or by just hitting Enter in the field if it is empty).
+Note that in any case, you can always return to the home screen of the help browser by clicking that tiny "x" symbol in the search entry (or by just hitting the Esc key with the cursor located in the field).
+
+### Bookmarks
+
+As of Purr Data 2.14.1, the help browser offers a simple but effective bookmark feature which lets you add directories with Pd patches to the browser's home screen, where they will be shown in their own "Bookmarks" section at the bottom of the home screen.
+
+To add a new bookmark, first navigate to the directory that you'd like to add (using, e.g., the file browser, or by just typing the directory name into the search entry), and then push the little bookmark icon to the right of the file browser icon. A little red cross on the bookmark icon will indicate that the directory has been bookmarked, and that pushing the bookmark icon again will remove that bookmark (see [@fig:fig5], left). The keyboard shortcuts Ctrl+D (Add bookmark) and Ctrl+Shift+D (Remove bookmark) can be used as well.
+
+![Bookmarking.](browser+bookmarks.png){#fig:fig5}
+
+You can then press Esc to return to the home screen, where the bookmarked directory will now be shown under the "Bookmarks" section at the bottom of the browser window (you'll probably have to scroll down to see it). Note that the "Bookmarks" section header will only be displayed if there are any bookmarks to show (see [@fig:fig5], right).
+
+The bookmarks are stored in JSON format in the user's configuration directory (which is located in the home directory, i.e., ~/.purr-data on Linux and Mac, and /Users/*username*/AppData/Roaming/Purr-Data on Windows). This file is in a human-readable and easily editable format, so if needed you can rearrange your bookmarks to your liking by editing this file in your favorite text editor.
 
 ### Configuring The Help Browser
 
-The GUI tab in the preferences dialog (cf. [GUI and Startup Options] and [@fig:fig3], left) offers some options to configure the scope of the keyword search. Note that in order to perform keyword searches, the help browser first needs to construct an index of all the help patches and their keywords. This is either done on the fly, when the help browser is first opened during a Purr Data session (this is the default), or when the application is launched (there's a checkbox which lets you enable this).
+The GUI tab in the preferences dialog (cf. [GUI and Startup Options] and [@fig:fig3], left) offers some options to configure the scope of the keyword search. Note that in order to perform keyword searches, the help browser first needs to construct an index of all the help patches and their keywords. This is either done on the fly, when the help browser is first opened during a Purr Data session (this is the default), or when the application is launched (there's a checkbox which lets you enable this). As of Purr Data 2.14.1, the help index is cached in the user's configuration directory (see [Bookmarks] above) and only rebuilt from scratch when needed (i.e., if the contents of the indexed directories changes).
 
-Once the browser has been launched, it will always come up quickly on subsequent invocations. But depending on how many patches you are indexing, creating the index on first launch may take a while (anywhere from less than a second to several seconds on modern hardware), so changing these options *will* have an impact on startup times. If Purr Data seems to launch slowly, being stuck in index generation, and you rarely use the help browser, then you want to make sure that the "prepare the help index at application start" option is unchecked (which is the default). On the other hand, if you're using the help browser very frequently and it seems to come up very slowly on first launch, you may want to check that option so that index creation is already done after launching the program.
+Once the browser has been launched for the first time and the index has been built and cached, it will always come up quickly on subsequent invocations. But depending on how many patches you are indexing, creating the index on first launch may take a while (anywhere from less than a second to several seconds on modern hardware), so changing these options *will* have an impact on indexing time. This should not be much of a problem because the indexing will only have to be done once (after a fresh install or an upgrade of Purr Data). But if you rarely use the help browser at all, then you may want to ensure that the "prepare the help index at application start" option is unchecked (which is the default). Moreover, there are two options which let you change the scope of indexed patches (changing these options will take effect as soon as you relaunch the help browser, and trigger creation of a new index file):
 
-There are two options which let you change the scope of indexed patches:
-
-- If "help browser only searches the doc folder" is checked (which is the default), then keyword searches are confined to the doc/ hierarchy. This is the fastest option and will be sufficient for novice users at least, as it covers all the official documentation that ships with Purr Data. However, if you're an expert user and frequently use 3rd party externals living in the extra/ hierarchy, then you may want to uncheck this option to have all the remaining subdirectories in the pd-l2ork library directory indexed as well (note that this may slow down indexing considerably).
+- If "help browser only searches the doc folder" is checked (which is the default), then keyword searches are confined to the doc/ hierarchy. This is the fastest option and will be sufficient for novice users at least, as it covers all the official documentation that ships with Purr Data. However, if you're an expert user and frequently use 3rd party externals living in the extra/ hierarchy, then you may want to uncheck this option to have all the remaining subdirectories in the pd-l2ork library directory indexed as well (note that this may slow down the indexing on first launch considerably).
 
 - The "help browser also searches the help path" option, when checked, lets you tailor the keyword search to the externals you're working with, so that you won't be swamped with keyword matches from externals you never use. These externals may be located anywhere you choose, including the extra/ hierarchy, but note that if you've already unchecked the "help browser only searches the doc folder" option, then there's no need to also explicitly add subdirectories of extra/. In either case, the directories to be searched with this option are set using Purr Data's *help path* (having them in the library search path is *not* enough). You do this using Purr Data's `-helppath` option which can be added to the "startup flags" field at the bottom of the Startup tab. E.g., on Linux you may want to add something like `-helppath ~/pd-l2ork-externals` (that directory is often used on Linux for custom and personal external collections).
 
-**Caveat:** Again, be warned that changing these options and then installing external collections with gazillions of patches into either the extra/ hierarchy or on your personal help path may have a very negative impact on startup times, since all these patches will have to be scanned during index creation. Future Purr Data versions will hopefully provide some form of persistence and incremental updates of the search index to mitigate these effects. But for the time being, judicial use of the above options should in most cases give you a sensible setup which does not slow down index creation too much while fulfilling your documentation needs.
-
-Also note that because the search index is created either during program startup or when the help browser is first launched, changing any of the help browser configuration options normally requires a restart of Purr Data to take effect.
+**Caveat:** Again, be warned that changing these options and then installing external collections with gazillions of patches into either the extra/ hierarchy or on your personal help path may have a very negative impact on first launch times, since all these patches will have to be scanned during index creation.
 
 ## Pd-l2ork and Purr Data Goodies
 
@@ -170,17 +178,29 @@ It is worth practicing these so that you can amaze your vanilla-running friends 
 
 Other features will be more useful for advanced users, like the reflection capabilities (see the `pdinfo`, `canvasinfo`, `classinfo` and `objectinfo` help patches) and the new SVG elements for data structure visualizations. The latter have been considerably enhanced in Purr Data, see the "Pd-L2Ork Data Structures" section in the help browser. They also make it possible to create your own custom GUI elements in plain Pd, without having to learn a "real" programming language.
 
+TODO: Add a description of Guillem's subpatch creation, abstraction saving and private abstraction features.
+
 ## Purr Data and Pd-Lua
 
 As of version 2.5, Purr Data includes the latest version of Claude Heiland-Allen's excellent [Pd-Lua](https://agraef.github.io/pd-lua/) extension for embedding the [Lua](http://www.lua.org/) scripting language in Pd. This provides you with an easy means (much easier than Pd's native C interface) to write your own custom Pd objects if they require the use of a real programming language offering loops, functions and complicated data structures.
 
 Lua is perfectly suited for this purpose, because it is light-weight and easily embeddable by design. It is also small and easy to learn, yet very capable, offering a complete range of imperative, object-oriented and functional programming language elements. Like Pd, Lua is an interpreted language featuring dynamic typing, which makes interfacing between Pd and Lua quite easy.
 
-Pd-Lua requires Lua 5.2 or 5.3, which should be readily available in all Linux distributions (on Mac and Windows the requisite Lua 5.3 library is included in the installer). There's a [tutorial](https://agraef.github.io/pd-lua/tutorial/pd-lua-intro.html) available to get you started, and a fairly extensive collection of examples can be found in the extra/pdlua/examples folder.
+Pd-Lua requires Lua 5.2, 5.3, or 5.4, which should be readily available in all Linux distributions (on Mac and Windows the requisite Lua library is included in the installer). There's a [tutorial](https://agraef.github.io/pd-lua/tutorial/pd-lua-intro.html) available to get you started, and a fairly extensive collection of examples can be found in the extra/pdlua/examples folder.
 
 ## Tips and Tricks
 
 We conclude this introduction with a little grab bag of helpful tips and tricks. If your questions aren't answered here, please post them to the DISIS [Pd-l2ork mailing list](http://disis.music.vt.edu/listinfo/l2ork-dev).
+
+### Edit Mode and Temporary Run Mode
+
+*Temporary run mode* is a facility present across different Pd flavors which allows you to quickly switch to run mode (where you can operate GUI elements in a patch) while in edit mode (where you can edit the patch). In vanilla Pd, as well as most other Pd flavors, this is activated by pressing and holding the Ctrl modifier key (or the Cmd key on the Mac).
+
+In Purr Data, the modifier was changed to the Alt key in version 2.14.1, because the Ctrl key binding caused some conflicts with the menu shortcuts. This resulted in some rather serious regressions in the GUI, such as some menu keybindings not working in the expected way or interfering with edit mode.
+
+Apart from having to get accustomed to the new key binding, this also implies a potential issue for Linux users, because many Linux desktop environments use Alt-click to initiate a window move action, which will interfere with temporary run mode. You have this issue if you try to operate GUI elements with a click-drag action while holding the Alt key, only to find that this moves the patch window instead. In order to make temporary run mode work again, make sure to rebind the window-move action to a different modifier key and/or mouse button, such as Meta+click or Alt+middle-click which are rarely used by window managers, at least not for important actions.
+
+Version 2.14.1 also introduced the *edit mode grid* as a better means to indicate that edit mode is active, while also being useful as a positioning aid. (Please note that there's no "snap-to-grid" option yet, but this may still be added in a future version.) The grid is enabled by default, but can be turned off in the GUI preferences if you don't want/need it.
 
 ### Install classic Pd-l2ork alongside Purr Data
 
