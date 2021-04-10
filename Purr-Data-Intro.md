@@ -214,33 +214,35 @@ In Purr Data, the modifier was changed to the Alt key in version 2.14.1, because
 
 Apart from having to get accustomed to the new key binding, this also implies a potential issue for Linux users, because many Linux desktop environments use Alt-click to initiate a window move action, which will interfere with temporary run mode. You have this issue if you try to operate GUI elements with a click-drag action while holding the Alt key, only to find that this moves the patch window instead. In order to make temporary run mode work again, make sure to rebind the window-move action to a different modifier key and/or mouse button, such as Meta+click or Alt+middle-click which are rarely used by window managers, at least not for important actions.
 
-Version 2.14.1 also introduced the *edit mode grid* as a better means to indicate that edit mode is active, while also being useful as a positioning aid. (Please note that there's no "snap-to-grid" option yet, but this may still be added in a future version.) The grid is enabled by default, but can be turned off in the GUI preferences if you don't want/need it.
+Version 2.14.1 also introduced the *edit mode grid* as a better means to indicate that edit mode is active, while also being useful as a positioning aid. The grid is enabled by default, but can be turned off in the GUI preferences if you don't want/need it.
 
 ### Install classic Pd-l2ork alongside Purr Data
 
-On Linux there are some situations where you may want to run *both* classic Pd-l2ork and Purr Data on the same system. This may be useful, e.g., if you need some feature of Pd-l2ork like its K12 mode which hasn't been ported to Purr Data yet. In order to do this, you need one of the JGU packages of Purr Data (see [Where to Get It] above). These will install into a separate directory (normally `/opt/purr-data`) so that the pathnames of the binaries and libraries in the package do not clash with those from a classic Pd-l2ork installation under `/usr`. The desktop icons will be named differently as well, and a symbolic link named `purr-data` will be created in the `/usr/bin` directory. The link points to `/opt/purr-data/bin/pd-l2ork` and lets you run Purr Data from the command line without having to specify the full path to the executable. Last but not least, the JGU packages have also been patched up so that they use a separate `.purr-data` configuration directory in your home directory instead of Pd-l2ork's `.pd-l2ork` folder, so that the two programs can happily coexist.
+On Linux there are some situations where you may want to run *both* classic Pd-l2ork and Purr Data on the same system. This may be useful, e.g., if you need some feature of Pd-l2ork like its K12 mode which hasn't been ported to Purr Data yet. In order to do this, you need one of the JGU packages of Purr Data (see [Where to Get It] above). These will install into a separate directory (normally `/opt/purr-data`) so that the pathnames of the binaries and libraries in the package do not clash with those from a classic Pd-l2ork installation under `/usr`. The desktop icons will be named differently as well, and a symbolic link named `purr-data` will be created in the `/usr/bin` directory. The link points to `/opt/purr-data/bin/pd-l2ork` and lets you run Purr Data from the command line without having to specify the full path to the executable.
 
 ### Installing externals
 
 Purr Data already bundles many if not most of the 3rd party externals commonly used by Pd users. To add even more, there are some special directories into which you can install the externals so that Purr Data finds them. This is basically the same as with Pd-extended, but the directories are named differently so that you can keep the Purr Data externals separate from the vanilla/extended ones if needed. There's always one location for system-wide and another one for personal installation. The precise locations and names of these directories depend on your platform:
 
-- Linux: `/usr/lib/pd-l2ork-externals` for system-wide, `~/pd-l2ork-externals` for personal installation
+- Linux: `/usr/local/lib/pd-l2ork-externals` for system-wide, `~/.local/lib/pd-l2ork/extra` and `~/pd-l2ork-externals` for personal installation
 - Mac: `/Library/Pd-l2ork` for system-wide, `~/Library/Pd-l2ork` for personal installation
-- Windows: `%ProgramFiles%\Common Files\Pd-l2ork` for system-wide, `%UserProfile%\Application Data\Pd-l2ork` for personal installation
+- Windows: `%ProgramFiles%\Common Files\Pd-l2ork` for system-wide, `%AppData%\Pd-l2ork` for personal installation; the former is usually under `\Program Files` for the 64 bit and `\Program Files (x86)` for the 32 bit version, and the latter can be found under `\Users\username\AppData\Roaming` on modern Windows systems
+
+Besides these, you can also copy externals to the `extra` subdirectory of your Purr Data application folder, but this folder can be hard to find, and it isn't really recommended to install stuff there, because it makes it hard to figure out which externals you added yourself.
 
 For singleton externals it will usually be enough if you just copy them into one of these folders and then relaunch Purr Data. External libraries containing a collection of different externals, on the other hand, will typically require that you also load the library at startup, using the available startup configuration options in the preferences (see [GUI and Startup Options] above). 
 
 ### Resetting the preferences
 
-It happens to the best of us that we mess up our Pd configuration so badly that it is beyond repair. In such a case you probably want to go back to Purr Data's default setup and start from a clean slate again. Unfortunately, Purr Data's preferences dialog does not provide a button for this (yet), but there are ways to accomplish this. They depend on the particular platform, however.
+It happens to the best of us that we mess up our Pd configuration so badly that it is beyond repair. In such a case you probably want to go back to Purr Data's default setup and start from a clean slate again. While Purr Data's preferences dialog does not provide a button for this (yet), there are other ways to accomplish this. They depend on the particular platform, however.
 
-- On Linux, do `rm -rf ~/.pd-l2ork` in the terminal (`rm -rf ~/.purr-data` when using the JGU packages).
+- On Linux, do `rm -rf ~/.purr-data` in the terminal.
 
 - On the Mac, do `rm ~/Library/Preferences/org.puredata.pd-l2ork.plist` in the terminal.
 
-- On Windows, launch the `regedit` program and look for the registry key `HKEY_CURRENT_USER\Software\Purr-Data` or `HKEY_LOCAL_MACHINE\Software\Purr-Data`. Delete that key and all its subkeys.
+- On Windows, the easiest way is to just reinstall the Purr Data package and make sure that you remove the previous installation when prompted. This will also clear out the registry entries and leave you with the default configuration. However, you can also launch the `regedit` program and manually remove the `HKEY_CURRENT_USER\Software\Purr-Data` or `HKEY_LOCAL_MACHINE\Software\Purr-Data` registry key and all its subkeys.
 
-Then just relaunch Purr Data. Your preferences should now be in pristine state again, and all the default search paths and startup libraries will be restored. Of course, you will then have to reconfigure your audio and MIDI devices as needed.
+Then just relaunch Purr Data. Your preferences should now be in pristine state again, and all the default search paths and startup libraries will be restored. Your audio and MIDI device configuration, and the other bits and bobs that you changed in the preferences will be gone as well, so you'll have to redo those.
 
 ### "Sticky" preferences
 
