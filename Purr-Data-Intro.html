@@ -20,178 +20,950 @@
   <![endif]-->
 </head>
 <body>
-<h1 id="meet-the-cat-a-quick-introduction-to-purr-data">Meet the Cat: A Quick Introduction to Purr Data</h1>
-<p>Albert Gräf &lt;<a href="mailto:aggraef@gmail.com" class="email">aggraef@gmail.com</a>&gt;<br />
+<h1 id="meet-the-cat-a-quick-introduction-to-purr-data">Meet the Cat: A
+Quick Introduction to Purr Data</h1>
+<p>Albert Gräf &lt;<a href="mailto:aggraef@gmail.com"
+class="email">aggraef@gmail.com</a>&gt;<br />
 Computer Music Dept., Institute of Art History and Musicology<br />
 Johannes Gutenberg University (JGU) Mainz, Germany<br />
 September 2020</p>
-<p>This document is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Other formats: <a href="Purr-Data-Intro.md">Markdown</a> source, <a href="Purr-Data-Intro.pdf">PDF</a><br />
-Permanent link: <a href="https://agraef.github.io/purr-data-intro/" class="uri">https://agraef.github.io/purr-data-intro/</a></p>
-<p><strong>Purr Data</strong> a.k.a. <strong>Pd-l2ork 2</strong> is an improved version of Miller Puckette’s interactive computer music and multimedia software <strong>Pd</strong>. This document provides new or prospective Purr Data users with a gentle introduction to the program and some helpful information to get started.</p>
+<p>This document is licensed under <a
+href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+Other formats: <a href="Purr-Data-Intro.md">Markdown</a> source, <a
+href="Purr-Data-Intro.pdf">PDF</a><br />
+Permanent link: <a href="https://agraef.github.io/purr-data-intro/"
+class="uri">https://agraef.github.io/purr-data-intro/</a></p>
+<p><strong>Purr Data</strong> a.k.a. <strong>Pd-l2ork 2</strong> is an
+improved version of Miller Puckette’s interactive computer music and
+multimedia software <strong>Pd</strong>. This document provides new or
+prospective Purr Data users with a gentle introduction to the program
+and some helpful information to get started.</p>
 <h2 id="what-is-purr-data">What is Purr Data?</h2>
-<p><strong><a href="https://git.purrdata.net/jwilkes/purr-data">Purr Data</a></strong> is the latest (2.x) branch of Ivica Ico Bukvic’s Pd-l2ork. <strong><a href="http://l2ork.music.vt.edu/main/make-your-own-l2ork/software/">Pd-l2ork</a></strong> in turn is a fork of Hans-Christoph Steiner’s <strong><a href="http://puredata.info/downloads/pd-extended">Pd-extended</a></strong>, which has been the longest-running (and arguably the most popular) variant of Miller Puckette’s Pd. <strong><a href="http://puredata.info/">Pd</a></strong> a.k.a. <strong>Pure Data</strong>, the common basis of all these variants, is Miller Puckette’s interactive and graphical computer music and multimedia environment. Pd is also the premier open-source alternative to Cycling74’s well-known commercial <strong><a href="https://cycling74.com/">Max</a></strong> program (whose original version was also developed by Miller Puckette when he was at IRCAM in the 1980s). There are a few other popular and very capable applications in the realm of computer music and media art, most notably <strong><a href="http://csound.github.io/">Csound</a></strong> and <strong><a href="http://supercollider.github.io/">SuperCollider</a></strong>. But Max and Pd’s special appeal is that you work in an intuitive graphical “patching” environment which allows you to put together advanced real-time signal processing applications without having to learn a “real” programming language.</p>
-<p>Puckette’s version of the program is sometimes jokingly referred to as <strong>“vanilla”</strong> Pd, because it comes without any extras and thus provides the purest taste of Pd, you might say. In keeping with this metaphor, the other Pd variants are often called <strong>flavors</strong>.</p>
-<p>While vanilla Pd, being the reference implementation, remains critically important for the development of Pd’s real-time engine, its Tcl/Tk-based graphical user interface has never been very pretty or convenient. Consequently there have been several attempts by the community to improve Pd’s user interface in various ways. Pd-extended is the earliest and the longest-running of these, which also includes a fairly complete selection of 3rd party add-ons. However, its development has stopped in 2013 due to lack of contributions, and thus it receives no more bugfixes and updates of the real-time engine.</p>
-<p>Ico Bukvic introduced <strong>Pd-l2ork</strong> in 2010 as a fork of Pd-extended to be used by the “Linux Laptop Orchestra” (L2Ork) he founded at the School of Performing Arts at Virginia Tech. Although the original motivation was to create an improved version of Pd-extended to be used by the L2Ork (hence the name) as well as in education, on Linux it quickly became a more up-to-date alternative to Pd-extended offering a fair number of additional bug fixes and GUI improvements. This is mainly due to its more nimble development model which allows bugfixes and improvements to be deployed quickly even if this may have an impact on backwards compatibility. Vanilla Pd, on the other hand, necessarily has a much firmer outlook on backwards compatibility, so that it is still able to run <em>very</em> old patches created with ancient Pd versions.</p>
-<p>Despite the many and substantial improvements it offers, Pd-l2ork’s GUI is still based on Tcl/Tk. This is both good and bad. The major advantage is compatibility with vanilla Pd. On the other hand, Tcl/Tk looks and feels outdated in this day and age, even when going to some lengths with theming, as Pd-l2ork does. Tcl is a rather basic programming language, and its libraries have been falling behind, making it hard to integrate the latest advancements in GUI, multimedia and web technologies. Also, Pd-l2ork’s adoption was hampered by the fact that it was essentially tied to Linux, and thus a cross-platform solution was needed.</p>
-<p>In 2015 Jonathan Wilkes stepped in and started creating <strong>Purr Data</strong> to address these problems. In a nutshell, Purr Data is Pd-l2ork with the Tcl/Tk GUI part ripped out and replaced with modern web technology. To these ends, it uses an open-source framework called <a href="https://nwjs.io/">nw.js</a> a.k.a. “node-webkit”, which is essentially a stand-alone web browser engine (<a href="http://www.chromium.org/">Chromium</a>) combined with a JavaScript runtime (<a href="http://nodejs.org/">Node.js</a>). While the latter was originally invented for developing server-side web applications, frameworks like nw.js allow the two to be used in concert to create fully-fledged and portable desktop applications. Using nw.js ensures that Purr Data runs on Linux, Mac and Windows, looking the same on all supported platforms, and it paves the way to leverage standard web technologies such as <a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>, <a href="https://www.w3.org/TR/html5/">HTML5</a>, <a href="https://www.w3.org/Style/CSS/">CSS3</a> and <a href="https://www.w3.org/TR/SVG/">SVG</a>.</p>
-<p>Purr Data’s GUI is written entirely in JavaScript, which is a much more advanced programming language than Tcl with an abundance of libraries and support materials. This makes the further development of Purr Data’s graphical user interface a lot easier now that the initial GUI port is done. Patches are implemented as HTML5 SVG documents which offer better responsiveness and graphical capabilities than Tk windows. They can also be themed using CSS and zoomed like any browser window, improving usability. Purr Data also looks better and is easier on the eyes than Pd-l2ork, let alone vanilla Pd, especially on high-dpi displays (cf. fig. 1).</p>
+<p><strong><a href="https://git.purrdata.net/jwilkes/purr-data">Purr
+Data</a></strong> is the latest (2.x) branch of Ivica Ico Bukvic’s
+Pd-l2ork. <strong><a
+href="http://l2ork.music.vt.edu/main/make-your-own-l2ork/software/">Pd-l2ork</a></strong>
+in turn is a fork of Hans-Christoph Steiner’s <strong><a
+href="http://puredata.info/downloads/pd-extended">Pd-extended</a></strong>,
+which has been the longest-running (and arguably the most popular)
+variant of Miller Puckette’s Pd. <strong><a
+href="http://puredata.info/">Pd</a></strong> a.k.a. <strong>Pure
+Data</strong>, the common basis of all these variants, is Miller
+Puckette’s interactive and graphical computer music and multimedia
+environment. Pd is also the premier open-source alternative to
+Cycling74’s well-known commercial <strong><a
+href="https://cycling74.com/">Max</a></strong> program (whose original
+version was also developed by Miller Puckette when he was at IRCAM in
+the 1980s). There are a few other popular and very capable applications
+in the realm of computer music and media art, most notably <strong><a
+href="http://csound.github.io/">Csound</a></strong> and <strong><a
+href="http://supercollider.github.io/">SuperCollider</a></strong>. But
+Max and Pd’s special appeal is that you work in an intuitive graphical
+“patching” environment which allows you to put together advanced
+real-time signal processing applications without having to learn a
+“real” programming language.</p>
+<p>Puckette’s version of the program is sometimes jokingly referred to
+as <strong>“vanilla”</strong> Pd, because it comes without any extras
+and thus provides the purest taste of Pd, you might say. In keeping with
+this metaphor, the other Pd variants are often called
+<strong>flavors</strong>.</p>
+<p>While vanilla Pd, being the reference implementation, remains
+critically important for the development of Pd’s real-time engine, its
+Tcl/Tk-based graphical user interface has never been very pretty or
+convenient. Consequently there have been several attempts by the
+community to improve Pd’s user interface in various ways. Pd-extended is
+the earliest and the longest-running of these, which also includes a
+fairly complete selection of 3rd party add-ons. However, its development
+has stopped in 2013 due to lack of contributions, and thus it receives
+no more bugfixes and updates of the real-time engine.</p>
+<p>Ico Bukvic introduced <strong>Pd-l2ork</strong> in 2010 as a fork of
+Pd-extended to be used by the “Linux Laptop Orchestra” (L2Ork) he
+founded at the School of Performing Arts at Virginia Tech. Although the
+original motivation was to create an improved version of Pd-extended to
+be used by the L2Ork (hence the name) as well as in education, on Linux
+it quickly became a more up-to-date alternative to Pd-extended offering
+a fair number of additional bug fixes and GUI improvements. This is
+mainly due to its more nimble development model which allows bugfixes
+and improvements to be deployed quickly even if this may have an impact
+on backwards compatibility. Vanilla Pd, on the other hand, necessarily
+has a much firmer outlook on backwards compatibility, so that it is
+still able to run <em>very</em> old patches created with ancient Pd
+versions.</p>
+<p>Despite the many and substantial improvements it offers, Pd-l2ork’s
+GUI is still based on Tcl/Tk. This is both good and bad. The major
+advantage is compatibility with vanilla Pd. On the other hand, Tcl/Tk
+looks and feels outdated in this day and age, even when going to some
+lengths with theming, as Pd-l2ork does. Tcl is a rather basic
+programming language, and its libraries have been falling behind, making
+it hard to integrate the latest advancements in GUI, multimedia and web
+technologies. Also, Pd-l2ork’s adoption was hampered by the fact that it
+was essentially tied to Linux, and thus a cross-platform solution was
+needed.</p>
+<p>In 2015 Jonathan Wilkes stepped in and started creating <strong>Purr
+Data</strong> to address these problems. In a nutshell, Purr Data is
+Pd-l2ork with the Tcl/Tk GUI part ripped out and replaced with modern
+web technology. To these ends, it uses an open-source framework called
+<a href="https://nwjs.io/">nw.js</a> a.k.a. “node-webkit”, which is
+essentially a stand-alone web browser engine (<a
+href="http://www.chromium.org/">Chromium</a>) combined with a JavaScript
+runtime (<a href="http://nodejs.org/">Node.js</a>). While the latter was
+originally invented for developing server-side web applications,
+frameworks like nw.js allow the two to be used in concert to create
+fully-fledged and portable desktop applications. Using nw.js ensures
+that Purr Data runs on Linux, Mac and Windows, looking the same on all
+supported platforms, and it paves the way to leverage standard web
+technologies such as <a
+href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a>, <a
+href="https://www.w3.org/TR/html5/">HTML5</a>, <a
+href="https://www.w3.org/Style/CSS/">CSS3</a> and <a
+href="https://www.w3.org/TR/SVG/">SVG</a>.</p>
+<p>Purr Data’s GUI is written entirely in JavaScript, which is a much
+more advanced programming language than Tcl with an abundance of
+libraries and support materials. This makes the further development of
+Purr Data’s graphical user interface a lot easier now that the initial
+GUI port is done. Patches are implemented as HTML5 SVG documents which
+offer better responsiveness and graphical capabilities than Tk windows.
+They can also be themed using CSS and zoomed like any browser window,
+improving usability. Purr Data also looks better and is easier on the
+eyes than Pd-l2ork, let alone vanilla Pd, especially on high-dpi
+displays (cf. fig. 1).</p>
 <figure>
-<img src="purr-data.png" id="fig:fig1" alt="Figure 1: Purr Data running on macOS." /><figcaption aria-hidden="true">Figure 1: Purr Data running on macOS.</figcaption>
+<img src="purr-data.png" id="fig:fig1"
+alt="Figure 1: Purr Data running on macOS." />
+<figcaption aria-hidden="true">Figure 1: Purr Data running on
+macOS.</figcaption>
 </figure>
-<p>Purr Data’s nw.js GUI also has some disadvantages. First, some of the included externals still rely on Tcl code, so their GUI features will not work in Purr Data until they get ported to the new GUI. Second, the size of the binary package is considerably larger than with Pd-l2ork or Pd-extended since it also includes the full nw.js binary distribution. (This is a valid concern with many of the so-called “portable desktop applications” being offered these days, but in the case of Purr Data it is mitigated by the fact that its Pd-l2ork base is not exactly a slim package either.) Third, the browser engine has a much higher memory footprint than Tcl/Tk which might be an issue on embedded platforms with <em>very</em> tight memory constraints. While none of these issues should normally be a real show-stopper on the supported platforms, it is worth keeping them in mind.</p>
-<p>Finally, Purr Data is still comparatively young, but its basis is the tried and proven Pd-l2ork, the present release has been thoroughly tested and many bugs have been ironed out, so it is certainly ready for day-to-day use. It also offers some really compelling advancements over its predecessors. If you have been looking for a modern and actively-maintained successor of Pd-extended, this is it.</p>
+<p>Purr Data’s nw.js GUI also has some disadvantages. First, some of the
+included externals still rely on Tcl code, so their GUI features will
+not work in Purr Data until they get ported to the new GUI. Second, the
+size of the binary package is considerably larger than with Pd-l2ork or
+Pd-extended since it also includes the full nw.js binary distribution.
+(This is a valid concern with many of the so-called “portable desktop
+applications” being offered these days, but in the case of Purr Data it
+is mitigated by the fact that its Pd-l2ork base is not exactly a slim
+package either.) Third, the browser engine has a much higher memory
+footprint than Tcl/Tk which might be an issue on embedded platforms with
+<em>very</em> tight memory constraints. While none of these issues
+should normally be a real show-stopper on the supported platforms, it is
+worth keeping them in mind.</p>
+<p>Finally, Purr Data is still comparatively young, but its basis is the
+tried and proven Pd-l2ork, the present release has been thoroughly
+tested and many bugs have been ironed out, so it is certainly ready for
+day-to-day use. It also offers some really compelling advancements over
+its predecessors. If you have been looking for a modern and
+actively-maintained successor of Pd-extended, this is it.</p>
 <h2 id="the-name">The Name?</h2>
-<p>Purr Data is the official nickname of the Pd-l2ork 2.x branch. To quote chief developer Jonathan Wilkes from his initial announcement on the <a href="http://forum.pdpatchrepo.info/topic/9956/gui-port-of-pd-l2ork-alpha-0-release">Pd forum</a>:</p>
+<p>Purr Data is the official nickname of the Pd-l2ork 2.x branch. To
+quote chief developer Jonathan Wilkes from his initial announcement on
+the <a
+href="http://forum.pdpatchrepo.info/topic/9956/gui-port-of-pd-l2ork-alpha-0-release">Pd
+forum</a>:</p>
 <blockquote>
 <p>I’ve nicknamed it “Purr Data”, because cats.</p>
 </blockquote>
-<p>Quite obviously the name is a play on “Pure Data” on which “Purr Data” is ultimately based. It also raises positive connotations of soothing purring sounds, and makes for a nice logo.</p>
-<p>We also refer to Bukvic’s original Pd-l2ork version as Pd-l2ork 1.0 or “classic” Pd-l2ork. Note that Purr Data still clearly shows its Pd-l2ork heritage. It shares a lot of code with Pd-l2ork (essentially all the non-GUI parts), and the executable, library directory etc. are all still named pd-l2ork as well.</p>
+<p>Quite obviously the name is a play on “Pure Data” on which “Purr
+Data” is ultimately based. It also raises positive connotations of
+soothing purring sounds, and makes for a nice logo.</p>
+<p>We also refer to Bukvic’s original Pd-l2ork version as Pd-l2ork 1.0
+or “classic” Pd-l2ork. Note that Purr Data still clearly shows its
+Pd-l2ork heritage. It shares a lot of code with Pd-l2ork (essentially
+all the non-GUI parts), and the executable, library directory etc. are
+all still named pd-l2ork as well.</p>
 <center>
 <img src="purr.png" alt="logo" style="width: 10%; height: 10%" />
 </center>
 <h2 id="where-to-get-it">Where to Get It</h2>
-<p>Jonathan Wilkes maintains the Purr Data sources in GitLab at <a href="https://git.purrdata.net/jwilkes/purr-data" class="uri">https://git.purrdata.net/jwilkes/purr-data</a>. There’s also a mirror of this repository at Github which serves as a one-stop shop for the latest source and the available releases, including pre-built packages for <strong>macOS</strong> and <strong>Windows</strong>. You can find this at <a href="https://agraef.github.io/purr-data/" class="uri">https://agraef.github.io/purr-data/</a>. The latest packages are available at <a href="https://github.com/agraef/purr-data/releases" class="uri">https://github.com/agraef/purr-data/releases</a>. The Mac and Windows packages should be self-contained. The Windows package is distributed as an installer executable (.exe file). Normally you can just run this package by double-clicking it in your file manager, and walk through the installation procedure. The Mac package is distributed as a disk image (.dmg file); double-clicking the disk image in Finder opens a new Finder window, in which you can drag the application to your Application folder.</p>
-<p><strong>Linux users:</strong> At JGU we maintain a collection of Linux packages for Arch Linux (via the <a href="https://aur.archlinux.org/">Arch User Repositories</a> a.k.a. AUR) and recent openSUSE, Debian and Ubuntu releases (via the OBS a.k.a. <a href="https://build.opensuse.org/project/show/home:aggraef">Open Build System</a>). The OBS also offers binary packages for Arch Linux. More information and installation instructions can be found at the <a href="https://github.com/agraef/purr-data/wiki/Installation#linux">Installation</a> wiki page. Besides Purr Data, these repositories also contain the “classic” Pd-l2ork. Moreover, two additional programming extensions for Pd are available which enable you to run <a href="http://faust.grame.fr/">Faust</a> and <a href="https://agraef.github.io/pure-lang/">Pure</a> externals in Pd-l2ork and Purr Data. The JGU packages also offer the advantage that they let you install both classic Pd-l2ork and Purr Data on the same system.</p>
-<p>Of course, it is also possible to build Purr Data from source. With the latest additions to the build system, this task has become a lot less daunting than it used to be, and the Purr Data website has some <a href="https://agraef.github.io/purr-data/#building-from-source">instructions</a>. However, because of the large number of included externals, the build process is rather involved, requires a lot of 3rd party dependencies, and takes quite a while even on modern high-end hardware. Therefore, unless your system isn’t officially supported or you have specific requirements forcing you to compile from source, we recommend using the available binaries.</p>
+<p>Jonathan Wilkes maintains the Purr Data sources in GitLab at <a
+href="https://git.purrdata.net/jwilkes/purr-data"
+class="uri">https://git.purrdata.net/jwilkes/purr-data</a>. There’s also
+a mirror of this repository at Github which serves as a one-stop shop
+for the latest source and the available releases, including pre-built
+packages for <strong>macOS</strong> and <strong>Windows</strong>. You
+can find this at <a href="https://agraef.github.io/purr-data/"
+class="uri">https://agraef.github.io/purr-data/</a>. The latest packages
+are available at <a href="https://github.com/agraef/purr-data/releases"
+class="uri">https://github.com/agraef/purr-data/releases</a>. The Mac
+and Windows packages should be self-contained. The Windows package is
+distributed as an installer executable (.exe file). Normally you can
+just run this package by double-clicking it in your file manager, and
+walk through the installation procedure. The Mac package is distributed
+as a disk image (.dmg file); double-clicking the disk image in Finder
+opens a new Finder window, in which you can drag the application to your
+Application folder.</p>
+<p><strong>Linux users:</strong> At JGU we maintain a collection of
+Linux packages for Arch Linux (via the <a
+href="https://aur.archlinux.org/">Arch User Repositories</a> a.k.a. AUR)
+and recent Fedora, Debian and Ubuntu releases (via the OBS a.k.a. <a
+href="https://build.opensuse.org/project/show/home:aggraef:purr-data-jgu">Open
+Build System</a>). The OBS also offers binary packages for Arch Linux.
+More information and installation instructions can be found at the <a
+href="https://github.com/agraef/purr-data/wiki/Installation#linux">Installation</a>
+wiki page. Moreover, an additional programming extension is available in
+the <a
+href="https://build.opensuse.org/project/show/home:aggraef:pd-faustgen2">pd-faustgen2
+repository</a> which enables you to run <a
+href="http://faust.grame.fr/">Faust</a> externals in both Pd and Purr
+Data. Faust is Grame’s functional dsp programming language which lets
+you build your own effects and instruments, and has an extensive library
+of common dsp algorithms which helps you with this.</p>
+<p>Of course, it is also possible to build Purr Data from source. With
+the latest additions to the build system, this task has become a lot
+less daunting than it used to be, and the Purr Data website has some <a
+href="https://agraef.github.io/purr-data/#building-from-source">instructions</a>.
+However, because of the large number of included externals, the build
+process is rather involved, requires a lot of 3rd party dependencies,
+and takes quite a while even on modern high-end hardware. Therefore,
+unless your system isn’t officially supported or you have specific
+requirements forcing you to compile from source, we recommend using the
+available binaries.</p>
 <h2 id="getting-started">Getting Started</h2>
-<p>Once you’ve installed Purr Data, you can launch it from the desktop environment as usual. On Linux, you can just run <code>pd-l2ork</code> from the command line, or look in your desktop environment’s program menu or launcher for the <code>Pd-L2Ork</code> entry and click on that. (If you installed Purr Data from one of the JGU packages, use the <code>purr-data</code> command or the <code>Purr-Data</code> desktop icon instead.)</p>
-<p>On macOS and Windows, double-click on the application icon, normally to be found in the Application folder on macOS and on the desktop on Windows. (If you didn’t create a desktop icon during the Windows installation, look for <code>Purr-Data</code> in the start menu.)</p>
-<p>You can also right-click on a patch (.pd) file, choose “Open With” and then select Pd-l2ork or Purr Data to open the patch in Purr Data. This may require a first-time setup to associate the .pd file type with the Purr Data program, however. Most desktop environments will also let you set Purr Data as the default application for .pd files, so that you can subsequently open patch files simply with a double-click. The details of this are system-specific; usually right-clicking the file and choosing <code>Properties</code> or some similar option (<code>Get Info</code> on macOS) will give you a dialog which allows you to change the file association.</p>
-<p>In any case, Purr Data should then launch its main “console” window which logs all messages from the program. If you opened a patch file, it will be shown in a separate “canvas” window.</p>
-<p>Purr Data understands basically the same set of command line options as vanilla Pd or Pd-l2ork. On Linux, you can find out about these by running <code>pd-l2ork -help</code> (<code>purr-data -help</code> when using the JGU packages) from the command line. (This isn’t easy to do on Mac and Windows, since the program executable is stowed away somewhere in the application folder.) Some common options which can be placed into the startup flags are <code>-path</code> and <code>-lib</code>, see section <a href="#gui-and-startup-options">GUI and Startup Options</a> below.</p>
+<p>Once you’ve installed Purr Data, you can launch it from the desktop
+environment as usual. On Linux, you can just run <code>pd-l2ork</code>
+from the command line, or look in your desktop environment’s program
+menu or launcher for the <code>Pd-L2Ork</code> entry and click on that.
+(If you installed Purr Data from one of the JGU packages, use the
+<code>purr-data</code> command or the <code>Purr-Data</code> desktop
+icon instead.)</p>
+<p>On macOS and Windows, double-click on the application icon, normally
+to be found in the Application folder on macOS and on the desktop on
+Windows. (If you didn’t create a desktop icon during the Windows
+installation, look for <code>Purr-Data</code> in the start menu.)</p>
+<p>You can also right-click on a patch (.pd) file, choose “Open With”
+and then select Pd-l2ork or Purr Data to open the patch in Purr Data.
+This may require a first-time setup to associate the .pd file type with
+the Purr Data program, however. Most desktop environments will also let
+you set Purr Data as the default application for .pd files, so that you
+can subsequently open patch files simply with a double-click. The
+details of this are system-specific; usually right-clicking the file and
+choosing <code>Properties</code> or some similar option
+(<code>Get Info</code> on macOS) will give you a dialog which allows you
+to change the file association.</p>
+<p>In any case, Purr Data should then launch its main “console” window
+which logs all messages from the program. If you opened a patch file, it
+will be shown in a separate “canvas” window.</p>
+<p>Purr Data understands basically the same set of command line options
+as vanilla Pd or Pd-l2ork. On Linux, you can find out about these by
+running <code>pd-l2ork -help</code> (<code>purr-data -help</code> when
+using the JGU packages) from the command line. (This isn’t easy to do on
+Mac and Windows, since the program executable is stowed away somewhere
+in the application folder.) Some common options which can be placed into
+the startup flags are <code>-path</code> and <code>-lib</code>, see
+section <a href="#gui-and-startup-options">GUI and Startup Options</a>
+below.</p>
 <h3 id="single-application-instance">Single Application Instance</h3>
-<p>Unlike vanilla Pd, Purr Data normally runs as a <em>single application instance</em>. If you load additional patch files (by invoking the <code>pd-l2ork</code> executable or by clicking patch files in the file manager), they will be opened as new canvas windows in that single unique instance. This prevents the kind of confusion which often arises with vanilla Pd if you accidentally open different patches in different instances of the application. Pd requires that patches are loaded in the same program instance if they are to communicate via Pd’s built-in messaging system (send/receive), or if you’d like to copy/paste subpatches between them using the internal clipboard. In its default configuration, Purr Data makes sure that this is always the case.</p>
-<h3 id="multiple-application-instances">Multiple Application Instances</h3>
-<p>As of version 2.3.2, Purr Data can also be invoked with the <code>-unique</code> flag to create multiple application instances. On Linux, you can do this by just specifying the <code>-unique</code> option on the command line or by editing the desktop icon you use to launch Purr Data. On Mac and Windows (as well as Linux), you can put this option into the startup flags in the preferences, see section <a href="#gui-and-startup-options">GUI and Startup Options</a> below. (Don’t forget to remove the option from the startup flags again when it is not needed any more, in order to revert to the normal single application instance behavior.)</p>
-<p>For most applications this shouldn’t be needed, and the single application instance will be most convenient. But there are some situations in which you will want to run several instances of Purr Data instead. Because Purr Data’s real-time processing is all done in a single process associated with the application instance, a single application instance cannot take advantage of the multi-processing capabilities on modern multi-core systems. Some common use cases for multi-processing are if your Pd application involves both audio and graphics processing (typically using the Gem library), or if you have several independent audio processes which you’d like to be run in parallel. In such cases you will want to use the <code>-unique</code> option to launch two or more instances of Purr Data, each with their own sets of Pd patches which will then run on different instances of the real-time engine.</p>
+<p>Unlike vanilla Pd, Purr Data normally runs as a <em>single
+application instance</em>. If you load additional patch files (by
+invoking the <code>pd-l2ork</code> executable or by clicking patch files
+in the file manager), they will be opened as new canvas windows in that
+single unique instance. This prevents the kind of confusion which often
+arises with vanilla Pd if you accidentally open different patches in
+different instances of the application. Pd requires that patches are
+loaded in the same program instance if they are to communicate via Pd’s
+built-in messaging system (send/receive), or if you’d like to copy/paste
+subpatches between them using the internal clipboard. In its default
+configuration, Purr Data makes sure that this is always the case.</p>
+<h3 id="multiple-application-instances">Multiple Application
+Instances</h3>
+<p>As of version 2.3.2, Purr Data can also be invoked with the
+<code>-unique</code> flag to create multiple application instances. On
+Linux, you can do this by just specifying the <code>-unique</code>
+option on the command line or by editing the desktop icon you use to
+launch Purr Data. On Mac and Windows (as well as Linux), you can put
+this option into the startup flags in the preferences, see section <a
+href="#gui-and-startup-options">GUI and Startup Options</a> below.
+(Don’t forget to remove the option from the startup flags again when it
+is not needed any more, in order to revert to the normal single
+application instance behavior.)</p>
+<p>For most applications this shouldn’t be needed, and the single
+application instance will be most convenient. But there are some
+situations in which you will want to run several instances of Purr Data
+instead. Because Purr Data’s real-time processing is all done in a
+single process associated with the application instance, a single
+application instance cannot take advantage of the multi-processing
+capabilities on modern multi-core systems. Some common use cases for
+multi-processing are if your Pd application involves both audio and
+graphics processing (typically using the Gem library), or if you have
+several independent audio processes which you’d like to be run in
+parallel. In such cases you will want to use the <code>-unique</code>
+option to launch two or more instances of Purr Data, each with their own
+sets of Pd patches which will then run on different instances of the
+real-time engine.</p>
 <h2 id="configuration">Configuration</h2>
-<p>When you launch Purr Data for the first time, most likely you will have to configure some things, such as the audio and MIDI devices that you want to use. Like Pd-l2ork, Purr Data provides a central “Preferences” dialog which lets you do this in a convenient way.</p>
+<p>When you launch Purr Data for the first time, most likely you will
+have to configure some things, such as the audio and MIDI devices that
+you want to use. Like Pd-l2ork, Purr Data provides a central
+“Preferences” dialog which lets you do this in a convenient way.</p>
 <h3 id="audio-and-midi-devices">Audio and MIDI Devices</h3>
-<p>The screenshot in fig. 2 shows how the “Audio” and “MIDI” tabs in this dialog look like on the Mac. For most purposes it should be sufficient to just select the audio and MIDI inputs and outputs that you want to use from the corresponding dropdown lists. Pressing the <code>Apply</code> button applies the settings <em>without</em> closing the dialog or saving the options permanently. If you want to make your changes permanent, you must use the <code>Ok</code> button instead. This also closes the dialog.</p>
-<p>You can redo this procedure at any time if needed. Note that it is usually possible to select multiple input and output devices, but this depends on the platform and the selected audio/MIDI back-end or “API”. Also note that on Linux (using the ALSA API), the MIDI tab will only allow you to set the number of ALSA MIDI input/output ports to be created; you then still have to use a MIDI patchbay program such as <a href="https://qjackctl.sourceforge.io/">qjackctl</a> to connect these ports to the hardware devices as needed.</p>
+<p>The screenshot in fig. 2 shows how the “Audio” and “MIDI” tabs in
+this dialog look like on the Mac. For most purposes it should be
+sufficient to just select the audio and MIDI inputs and outputs that you
+want to use from the corresponding dropdown lists. Pressing the
+<code>Apply</code> button applies the settings <em>without</em> closing
+the dialog or saving the options permanently. If you want to make your
+changes permanent, you must use the <code>Ok</code> button instead. This
+also closes the dialog.</p>
+<p>You can redo this procedure at any time if needed. Note that it is
+usually possible to select multiple input and output devices, but this
+depends on the platform and the selected audio/MIDI back-end or “API”.
+Also note that on Linux (using the ALSA API), the MIDI tab will only
+allow you to set the number of ALSA MIDI input/output ports to be
+created; you then still have to use a MIDI patchbay program such as <a
+href="https://qjackctl.sourceforge.io/">qjackctl</a> to connect these
+ports to the hardware devices as needed.</p>
 <figure>
-<img src="prefs-audio+midi.png" id="fig:fig2" alt="Figure 2: Audio and MIDI setup." /><figcaption aria-hidden="true">Figure 2: Audio and MIDI setup.</figcaption>
+<img src="prefs-audio+midi.png" id="fig:fig2"
+alt="Figure 2: Audio and MIDI setup." />
+<figcaption aria-hidden="true">Figure 2: Audio and MIDI
+setup.</figcaption>
 </figure>
-<p>The setup on Windows works in a similar fashion. More information for Linux users can be found in the <a href="https://github.com/agraef/purr-data/wiki/Installation#linux-users">wiki</a>. One minor annoyance of the Pd engine is that it does <em>not</em> rescan the devices if you connect new external audio or MIDI gear while Purr Data is already running. It’s often possible to work around this, however, please check <a href="#device-connections">Device connections</a> in the <a href="#tips-and-tricks">Tips and Tricks</a> section below.</p>
+<p>The setup on Windows works in a similar fashion. More information for
+Linux users can be found in the <a
+href="https://github.com/agraef/purr-data/wiki/Installation#linux-users">wiki</a>.
+One minor annoyance of the Pd engine is that it does <em>not</em> rescan
+the devices if you connect new external audio or MIDI gear while Purr
+Data is already running. It’s often possible to work around this,
+however, please check <a href="#device-connections">Device
+connections</a> in the <a href="#tips-and-tricks">Tips and Tricks</a>
+section below.</p>
 <h3 id="gui-and-startup-options">GUI and Startup Options</h3>
-<p>The GUI theme can be selected on the “GUI” tab (see fig. 3, left). The changes will be applied immediately. Purr Data provides various different GUI themes out of the box. Note that the GUI themes are in fact just CSS files in Purr Data’s library directory, so if you’re familiar with HTML5 and CSS then you can easily change them or create your own. In Purr Data version 2.14.1 and later, the “grid background in edit mode mode” option enables the edit mode grid, which helps positioning objects and lets you see at a glance when edit mode is active. (As of Purr Data version 2.16.0, this option has been replaced with the “snap to grid” option which actually places objects on grid points.) Another useful option on the GUI tab is “save/load zoom level with patch”. Purr Data can zoom any patch window to 16 different levels, and this option, when enabled, allows you to store the current zoom level when a patch is saved, and then later restore the zoom level when the patch gets reloaded. The remaining options on the GUI tab are related to the help browser, we’ll discuss these in section <a href="#configuring-the-help-browser">Configuring The Help Browser</a> below.</p>
+<p>The GUI theme can be selected on the “GUI” tab (see fig. 3, left).
+The changes will be applied immediately. Purr Data provides various
+different GUI themes out of the box. Note that the GUI themes are in
+fact just CSS files in Purr Data’s library directory, so if you’re
+familiar with HTML5 and CSS then you can easily change them or create
+your own. In Purr Data version 2.14.1 and later, the “grid background in
+edit mode mode” option enables the edit mode grid, which helps
+positioning objects and lets you see at a glance when edit mode is
+active. (As of Purr Data version 2.16.0, this option has been replaced
+with the “snap to grid” option which actually places objects on grid
+points.) Another useful option on the GUI tab is “save/load zoom level
+with patch”. Purr Data can zoom any patch window to 16 different levels,
+and this option, when enabled, allows you to store the current zoom
+level when a patch is saved, and then later restore the zoom level when
+the patch gets reloaded. The remaining options on the GUI tab are
+related to the help browser, we’ll discuss these in section <a
+href="#configuring-the-help-browser">Configuring The Help Browser</a>
+below.</p>
 <figure>
-<img src="prefs-gui+startup.png" id="fig:fig3" alt="Figure 3: GUI and Startup options." /><figcaption aria-hidden="true">Figure 3: GUI and Startup options.</figcaption>
+<img src="prefs-gui+startup.png" id="fig:fig3"
+alt="Figure 3: GUI and Startup options." />
+<figcaption aria-hidden="true">Figure 3: GUI and Startup
+options.</figcaption>
 </figure>
-<p>The final tab in the preferences dialog is the “Startup” tab (fig. 3, right), which lets you edit the lists of library paths and startup libraries, as well as the additional options the program is to be invoked with. By default, Purr Data loads most bundled external libraries at startup and adds the corresponding directories to its library search path. If you don’t need all of these, you can remove individual search paths and/or libraries using the “Search Paths” and “Libraries” lists on the Startup tab. Just click on a search path or library and click the <code>Delete</code> button. It is also possible to select an item and add your own search paths and external libraries with the <code>New</code> button, or change an existing entry with the <code>Edit</code> button.</p>
-<p>At the bottom of the Startup tab there is a “startup flags” field which lets you specify which additional options the program should be invoked with. This is commonly used to add options like <code>-legacy</code> (which enforces bug compatibility with vanilla Pd) as well as the <code>-path</code> and <code>-lib</code> options which provide an alternative way to add search paths and external libraries. For instance, to add JGU’s Pure and Faust extensions to the startup libraries, the Startup Flags field may contain something like the following: <code>-lib pure -lib faust/pdfaust</code></p>
-<p>Any desired startup options can be set that way, i.e., anything that Pd usually accepts on the command line. However, note that the startup flags require that you relaunch Purr Data for the options to take effect (the same is true if you change the list of startup libraries). Also, while setting paths and libraries via the startup flags is often convenient, there are some downsides to having these options in two different places, see <a href="#sticky-preferences">“Sticky” preferences</a> in the <a href="#tips-and-tricks">Tips and Tricks</a> section below.</p>
-<p>As with the other configuration options, remember to press the <code>Ok</code> button in order to have your changes recorded in permanent storage. This will also close the dialog.</p>
-<p>Finally, note that if your configuration gets seriously messed up, there are ways to reset Purr Data to its default configuration, see <a href="#resetting-the-preferences">Resetting the preferences</a> in the <a href="#tips-and-tricks">Tips and Tricks</a> section.</p>
+<p>The final tab in the preferences dialog is the “Startup” tab (fig. 3,
+right), which lets you edit the lists of library paths and startup
+libraries, as well as the additional options the program is to be
+invoked with. By default, Purr Data loads most bundled external
+libraries at startup and adds the corresponding directories to its
+library search path. If you don’t need all of these, you can remove
+individual search paths and/or libraries using the “Search Paths” and
+“Libraries” lists on the Startup tab. Just click on a search path or
+library and click the <code>Delete</code> button. It is also possible to
+select an item and add your own search paths and external libraries with
+the <code>New</code> button, or change an existing entry with the
+<code>Edit</code> button.</p>
+<p>At the bottom of the Startup tab there is a “startup flags” field
+which lets you specify which additional options the program should be
+invoked with. This is commonly used to add options like
+<code>-legacy</code> (which enforces bug compatibility with vanilla Pd)
+as well as the <code>-path</code> and <code>-lib</code> options which
+provide an alternative way to add search paths and external libraries.
+For instance, to add JGU’s Pure and Faust extensions to the startup
+libraries, the Startup Flags field may contain something like the
+following: <code>-lib pure -lib faust/pdfaust</code></p>
+<p>Any desired startup options can be set that way, i.e., anything that
+Pd usually accepts on the command line. However, note that the startup
+flags require that you relaunch Purr Data for the options to take effect
+(the same is true if you change the list of startup libraries). Also,
+while setting paths and libraries via the startup flags is often
+convenient, there are some downsides to having these options in two
+different places, see <a href="#sticky-preferences">“Sticky”
+preferences</a> in the <a href="#tips-and-tricks">Tips and Tricks</a>
+section below.</p>
+<p>As with the other configuration options, remember to press the
+<code>Ok</code> button in order to have your changes recorded in
+permanent storage. This will also close the dialog.</p>
+<p>Finally, note that if your configuration gets seriously messed up,
+there are ways to reset Purr Data to its default configuration, see <a
+href="#resetting-the-preferences">Resetting the preferences</a> in the
+<a href="#tips-and-tricks">Tips and Tricks</a> section.</p>
 <h2 id="getting-help">Getting Help</h2>
-<p>The best way for new users to learn how to use Purr Data, and Pd in general, is its excellent integrated help system. This is really one of the hallmark features of the Pd program, no matter which flavor you use. Purr Data’s help system offers hundreds of help patches covering many different areas, and these help patches are not just documentation, they are <em>real</em> Pd patches which you can run to try them out, and then copy and paste relevant parts to your own patches.</p>
-<p>It is worth noting here that Purr Data, like Pd-l2ork, continues to build on the Pd-extended documentation efforts. This includes over 200 new and updated help files, including the cyclone library documentation. All of the new help files provide supporting meta info contained within the META subpatch (which is needed, in particular, to enable keyword searches), following the standards set by the Pd documentation project (PDDP). This is an ongoing effort, however, and so not all help patches have been converted yet.</p>
-<p>While the sheer amount of help patches can be overwhelming at first, there are some sections in the documentation which are organized as tutorials, so that you can work through them step by step. This includes all the help patches that go along with Miller Puckette’s comprehensive book <a href="http://msp.ucsd.edu/techniques.htm">“Theory and Techniques of Electronic Music”</a>, which are still the best way to get to grips with Pd. If you are new to Pd, we recommend that you work at least through the sections “Control Tutorials” and “Audio Tutorials”, and <em>really</em> try to understand what’s going on in these patches. With a complex software like Pd, it’s all too easy to fall victim to “cargo cult” habits if you just blindly copy parts of other people’s patches. You should resist that temptation, at least until you have a solid foundation under your belt, and those two sections will provide you with that.</p>
-<p>Purr Data’s central point of entry to the help system is its <em>Help Browser</em>, discussed below. In addition, as with other Pd flavors, it is also possible to open the help patch for an object by just right-clicking on that object in a patch and choosing the “Help” menu item.</p>
+<p>The best way for new users to learn how to use Purr Data, and Pd in
+general, is its excellent integrated help system. This is really one of
+the hallmark features of the Pd program, no matter which flavor you use.
+Purr Data’s help system offers hundreds of help patches covering many
+different areas, and these help patches are not just documentation, they
+are <em>real</em> Pd patches which you can run to try them out, and then
+copy and paste relevant parts to your own patches.</p>
+<p>It is worth noting here that Purr Data, like Pd-l2ork, continues to
+build on the Pd-extended documentation efforts. This includes over 200
+new and updated help files, including the cyclone library documentation.
+All of the new help files provide supporting meta info contained within
+the META subpatch (which is needed, in particular, to enable keyword
+searches), following the standards set by the Pd documentation project
+(PDDP). This is an ongoing effort, however, and so not all help patches
+have been converted yet.</p>
+<p>While the sheer amount of help patches can be overwhelming at first,
+there are some sections in the documentation which are organized as
+tutorials, so that you can work through them step by step. This includes
+all the help patches that go along with Miller Puckette’s comprehensive
+book <a href="http://msp.ucsd.edu/techniques.htm">“Theory and Techniques
+of Electronic Music”</a>, which are still the best way to get to grips
+with Pd. If you are new to Pd, we recommend that you work at least
+through the sections “Control Tutorials” and “Audio Tutorials”, and
+<em>really</em> try to understand what’s going on in these patches. With
+a complex software like Pd, it’s all too easy to fall victim to “cargo
+cult” habits if you just blindly copy parts of other people’s patches.
+You should resist that temptation, at least until you have a solid
+foundation under your belt, and those two sections will provide you with
+that.</p>
+<p>Purr Data’s central point of entry to the help system is its <em>Help
+Browser</em>, discussed below. In addition, as with other Pd flavors, it
+is also possible to open the help patch for an object by just
+right-clicking on that object in a patch and choosing the “Help” menu
+item.</p>
 <h3 id="the-help-browser">The Help Browser</h3>
-<p>Using the Help / Help Browser menu option (shortcut: ctrl + B, or cmd + B on the Mac) fires up Purr Data’s help browser, which looks deceptively simple (see fig. 4) and is actually quite easy to use, but offers a lot of functionality under the hood. You can search for object names or keywords by typing them in the search entry field at the top of the browser, or you can browse the available documentation sections in the browser’s <em>home screen</em>, which is what gets shown initially below the search entry, by just clicking on one of the section titles.</p>
+<p>Using the Help / Help Browser menu option (shortcut: ctrl + B, or cmd
++ B on the Mac) fires up Purr Data’s help browser, which looks
+deceptively simple (see fig. 4) and is actually quite easy to use, but
+offers a lot of functionality under the hood. You can search for object
+names or keywords by typing them in the search entry field at the top of
+the browser, or you can browse the available documentation sections in
+the browser’s <em>home screen</em>, which is what gets shown initially
+below the search entry, by just clicking on one of the section
+titles.</p>
 <figure>
-<img src="browser+search.png" id="fig:fig4" alt="Figure 4: Help browser." /><figcaption aria-hidden="true">Figure 4: Help browser.</figcaption>
+<img src="browser+search.png" id="fig:fig4"
+alt="Figure 4: Help browser." />
+<figcaption aria-hidden="true">Figure 4: Help browser.</figcaption>
 </figure>
-<p>On the right in fig. 4 you can see how the display changes after you entered some search terms like “audio devices” and hit Enter. As indicated, you can enter multiple search terms and they will all be searched for in one go (which amounts to matching any of the given search terms, i.e., all patches will be shown for which at least one of the search terms matches). The found help patches will be shown in the list (with short descriptions of the patches if available). You can then click on one of the patches to open it in a canvas window. Clicking on the “x” symbol in the search entry returns you to the home screen.</p>
-<p>The latest version of the help browser now also supports “incremental search”, which means that the search results are continually updated as you type, so hitting the Enter key isn’t needed any more. At the time of this writing, only the git version of Purr Data, available on Linux through the <a href="https://github.com/agraef/purr-data/wiki/Installation#experimental-and-preview-builds">JGU preview repositories</a>, has this feature; but it should soon become available in the regular releases.</p>
-<p>Note that to keep things simple and not to overwhelm novice users with too much information, the search function only covers the “official” documentation (the doc/ hierarchy) by default. There are ways to change the scope of the keyword search in the GUI preferences, see <a href="#configuring-the-help-browser">Configuring The Help Browser</a> below. But in any case it is also possible to explore all the other help patches which are available in the extra/ hierarchy (which contains all the 3rd party abstractions and externals), by employing the little folder icon to the right of the search entry. This will open a file browser (initially on the doc/ folder) which can then be used to browse <em>all</em> the available help patches located <em>anywhere</em> on your hard drive. When looking for help patches in the extra/ hierarchy, which is a sibling of doc/, simply navigate to that directory in the file browser and click on one of its subdirectories containing the various abstractions and externals. Double-clicking on a help patch will open the patch in its own window, and then also show the corresponding directory in the help browser, so that additional help patches from the same folder can be accessed without any further ado.</p>
-<p>If you already know the name of a subdirectory with interesting help patches, you can also just type its name in the search entry (including the doc/ or extra/ prefix) to have the corresponding folder displayed in the help browser. For instance, typing “extra/mrpeach” provides a quick way to access the help patches for the mrpeach externals. If you have help patches which live outside the program directory (e.g., somewhere in your home directory), you can also type an absolute directory name to access these.</p>
-<p>Note that in any case, you can always return to the home screen of the help browser by clicking that tiny “x” symbol in the search entry (or by just hitting the Esc key with the cursor located in the field).</p>
+<p>On the right in fig. 4 you can see how the display changes after you
+entered some search terms like “audio devices” and hit Enter. As
+indicated, you can enter multiple search terms and they will all be
+searched for in one go (which amounts to matching any of the given
+search terms, i.e., all patches will be shown for which at least one of
+the search terms matches). The found help patches will be shown in the
+list (with short descriptions of the patches if available). You can then
+click on one of the patches to open it in a canvas window. Clicking on
+the “x” symbol in the search entry returns you to the home screen.</p>
+<p>The latest version of the help browser now also supports “incremental
+search”, which means that the search results are continually updated as
+you type, so hitting the Enter key isn’t needed any more. At the time of
+this writing, only the git version of Purr Data, available on Linux
+through the <a
+href="https://github.com/agraef/purr-data/wiki/Installation#experimental-and-preview-builds">JGU
+preview repositories</a>, has this feature; but it should soon become
+available in the regular releases.</p>
+<p>Note that to keep things simple and not to overwhelm novice users
+with too much information, the search function only covers the
+“official” documentation (the doc/ hierarchy) by default. There are ways
+to change the scope of the keyword search in the GUI preferences, see <a
+href="#configuring-the-help-browser">Configuring The Help Browser</a>
+below. But in any case it is also possible to explore all the other help
+patches which are available in the extra/ hierarchy (which contains all
+the 3rd party abstractions and externals), by employing the little
+folder icon to the right of the search entry. This will open a file
+browser (initially on the doc/ folder) which can then be used to browse
+<em>all</em> the available help patches located <em>anywhere</em> on
+your hard drive. When looking for help patches in the extra/ hierarchy,
+which is a sibling of doc/, simply navigate to that directory in the
+file browser and click on one of its subdirectories containing the
+various abstractions and externals. Double-clicking on a help patch will
+open the patch in its own window, and then also show the corresponding
+directory in the help browser, so that additional help patches from the
+same folder can be accessed without any further ado.</p>
+<p>If you already know the name of a subdirectory with interesting help
+patches, you can also just type its name in the search entry (including
+the doc/ or extra/ prefix) to have the corresponding folder displayed in
+the help browser. For instance, typing “extra/mrpeach” provides a quick
+way to access the help patches for the mrpeach externals. If you have
+help patches which live outside the program directory (e.g., somewhere
+in your home directory), you can also type an absolute directory name to
+access these.</p>
+<p>Note that in any case, you can always return to the home screen of
+the help browser by clicking that tiny “x” symbol in the search entry
+(or by just hitting the Esc key with the cursor located in the
+field).</p>
 <h3 id="bookmarks">Bookmarks</h3>
-<p>As of Purr Data 2.14.1, the help browser offers a simple but effective bookmark feature which lets you add directories with Pd patches to the browser’s home screen, where they will be shown in their own “Bookmarks” section at the bottom of the home screen.</p>
-<p>To add a new bookmark, first navigate to the directory that you’d like to add (using, e.g., the file browser, or by just typing the directory name into the search entry), and then push the little bookmark icon to the right of the file browser icon. A little red cross on the bookmark icon will indicate that the directory has been bookmarked, and that pushing the bookmark icon again will remove that bookmark (see fig. 5, left). The keyboard shortcuts Ctrl+D (Add bookmark) and Ctrl+Shift+D (Remove bookmark) can be used as well.</p>
+<p>As of Purr Data 2.14.1, the help browser offers a simple but
+effective bookmark feature which lets you add directories with Pd
+patches to the browser’s home screen, where they will be shown in their
+own “Bookmarks” section at the bottom of the home screen.</p>
+<p>To add a new bookmark, first navigate to the directory that you’d
+like to add (using, e.g., the file browser, or by just typing the
+directory name into the search entry), and then push the little bookmark
+icon to the right of the file browser icon. A little red cross on the
+bookmark icon will indicate that the directory has been bookmarked, and
+that pushing the bookmark icon again will remove that bookmark (see
+fig. 5, left). The keyboard shortcuts Ctrl+D (Add bookmark) and
+Ctrl+Shift+D (Remove bookmark) can be used as well.</p>
 <figure>
-<img src="browser+bookmarks.png" id="fig:fig5" alt="Figure 5: Bookmarking." /><figcaption aria-hidden="true">Figure 5: Bookmarking.</figcaption>
+<img src="browser+bookmarks.png" id="fig:fig5"
+alt="Figure 5: Bookmarking." />
+<figcaption aria-hidden="true">Figure 5: Bookmarking.</figcaption>
 </figure>
-<p>You can then press Esc to return to the home screen, where the bookmarked directory will now be shown under the “Bookmarks” section at the bottom of the browser window (you’ll probably have to scroll down to see it). Note that the “Bookmarks” section header will only be displayed if there are any bookmarks to show (see fig. 5, right).</p>
-<p>The bookmarks are stored in JSON format in the user’s configuration directory (which is located in the home directory, i.e., ~/.purr-data on Linux and Mac, and /Users/<em>username</em>/AppData/Roaming/Purr-Data on Windows). This file is in a human-readable and easily editable format, so if needed you can rearrange your bookmarks to your liking by editing this file in your favorite text editor.</p>
+<p>You can then press Esc to return to the home screen, where the
+bookmarked directory will now be shown under the “Bookmarks” section at
+the bottom of the browser window (you’ll probably have to scroll down to
+see it). Note that the “Bookmarks” section header will only be displayed
+if there are any bookmarks to show (see fig. 5, right).</p>
+<p>The bookmarks are stored in JSON format in the user’s configuration
+directory (which is located in the home directory, i.e., ~/.purr-data on
+Linux and Mac, and /Users/<em>username</em>/AppData/Roaming/Purr-Data on
+Windows). This file is in a human-readable and easily editable format,
+so if needed you can rearrange your bookmarks to your liking by editing
+this file in your favorite text editor.</p>
 <h3 id="configuring-the-help-browser">Configuring The Help Browser</h3>
-<p>The GUI tab in the preferences dialog (cf. <a href="#gui-and-startup-options">GUI and Startup Options</a> and fig. 3, left) offers some options to configure the scope of the keyword search. Note that in order to perform keyword searches, the help browser first needs to construct an index of all the help patches and their keywords. This is either done on the fly, when the help browser is first opened during a Purr Data session (this is the default), or when the application is launched (there’s a checkbox which lets you enable this). As of Purr Data 2.14.1, the help index is cached in the user’s configuration directory (see <a href="#bookmarks">Bookmarks</a> above) and only rebuilt from scratch when needed (i.e., if the contents of the indexed directories changes).</p>
-<p>Once the browser has been launched for the first time and the index has been built and cached, it will always come up quickly on subsequent invocations. But depending on how many patches you are indexing, creating the index on first launch may take a while (anywhere from less than a second to several seconds on modern hardware), so changing these options <em>will</em> have an impact on indexing time. This should not be much of a problem because the indexing will only have to be done once (after a fresh install or an upgrade of Purr Data). But if you rarely use the help browser at all, then you may want to ensure that the “prepare the help index at application start” option is unchecked (which is the default). Moreover, there are two options which let you change the scope of indexed patches (changing these options will take effect as soon as you relaunch the help browser, and trigger creation of a new index file):</p>
+<p>The GUI tab in the preferences dialog (cf. <a
+href="#gui-and-startup-options">GUI and Startup Options</a> and fig. 3,
+left) offers some options to configure the scope of the keyword search.
+Note that in order to perform keyword searches, the help browser first
+needs to construct an index of all the help patches and their keywords.
+This is either done on the fly, when the help browser is first opened
+during a Purr Data session (this is the default), or when the
+application is launched (there’s a checkbox which lets you enable this).
+As of Purr Data 2.14.1, the help index is cached in the user’s
+configuration directory (see <a href="#bookmarks">Bookmarks</a> above)
+and only rebuilt from scratch when needed (i.e., if the contents of the
+indexed directories changes).</p>
+<p>Once the browser has been launched for the first time and the index
+has been built and cached, it will always come up quickly on subsequent
+invocations. But depending on how many patches you are indexing,
+creating the index on first launch may take a while (anywhere from less
+than a second to several seconds on modern hardware), so changing these
+options <em>will</em> have an impact on indexing time. This should not
+be much of a problem because the indexing will only have to be done once
+(after a fresh install or an upgrade of Purr Data). But if you rarely
+use the help browser at all, then you may want to ensure that the
+“prepare the help index at application start” option is unchecked (which
+is the default). Moreover, there are two options which let you change
+the scope of indexed patches (changing these options will take effect as
+soon as you relaunch the help browser, and trigger creation of a new
+index file):</p>
 <ul>
-<li><p>If “help browser only searches the doc folder” is checked (which is the default), then keyword searches are confined to the doc/ hierarchy. This is the fastest option and will be sufficient for novice users at least, as it covers all the official documentation that ships with Purr Data. However, if you’re an expert user and frequently use 3rd party externals living in the extra/ hierarchy, then you may want to uncheck this option to have all the remaining subdirectories in the pd-l2ork library directory indexed as well (note that this may slow down the indexing on first launch considerably).</p></li>
-<li><p>The “help browser also searches the help path” option, when checked, lets you tailor the keyword search to the externals you’re working with, so that you won’t be swamped with keyword matches from externals you never use. These externals may be located anywhere you choose, including the extra/ hierarchy, but note that if you’ve already unchecked the “help browser only searches the doc folder” option, then there’s no need to also explicitly add subdirectories of extra/. In either case, the directories to be searched with this option are set using Purr Data’s <em>help path</em> (having them in the library search path is <em>not</em> enough). You do this using Purr Data’s <code>-helppath</code> option which can be added to the “startup flags” field at the bottom of the Startup tab. E.g., on Linux you may want to add something like <code>-helppath ~/pd-l2ork-externals</code> (that directory is often used on Linux for custom and personal external collections).</p></li>
+<li><p>If “help browser only searches the doc folder” is checked (which
+is the default), then keyword searches are confined to the doc/
+hierarchy. This is the fastest option and will be sufficient for novice
+users at least, as it covers all the official documentation that ships
+with Purr Data. However, if you’re an expert user and frequently use 3rd
+party externals living in the extra/ hierarchy, then you may want to
+uncheck this option to have all the remaining subdirectories in the
+pd-l2ork library directory indexed as well (note that this may slow down
+the indexing on first launch considerably).</p></li>
+<li><p>The “help browser also searches the help path” option, when
+checked, lets you tailor the keyword search to the externals you’re
+working with, so that you won’t be swamped with keyword matches from
+externals you never use. These externals may be located anywhere you
+choose, including the extra/ hierarchy, but note that if you’ve already
+unchecked the “help browser only searches the doc folder” option, then
+there’s no need to also explicitly add subdirectories of extra/. In
+either case, the directories to be searched with this option are set
+using Purr Data’s <em>help path</em> (having them in the library search
+path is <em>not</em> enough). You do this using Purr Data’s
+<code>-helppath</code> option which can be added to the “startup flags”
+field at the bottom of the Startup tab. E.g., on Linux you may want to
+add something like <code>-helppath ~/pd-l2ork-externals</code> (that
+directory is often used on Linux for custom and personal external
+collections).</p></li>
 </ul>
-<p><strong>Caveat:</strong> Again, be warned that changing these options and then installing external collections with gazillions of patches into either the extra/ hierarchy or on your personal help path may have a very negative impact on first launch times, since all these patches will have to be scanned during index creation.</p>
-<h2 id="pd-l2ork-and-purr-data-goodies">Pd-l2ork and Purr Data Goodies</h2>
-<p>Compared to vanilla Pd, Pd-l2ork and Purr Data provide a comprehensive set of new and improved features, way too many to even just mention them all, so we refer the interested reader to the <a href="http://ico.bukvic.net/PDF/PdCon16_paper_84.pdf">PdCon 2016 paper</a> for details. The paper also covers the history and motivation of the Pd-l2ork project.</p>
-<p>One of Pd-l2ork’s major advancements, which has only recently been ported to vanilla Pd, is its <em>infinite undo</em> capability, which makes it easy to revert accidental changes without having to worry about taking snapshots of patches while they’re under development. A helpful change also worth mentioning here is the improved <em>tidy up</em> option in the Edit menu, which first aligns objects and then spaces them equidistantly. Many of the other new features are simply GUI and usability improvements which quickly become second nature to the user, such as the graphical improvements, the ability to resize the IEM GUI elements and “graph on parent” areas using the mouse, and the extended key bindings for number and number2 objects.</p>
-<p>Other features will be more useful for advanced users, like the reflection capabilities (see the <code>pdinfo</code>, <code>canvasinfo</code>, <code>classinfo</code> and <code>objectinfo</code> help patches) and the new SVG elements for data structure visualizations. The latter have been considerably enhanced in Purr Data, see the “Pd-L2Ork Data Structures” section in the help browser. They also make it possible to create your own custom GUI elements in plain Pd, without having to learn a “real” programming language.</p>
+<p><strong>Caveat:</strong> Again, be warned that changing these options
+and then installing external collections with gazillions of patches into
+either the extra/ hierarchy or on your personal help path may have a
+very negative impact on first launch times, since all these patches will
+have to be scanned during index creation.</p>
+<h2 id="pd-l2ork-and-purr-data-goodies">Pd-l2ork and Purr Data
+Goodies</h2>
+<p>Compared to vanilla Pd, Pd-l2ork and Purr Data provide a
+comprehensive set of new and improved features, way too many to even
+just mention them all, so we refer the interested reader to the <a
+href="http://ico.bukvic.net/PDF/PdCon16_paper_84.pdf">PdCon 2016
+paper</a> for details. The paper also covers the history and motivation
+of the Pd-l2ork project.</p>
+<p>One of Pd-l2ork’s major advancements, which has only recently been
+ported to vanilla Pd, is its <em>infinite undo</em> capability, which
+makes it easy to revert accidental changes without having to worry about
+taking snapshots of patches while they’re under development. A helpful
+change also worth mentioning here is the improved <em>tidy up</em>
+option in the Edit menu, which first aligns objects and then spaces them
+equidistantly. Many of the other new features are simply GUI and
+usability improvements which quickly become second nature to the user,
+such as the graphical improvements, the ability to resize the IEM GUI
+elements and “graph on parent” areas using the mouse, and the extended
+key bindings for number and number2 objects.</p>
+<p>Other features will be more useful for advanced users, like the
+reflection capabilities (see the <code>pdinfo</code>,
+<code>canvasinfo</code>, <code>classinfo</code> and
+<code>objectinfo</code> help patches) and the new SVG elements for data
+structure visualizations. The latter have been considerably enhanced in
+Purr Data, see the “Pd-L2Ork Data Structures” section in the help
+browser. They also make it possible to create your own custom GUI
+elements in plain Pd, without having to learn a “real” programming
+language.</p>
 <h3 id="intelligent-patching">Intelligent Patching</h3>
-<p>Another big time-saver is Pd-l2ork’s <em>intelligent patching</em> facility, which lets you select two or more objects in order to connect multiple outlets and inlets in one go. A similar feature was recently added to vanilla Pd, but Pd-l2ork has had this for a long time. In Pd-l2ork and Purr Data, intelligent patching offers a number of different modes:</p>
+<p>Another big time-saver is Pd-l2ork’s <em>intelligent patching</em>
+facility, which lets you select two or more objects in order to connect
+multiple outlets and inlets in one go. A similar feature was recently
+added to vanilla Pd, but Pd-l2ork has had this for a long time. In
+Pd-l2ork and Purr Data, intelligent patching offers a number of
+different modes:</p>
 <ul>
-<li><p>If you select <em>exactly</em> two objects A and B, say, and then connect one of the outlets from A to one of the inlets of B, then starting from the initial outlet-inlet pair the remaining outlets of A will be connected to the corresponding inlets of B.</p></li>
-<li><p>If you select two (or more) objects B and C, say, and then connect an outlet of a third, <em>unselected</em> object A to an inlet of B, then the corresponding connection from A to C will be done automatically. Conversely, you can also connect an outlet of B to an inlet of A to have the corresponding C-A connection completed for you.</p></li>
-<li><p>If you select <em>three</em> (or more) objects A, B and C, say, where A has two outlets or more, and then connect an outlet of A to an inlet of B, then the <em>next</em> outlet of A will be connected to the corresponding inlet of C. Conversely, you can also connect an outlet of B to an inlet of A, and have the corresponding outlet of C connected to the next inlet of A. This works for an arbitrary number of source or target objects, considering the “other” objects in left-to-right, top-to-bottom order.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p></li>
-<li><p>Finally, pressing the shift key while doing connections will let you do multiple connections from the same outlet in one go.</p></li>
+<li><p>If you select <em>exactly</em> two objects A and B, say, and then
+connect one of the outlets from A to one of the inlets of B, then
+starting from the initial outlet-inlet pair the remaining outlets of A
+will be connected to the corresponding inlets of B.</p></li>
+<li><p>If you select two (or more) objects B and C, say, and then
+connect an outlet of a third, <em>unselected</em> object A to an inlet
+of B, then the corresponding connection from A to C will be done
+automatically. Conversely, you can also connect an outlet of B to an
+inlet of A to have the corresponding C-A connection completed for
+you.</p></li>
+<li><p>If you select <em>three</em> (or more) objects A, B and C, say,
+where A has two outlets or more, and then connect an outlet of A to an
+inlet of B, then the <em>next</em> outlet of A will be connected to the
+corresponding inlet of C. Conversely, you can also connect an outlet of
+B to an inlet of A, and have the corresponding outlet of C connected to
+the next inlet of A. This works for an arbitrary number of source or
+target objects, considering the “other” objects in left-to-right,
+top-to-bottom order.<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a></p></li>
+<li><p>Finally, pressing the shift key while doing connections will let
+you do multiple connections from the same outlet in one go.</p></li>
 </ul>
-<p>Purr Data has a help patch for this incredibly useful facility, which I have also provided with this document in the <a href="intelligent-patching.pd">intelligent-patching.pd</a> patch for your perusal. In the comments, the patch also includes detailed explanations of all the different intelligent patching modes, and you can find some subpatches with exercises in the margin of the main patch.</p>
-<h3 id="subpatch-and-abstraction-features">Subpatch and Abstraction Features</h3>
-<p>A recent addition are the extended subpatch and abstraction creation and saving facilities, which were contributed by Guillem Bartrina during the Google Summer of Code 2020:</p>
+<p>Purr Data has a help patch for this incredibly useful facility, which
+I have also provided with this document in the <a
+href="intelligent-patching.pd">intelligent-patching.pd</a> patch for
+your perusal. In the comments, the patch also includes detailed
+explanations of all the different intelligent patching modes, and you
+can find some subpatches with exercises in the margin of the main
+patch.</p>
+<h3 id="subpatch-and-abstraction-features">Subpatch and Abstraction
+Features</h3>
+<p>A recent addition are the extended subpatch and abstraction creation
+and saving facilities, which were contributed by Guillem Bartrina during
+the Google Summer of Code 2020:</p>
 <ul>
-<li><p>A new “Encapsulate” option in the Edit menu lets you turn a collection of selected objects into a corresponding one-off subpatch in a fully automatic way. This finally makes creating one-offs from parts of your patches a very quick and easy operation.</p></li>
-<li><p>You can also turn an existing one-off subpatch into an abstraction simply by right-clicking on the object and choosing the new “Save as” option from the context menu. This will also give you the option to replace the existing subpatch, as well as all its other instances with the newly created abstraction.</p></li>
-<li><p>There’s a new [ab] object, to be invoked as [ab name args …], which lets you create <em>private abstractions</em>. These are embedded in their parent patch just like a one-off subpatch [pd name], but otherwise behave like real abstractions in that they have their own <code>$0</code> and can have arguments, too. So they work just like the plain old abstractions, but become a part of your main patch, pretty much like the subroutines of a C program. This makes shipping a patch much more convenient, as you don’t have to send a bunch of abstraction files along with it any more.</p></li>
-<li><p>The [ab] object is accompanied by a number of supplemental objects (abinfo, abdefs, abclone) which let you inspect and clone private abstractions. There’s also an “Abstractions” dialog which can be accessed via the Window menu. This will give you a quick overview of the private abstractions contained in a patch. Also, it will show you private abstractions which aren’t currently being used (i.e., don’t have any instances), so that you can select and then delete them if they aren’t needed any more.</p></li>
+<li><p>A new “Encapsulate” option in the Edit menu lets you turn a
+collection of selected objects into a corresponding one-off subpatch in
+a fully automatic way. This finally makes creating one-offs from parts
+of your patches a very quick and easy operation.</p></li>
+<li><p>You can also turn an existing one-off subpatch into an
+abstraction simply by right-clicking on the object and choosing the new
+“Save as” option from the context menu. This will also give you the
+option to replace the existing subpatch, as well as all its other
+instances with the newly created abstraction.</p></li>
+<li><p>There’s a new [ab] object, to be invoked as [ab name args …],
+which lets you create <em>private abstractions</em>. These are embedded
+in their parent patch just like a one-off subpatch [pd name], but
+otherwise behave like real abstractions in that they have their own
+<code>$0</code> and can have arguments, too. So they work just like the
+plain old abstractions, but become a part of your main patch, pretty
+much like the subroutines of a C program. This makes shipping a patch
+much more convenient, as you don’t have to send a bunch of abstraction
+files along with it any more.</p></li>
+<li><p>The [ab] object is accompanied by a number of supplemental
+objects (abinfo, abdefs, abclone) which let you inspect and clone
+private abstractions. There’s also an “Abstractions” dialog which can be
+accessed via the Window menu. This will give you a quick overview of the
+private abstractions contained in a patch. Also, it will show you
+private abstractions which aren’t currently being used (i.e., don’t have
+any instances), so that you can select and then delete them if they
+aren’t needed any more.</p></li>
 </ul>
 <h2 id="purr-data-and-pd-lua">Purr Data and Pd-Lua</h2>
-<p>As of version 2.5, Purr Data includes the latest version of Claude Heiland-Allen’s excellent <a href="https://agraef.github.io/pd-lua/">Pd-Lua</a> extension for embedding the <a href="http://www.lua.org/">Lua</a> scripting language in Pd. This provides you with an easy means (much easier than Pd’s native C interface) to write your own custom Pd objects if they require the use of a real programming language offering loops, functions and complicated data structures.</p>
-<p>Lua is perfectly suited for this purpose, because it is light-weight and easily embeddable by design. It is also small and easy to learn, yet very capable, offering a complete range of imperative, object-oriented and functional programming language elements. Like Pd, Lua is an interpreted language featuring dynamic typing, which makes interfacing between Pd and Lua quite easy.</p>
-<p>Pd-Lua requires Lua 5.2, 5.3, or 5.4, which should be readily available in all Linux distributions (on Mac and Windows the requisite Lua library is included in the installer). There’s a <a href="https://agraef.github.io/pd-lua/tutorial/pd-lua-intro.html">tutorial</a> available to get you started, and a fairly extensive collection of examples can be found in the extra/pdlua/examples folder.</p>
+<p>As of version 2.5, Purr Data includes the latest version of Claude
+Heiland-Allen’s excellent <a
+href="https://agraef.github.io/pd-lua/">Pd-Lua</a> extension for
+embedding the <a href="http://www.lua.org/">Lua</a> scripting language
+in Pd. This provides you with an easy means (much easier than Pd’s
+native C interface) to write your own custom Pd objects if they require
+the use of a real programming language offering loops, functions and
+complicated data structures.</p>
+<p>Lua is perfectly suited for this purpose, because it is light-weight
+and easily embeddable by design. It is also small and easy to learn, yet
+very capable, offering a complete range of imperative, object-oriented
+and functional programming language elements. Like Pd, Lua is an
+interpreted language featuring dynamic typing, which makes interfacing
+between Pd and Lua quite easy.</p>
+<p>Pd-Lua requires Lua 5.2, 5.3, or 5.4, which should be readily
+available in all Linux distributions (on Mac and Windows the requisite
+Lua library is included in the installer). There’s a <a
+href="https://agraef.github.io/pd-lua/tutorial/pd-lua-intro.html">tutorial</a>
+available to get you started, and a fairly extensive collection of
+examples can be found in the extra/pdlua/examples folder.</p>
 <h2 id="tips-and-tricks">Tips and Tricks</h2>
-<p>We conclude this introduction with a little grab bag of helpful tips and tricks. If your questions aren’t answered here, please post them to the DISIS <a href="http://disis.music.vt.edu/listinfo/l2ork-dev">Pd-l2ork mailing list</a>.</p>
-<h3 id="edit-mode-and-temporary-run-mode">Edit Mode and Temporary Run Mode</h3>
-<p><em>Temporary run mode</em> is a facility present across different Pd flavors which allows you to quickly switch to run mode (where you can operate GUI elements in a patch) while in edit mode (where you can edit the patch). In vanilla Pd, as well as most other Pd flavors, this is activated by pressing and holding the Ctrl modifier key (or the Cmd key on the Mac).</p>
-<p>In Purr Data, the modifier was changed to the Alt key in version 2.14.1, because the Ctrl key binding caused some conflicts with the menu shortcuts. This resulted in some rather serious regressions in the GUI, such as some menu keybindings not working in the expected way or interfering with edit mode.</p>
-<p>Apart from having to get accustomed to the new key binding, this also implies a potential issue for Linux users, because many Linux desktop environments use Alt-click to initiate a window move action, which will interfere with temporary run mode. You have this issue if you try to operate GUI elements with a click-drag action while holding the Alt key, only to find that this moves the patch window instead. In order to make temporary run mode work again, make sure to rebind the window-move action to a different modifier key and/or mouse button, such as Meta+click or Alt+middle-click which are rarely used by window managers, at least not for important actions.</p>
-<p>Version 2.14.1 also introduced the <em>edit mode grid</em> as a better means to indicate that edit mode is active, while also being useful as a positioning aid. The grid is enabled by default, but can be turned off in the GUI preferences if you don’t want/need it.</p>
-<h3 id="install-classic-pd-l2ork-alongside-purr-data">Install classic Pd-l2ork alongside Purr Data</h3>
-<p>On Linux there are some situations where you may want to run <em>both</em> classic Pd-l2ork and Purr Data on the same system. This may be useful, e.g., if you need some feature of Pd-l2ork like its K12 mode which hasn’t been ported to Purr Data yet. In order to do this, you need one of the JGU packages of Purr Data (see <a href="#where-to-get-it">Where to Get It</a> above). These will install into a separate directory (normally <code>/opt/purr-data</code>) so that the pathnames of the binaries and libraries in the package do not clash with those from a classic Pd-l2ork installation under <code>/usr</code>. The desktop icons will be named differently as well, and a symbolic link named <code>purr-data</code> will be created in the <code>/usr/bin</code> directory. The link points to <code>/opt/purr-data/bin/pd-l2ork</code> and lets you run Purr Data from the command line without having to specify the full path to the executable.</p>
+<p>We conclude this introduction with a little grab bag of helpful tips
+and tricks. If your questions aren’t answered here, please post them to
+the DISIS <a
+href="http://disis.music.vt.edu/listinfo/l2ork-dev">Pd-l2ork mailing
+list</a>.</p>
+<h3 id="edit-mode-and-temporary-run-mode">Edit Mode and Temporary Run
+Mode</h3>
+<p><em>Temporary run mode</em> is a facility present across different Pd
+flavors which allows you to quickly switch to run mode (where you can
+operate GUI elements in a patch) while in edit mode (where you can edit
+the patch). In vanilla Pd, as well as most other Pd flavors, this is
+activated by pressing and holding the Ctrl modifier key (or the Cmd key
+on the Mac).</p>
+<p>In Purr Data, the modifier was changed to the Alt key in version
+2.14.1, because the Ctrl key binding caused some conflicts with the menu
+shortcuts. This resulted in some rather serious regressions in the GUI,
+such as some menu keybindings not working in the expected way or
+interfering with edit mode.</p>
+<p>Apart from having to get accustomed to the new key binding, this also
+implies a potential issue for Linux users, because many Linux desktop
+environments use Alt-click to initiate a window move action, which will
+interfere with temporary run mode. You have this issue if you try to
+operate GUI elements with a click-drag action while holding the Alt key,
+only to find that this moves the patch window instead. In order to make
+temporary run mode work again, make sure to rebind the window-move
+action to a different modifier key and/or mouse button, such as
+Meta+click or Alt+middle-click which are rarely used by window managers,
+at least not for important actions.</p>
+<p>Version 2.14.1 also introduced the <em>edit mode grid</em> as a
+better means to indicate that edit mode is active, while also being
+useful as a positioning aid. The grid is enabled by default, but can be
+turned off in the GUI preferences if you don’t want/need it.</p>
+<h3 id="install-classic-pd-l2ork-alongside-purr-data">Install classic
+Pd-l2ork alongside Purr Data</h3>
+<p>On Linux there are some situations where you may want to run
+<em>both</em> classic Pd-l2ork and Purr Data on the same system. This
+may be useful, e.g., if you need some feature of Pd-l2ork like its K12
+mode which hasn’t been ported to Purr Data yet. In order to do this, you
+need one of the JGU packages of Purr Data (see <a
+href="#where-to-get-it">Where to Get It</a> above). These will install
+into a separate directory (normally <code>/opt/purr-data</code>) so that
+the pathnames of the binaries and libraries in the package do not clash
+with those from a classic Pd-l2ork installation under <code>/usr</code>.
+The desktop icons will be named differently as well, and a symbolic link
+named <code>purr-data</code> will be created in the
+<code>/usr/bin</code> directory. The link points to
+<code>/opt/purr-data/bin/pd-l2ork</code> and lets you run Purr Data from
+the command line without having to specify the full path to the
+executable.</p>
 <h3 id="installing-externals">Installing externals</h3>
-<p>Purr Data already bundles many if not most of the 3rd party externals commonly used by Pd users. To add even more, there are some special directories into which you can install the externals so that Purr Data finds them. This is basically the same as with Pd-extended, but the directories are named differently so that you can keep the Purr Data externals separate from the vanilla/extended ones if needed. There’s always one location for system-wide and another one for personal installation. The precise locations and names of these directories depend on your platform:</p>
+<p>Purr Data already bundles many if not most of the 3rd party externals
+commonly used by Pd users. To add even more, there are some special
+directories into which you can install the externals so that Purr Data
+finds them. This is basically the same as with Pd-extended, but the
+directories are named differently so that you can keep the Purr Data
+externals separate from the vanilla/extended ones if needed. There’s
+always one location for system-wide and another one for personal
+installation. The precise locations and names of these directories
+depend on your platform:</p>
 <ul>
-<li>Linux: <code>/usr/local/lib/pd-l2ork-externals</code> for system-wide, <code>~/.local/lib/pd-l2ork/extra</code> and <code>~/pd-l2ork-externals</code> for personal installation</li>
-<li>Mac: <code>/Library/Pd-l2ork</code> for system-wide, <code>~/Library/Pd-l2ork</code> for personal installation</li>
-<li>Windows: <code>%ProgramFiles%\Common Files\Pd-l2ork</code> for system-wide, <code>%AppData%\Pd-l2ork</code> for personal installation; the former is usually under <code>\Program Files</code> for the 64 bit and <code>\Program Files (x86)</code> for the 32 bit version, and the latter can be found under <code>\Users\username\AppData\Roaming</code> on modern Windows systems</li>
+<li>Linux: <code>/usr/local/lib/pd-l2ork-externals</code> for
+system-wide, <code>~/.local/lib/pd-l2ork/extra</code> and
+<code>~/pd-l2ork-externals</code> for personal installation</li>
+<li>Mac: <code>/Library/Pd-l2ork</code> for system-wide,
+<code>~/Library/Pd-l2ork</code> for personal installation</li>
+<li>Windows: <code>%ProgramFiles%\Common Files\Pd-l2ork</code> for
+system-wide, <code>%AppData%\Pd-l2ork</code> for personal installation;
+the former is usually under <code>\Program Files</code> for the 64 bit
+and <code>\Program Files (x86)</code> for the 32 bit version, and the
+latter can be found under <code>\Users\username\AppData\Roaming</code>
+on modern Windows systems</li>
 </ul>
-<p>Besides these, you can also copy externals to the <code>extra</code> subdirectory of your Purr Data application folder, but this folder can be hard to find, and it isn’t really recommended to install stuff there, because it makes it hard to figure out which externals you added yourself.</p>
-<p>For singleton externals it will usually be enough if you just copy them into one of these folders and then relaunch Purr Data. External libraries containing a collection of different externals, on the other hand, will typically require that you also load the library at startup, using the available startup configuration options in the preferences (see <a href="#gui-and-startup-options">GUI and Startup Options</a> above).</p>
+<p>Besides these, you can also copy externals to the <code>extra</code>
+subdirectory of your Purr Data application folder, but this folder can
+be hard to find, and it isn’t really recommended to install stuff there,
+because it makes it hard to figure out which externals you added
+yourself.</p>
+<p>For singleton externals it will usually be enough if you just copy
+them into one of these folders and then relaunch Purr Data. External
+libraries containing a collection of different externals, on the other
+hand, will typically require that you also load the library at startup,
+using the available startup configuration options in the preferences
+(see <a href="#gui-and-startup-options">GUI and Startup Options</a>
+above).</p>
 <h3 id="resetting-the-preferences">Resetting the preferences</h3>
-<p>It happens to the best of us that we mess up our Pd configuration so badly that it is beyond repair. In such a case you probably want to go back to Purr Data’s default setup and start from a clean slate again. While Purr Data’s preferences dialog does not provide a button for this (yet), there are other ways to accomplish this. They depend on the particular platform, however.</p>
+<p>It happens to the best of us that we mess up our Pd configuration so
+badly that it is beyond repair. In such a case you probably want to go
+back to Purr Data’s default setup and start from a clean slate again.
+While Purr Data’s preferences dialog does not provide a button for this
+(yet), there are other ways to accomplish this. They depend on the
+particular platform, however.</p>
 <ul>
-<li><p>On Linux, do <code>rm -rf ~/.purr-data</code> in the terminal.</p></li>
-<li><p>On the Mac, do <code>rm ~/Library/Preferences/org.puredata.pd-l2ork.plist</code> in the terminal.</p></li>
-<li><p>On Windows, the easiest way is to just reinstall the Purr Data package and make sure that you remove the previous installation when prompted. This will also clear out the registry entries and leave you with the default configuration. However, you can also launch the <code>regedit</code> program and manually remove the <code>HKEY_CURRENT_USER\Software\Purr-Data</code> or <code>HKEY_LOCAL_MACHINE\Software\Purr-Data</code> registry key and all its subkeys.</p></li>
+<li><p>On Linux, do <code>rm -rf ~/.purr-data</code> in the
+terminal.</p></li>
+<li><p>On the Mac, do
+<code>rm ~/Library/Preferences/org.puredata.pd-l2ork.plist</code> in the
+terminal.</p></li>
+<li><p>On Windows, the easiest way is to just reinstall the Purr Data
+package and make sure that you remove the previous installation when
+prompted. This will also clear out the registry entries and leave you
+with the default configuration. However, you can also launch the
+<code>regedit</code> program and manually remove the
+<code>HKEY_CURRENT_USER\Software\Purr-Data</code> or
+<code>HKEY_LOCAL_MACHINE\Software\Purr-Data</code> registry key and all
+its subkeys.</p></li>
 </ul>
-<p>Then just relaunch Purr Data. Your preferences should now be in pristine state again, and all the default search paths and startup libraries will be restored. Your audio and MIDI device configuration, and the other bits and bobs that you changed in the preferences will be gone as well, so you’ll have to redo those.</p>
+<p>Then just relaunch Purr Data. Your preferences should now be in
+pristine state again, and all the default search paths and startup
+libraries will be restored. Your audio and MIDI device configuration,
+and the other bits and bobs that you changed in the preferences will be
+gone as well, so you’ll have to redo those.</p>
 <h3 id="sticky-preferences">“Sticky” preferences</h3>
-<p>One pitfall with Purr Data’s preferences system (which it shares with its predecessors) is that some options in the startup flags may override other changes done manually in the preferences dialog, and will then appear to “stick” when you relaunch Purr Data. E.g., if a library gets loaded via the <code>-lib</code> option in the startup flags, it will <em>also</em> show up in the list of libraries next time you run Purr Data. But if you just remove it there, and not also in the startup flags, then the library will <em>still</em> be loaded next time you run Purr Data. The same caveat applies if you have some options setting up aspects of the audio and MIDI configuration in the startup flags and then reconfigure your devices in the Audio and MIDI tabs of the dialog. Thus, if Purr Data appears to stick to a certain audio or MIDI setup even though you’re certain that you set (and saved) a new configuration, check the startup flags, they’re almost certainly to blame. (Another possible culprit are the Linux desktop files, see below.)</p>
-<p>This irritating behavior is due to how Pd handles the startup flags, especially flags which may override some behavior in other configuration options. The easiest way to get rid of all these mishaps is to remove the relevant options in the startup flags (when in doubt, just delete them all so that the startup flags field is completely empty) and save your options by clicking <code>Ok</code> in the preferences dialog.</p>
-<p>Sometimes options may seem to stick even if the startup flags field is in fact empty, so that the preferences dialog appears to be partially dysfunctional. This is almost certainly due to some stray startup options in the application’s desktop files, most likely on Linux (Pd-l2ork’s original desktop files, which Purr Data inherited in the Linux version, seem to be the main culprit here). Remove the offending options in the desktop icons that you use to launch Purr Data, then this will go away. (Again, when in doubt, just remove <em>all</em> of the extra options in the desktop file, so that just the program name remains; none of these options are essential for Purr Data’s proper operation.)</p>
-<h3 id="purr-data-hangs-during-startup">Purr Data hangs during startup</h3>
-<p>As far as I can tell, this was only reported on macOS so far. The symptom is that the GUI launches, but then hangs during the startup sequence after printing the message <code>incoming connection to GUI</code> in the console window. The GUI then becomes totally unresponsive, eating up 100% cpu, and the only way to get rid of it is killing it (“force quit”).</p>
-<p>The exact causes are unknown right now, but it seems that this behavior may be caused by bad 3rd party externals causing the realtime engine to hang or crash during startup. The GUI then waits for the incoming connection from the engine which never gets established, which makes it hang in turn.</p>
-<p>As it’s impossible to launch the GUI and remove the offending external in the preferences dialog in this rather unfortunate situation, the only known solution to this problem is to reset the configuration (see <a href="#resetting-the-preferences">Resetting the preferences</a> above), after which Purr Data hopefully launches without any hitches again. If you’re feeling adventurous, you may then start adding your local externals one by one until the GUI hangs again, at which point you will have identified the culprit, so that you can remove it from your system.</p>
-<h3 id="purr-data-starts-up-very-slowly">Purr Data starts up very slowly</h3>
-<p>Again, this seems to be a Mac-specific issue. Older (pre-2.0) Mac versions of Purr Data had the defect that old search paths and startup libraries from previous installations would keep piling up in the configuration until eventually Purr Data’s startup would become <em>very</em> slow. This has been fixed in the 2.0 version (and startup time on the Mac has generally been improved as well), but if you’re still using an old configuration from the pre-2.0 days, then you might still see remnants of this issue even in the 2.0 version.</p>
-<p>One thing you can try in this case is to launch the preferences dialog, press <code>Ok</code> and then quit and relaunch Purr Data. If that doesn’t help, reset the configuration as explained under <a href="#resetting-the-preferences">Resetting the preferences</a> above. (If that doesn’t help either, then you probably have a different issue which you should report on Purr Data’s <a href="https://git.purrdata.net/jwilkes/purr-data/issues">issue tracker</a>.)</p>
-<h3 id="legacy-tcl-commands-in-externals">Legacy Tcl commands in externals</h3>
-<p>Every so often you may run into warnings about “legacy Tcl commands” in Purr Data’s console window which typically look like this:</p>
+<p>One pitfall with Purr Data’s preferences system (which it shares with
+its predecessors) is that some options in the startup flags may override
+other changes done manually in the preferences dialog, and will then
+appear to “stick” when you relaunch Purr Data. E.g., if a library gets
+loaded via the <code>-lib</code> option in the startup flags, it will
+<em>also</em> show up in the list of libraries next time you run Purr
+Data. But if you just remove it there, and not also in the startup
+flags, then the library will <em>still</em> be loaded next time you run
+Purr Data. The same caveat applies if you have some options setting up
+aspects of the audio and MIDI configuration in the startup flags and
+then reconfigure your devices in the Audio and MIDI tabs of the dialog.
+Thus, if Purr Data appears to stick to a certain audio or MIDI setup
+even though you’re certain that you set (and saved) a new configuration,
+check the startup flags, they’re almost certainly to blame. (Another
+possible culprit are the Linux desktop files, see below.)</p>
+<p>This irritating behavior is due to how Pd handles the startup flags,
+especially flags which may override some behavior in other configuration
+options. The easiest way to get rid of all these mishaps is to remove
+the relevant options in the startup flags (when in doubt, just delete
+them all so that the startup flags field is completely empty) and save
+your options by clicking <code>Ok</code> in the preferences dialog.</p>
+<p>Sometimes options may seem to stick even if the startup flags field
+is in fact empty, so that the preferences dialog appears to be partially
+dysfunctional. This is almost certainly due to some stray startup
+options in the application’s desktop files, most likely on Linux
+(Pd-l2ork’s original desktop files, which Purr Data inherited in the
+Linux version, seem to be the main culprit here). Remove the offending
+options in the desktop icons that you use to launch Purr Data, then this
+will go away. (Again, when in doubt, just remove <em>all</em> of the
+extra options in the desktop file, so that just the program name
+remains; none of these options are essential for Purr Data’s proper
+operation.)</p>
+<h3 id="purr-data-hangs-during-startup">Purr Data hangs during
+startup</h3>
+<p>As far as I can tell, this was only reported on macOS so far. The
+symptom is that the GUI launches, but then hangs during the startup
+sequence after printing the message
+<code>incoming connection to GUI</code> in the console window. The GUI
+then becomes totally unresponsive, eating up 100% cpu, and the only way
+to get rid of it is killing it (“force quit”).</p>
+<p>The exact causes are unknown right now, but it seems that this
+behavior may be caused by bad 3rd party externals causing the realtime
+engine to hang or crash during startup. The GUI then waits for the
+incoming connection from the engine which never gets established, which
+makes it hang in turn.</p>
+<p>As it’s impossible to launch the GUI and remove the offending
+external in the preferences dialog in this rather unfortunate situation,
+the only known solution to this problem is to reset the configuration
+(see <a href="#resetting-the-preferences">Resetting the preferences</a>
+above), after which Purr Data hopefully launches without any hitches
+again. If you’re feeling adventurous, you may then start adding your
+local externals one by one until the GUI hangs again, at which point you
+will have identified the culprit, so that you can remove it from your
+system.</p>
+<h3 id="purr-data-starts-up-very-slowly">Purr Data starts up very
+slowly</h3>
+<p>Again, this seems to be a Mac-specific issue. Older (pre-2.0) Mac
+versions of Purr Data had the defect that old search paths and startup
+libraries from previous installations would keep piling up in the
+configuration until eventually Purr Data’s startup would become
+<em>very</em> slow. This has been fixed in the 2.0 version (and startup
+time on the Mac has generally been improved as well), but if you’re
+still using an old configuration from the pre-2.0 days, then you might
+still see remnants of this issue even in the 2.0 version.</p>
+<p>One thing you can try in this case is to launch the preferences
+dialog, press <code>Ok</code> and then quit and relaunch Purr Data. If
+that doesn’t help, reset the configuration as explained under <a
+href="#resetting-the-preferences">Resetting the preferences</a> above.
+(If that doesn’t help either, then you probably have a different issue
+which you should report on Purr Data’s <a
+href="https://git.purrdata.net/jwilkes/purr-data/issues">issue
+tracker</a>.)</p>
+<h3 id="legacy-tcl-commands-in-externals">Legacy Tcl commands in
+externals</h3>
+<p>Every so often you may run into warnings about “legacy Tcl commands”
+in Purr Data’s console window which typically look like this:</p>
 <pre><code>legacy tcl command at 201 of ../shared/hammer/file.c: hammereditor_close .86439b0 0</code></pre>
-<p>In most cases these should be harmless, but they may indicate a missing piece of GUI functionality due to Tcl code which has not been ported to Purr Data’s new nw.js GUI yet. In any case, feel free to report such messages at Purr Data’s <a href="https://git.purrdata.net/jwilkes/purr-data/issues">issue tracker</a>, so that hopefully someone from the development team can look into them. A proper bug report should at least include the message itself and the Pd object it relates to. If some special steps are needed to reproduce the message, you should report these as well. Also, please do make sure <em>first</em> that the specific message you’re seeing has not been reported in the issue tracker already.</p>
+<p>In most cases these should be harmless, but they may indicate a
+missing piece of GUI functionality due to Tcl code which has not been
+ported to Purr Data’s new nw.js GUI yet. In any case, feel free to
+report such messages at Purr Data’s <a
+href="https://git.purrdata.net/jwilkes/purr-data/issues">issue
+tracker</a>, so that hopefully someone from the development team can
+look into them. A proper bug report should at least include the message
+itself and the Pd object it relates to. If some special steps are needed
+to reproduce the message, you should report these as well. Also, please
+do make sure <em>first</em> that the specific message you’re seeing has
+not been reported in the issue tracker already.</p>
 <h3 id="device-connections">Device connections</h3>
-<p>One pitfall of the Pd engine is that it does not rescan the devices if you connect new external audio or MIDI gear via USB while Purr Data is already running. In such cases you’ll have to relaunch the program so that Purr Data rescans the device lists and the new devices become available in the preferences.</p>
-<p>While you probably won’t have to change audio gear mid-flight all that often, this issue becomes more annoying with MIDI devices which are a dime a dozen these days. This isn’t actually a problem with MIDI devices connected using DIN MIDI cables via an existing USB MIDI interface, but nowadays many MIDI devices only come with USB connectors. One solution are USB MIDI interfaces such as the ones from <a href="https://www.iconnectivity.com/midi-interfaces-1">iConnectivity</a> which offer USB host sockets, so that you can quickly plug in a new device and use it by selecting the right host port in Purr Data’s MIDI preferences.</p>
-<p>MIDI USB devices with host connectors aren’t exactly cheap, however. Fortunately, there’s also a software-based solution which doesn’t cost any money, namely <em>virtual MIDI devices</em>, also known as MIDI <em>loopbacks</em>. On Linux, these are readily available in ALSA, so you only need a little patchbay utility such as <a href="https://qjackctl.sourceforge.io/">qjackctl</a> which lets you quickly set up the connections on the fly as needed. On the Mac you can use the built-in <a href="https://sites.google.com/site/mfalab/mac-stuff/how-to-use-the-iac-driver">IAC</a> devices along with a MIDI patchbay utility such as notahat’s <a href="https://github.com/notahat/midi_patchbay">midi_patchbay</a> program for the same purpose. On Windows, you’ll have to do a little bit more work since Windows doesn’t have MIDI loopbacks out of the box. But there’s Tobias Erichsen’s excellent <a href="http://www.tobias-erichsen.de/software/loopmidi.html">loopMIDI</a> driver, which can be used along with the venerable <a href="http://www.midiox.com/">MIDI-OX</a>; these two aren’t open-source, but free for personal use, and they both work on modern Windows systems.</p>
-<p>Another possibility is <a href="https://en.wikipedia.org/wiki/RTP-MIDI"><em>RTP MIDI</em></a>, which is a way to transfer MIDI data over your local network. This is probably the most expensive avenue, but it’s often used by professionals and does away with all the limitations that MIDI has regarding cable lengths. You’ll generally need some RTP-capable MIDI gear such as the mioXM from iConnectivity into which you can plug your MIDI devices, and you’ll have to set up an RTP MIDI session on the computer running Purr Data. This functionality is built into the Mac (look for the Network icon in the MIDI/Audio Configuration tool), but similar software is available on Windows (once again, Tobias Erichsen comes to the rescue with his <a href="https://www.tobias-erichsen.de/software/rtpmidi.html">rtpMIDI</a> which is very similar to Apple’s implementation) and Linux (using either David Moreno’s open-source command line utility <a href="https://github.com/davidmoreno/rtpmidid">rtpmidid</a>, or, if you prefer a graphical application, McLaren Labs’ commercial <a href="https://mclarenlabs.com/rtpmidi/">rtpmidi</a> program). Once the RTP MIDI session has been set up, it will show up as a MIDI device on the host computer to which you can connect in Purr Data, and then any MIDI device connected to the network can be added to the existing session (or removed from it) on a whim.</p>
-<p>Regarding audio devices, a similar approach (including networked connections) is possible with audio loopback software such as <a href="http://www.jackaudio.org/">Jack</a>. But note that Jack doesn’t really allow you to change horses mid-race either, so you’ll have to turn off Jack audio in Purr Data before you can relaunch Jack with the changed device and then enable Jack audio in Purr Data again.</p>
-<section class="footnotes" role="doc-endnotes">
+<p>One pitfall of the Pd engine is that it does not rescan the devices
+if you connect new external audio or MIDI gear via USB while Purr Data
+is already running. In such cases you’ll have to relaunch the program so
+that Purr Data rescans the device lists and the new devices become
+available in the preferences.</p>
+<p>While you probably won’t have to change audio gear mid-flight all
+that often, this issue becomes more annoying with MIDI devices which are
+a dime a dozen these days. This isn’t actually a problem with MIDI
+devices connected using DIN MIDI cables via an existing USB MIDI
+interface, but nowadays many MIDI devices only come with USB connectors.
+One solution are USB MIDI interfaces such as the ones from <a
+href="https://www.iconnectivity.com/midi-interfaces-1">iConnectivity</a>
+which offer USB host sockets, so that you can quickly plug in a new
+device and use it by selecting the right host port in Purr Data’s MIDI
+preferences.</p>
+<p>MIDI USB devices with host connectors aren’t exactly cheap, however.
+Fortunately, there’s also a software-based solution which doesn’t cost
+any money, namely <em>virtual MIDI devices</em>, also known as MIDI
+<em>loopbacks</em>. On Linux, these are readily available in ALSA, so
+you only need a little patchbay utility such as <a
+href="https://qjackctl.sourceforge.io/">qjackctl</a> which lets you
+quickly set up the connections on the fly as needed. On the Mac you can
+use the built-in <a
+href="https://sites.google.com/site/mfalab/mac-stuff/how-to-use-the-iac-driver">IAC</a>
+devices along with a MIDI patchbay utility such as notahat’s <a
+href="https://github.com/notahat/midi_patchbay">midi_patchbay</a>
+program for the same purpose. On Windows, you’ll have to do a little bit
+more work since Windows doesn’t have MIDI loopbacks out of the box. But
+there’s Tobias Erichsen’s excellent <a
+href="http://www.tobias-erichsen.de/software/loopmidi.html">loopMIDI</a>
+driver, which can be used along with the venerable <a
+href="http://www.midiox.com/">MIDI-OX</a>; these two aren’t open-source,
+but free for personal use, and they both work on modern Windows
+systems.</p>
+<p>Another possibility is <a
+href="https://en.wikipedia.org/wiki/RTP-MIDI"><em>RTP MIDI</em></a>,
+which is a way to transfer MIDI data over your local network. This is
+probably the most expensive avenue, but it’s often used by professionals
+and does away with all the limitations that MIDI has regarding cable
+lengths. You’ll generally need some RTP-capable MIDI gear such as the
+mioXM from iConnectivity into which you can plug your MIDI devices, and
+you’ll have to set up an RTP MIDI session on the computer running Purr
+Data. This functionality is built into the Mac (look for the Network
+icon in the MIDI/Audio Configuration tool), but similar software is
+available on Windows (once again, Tobias Erichsen comes to the rescue
+with his <a
+href="https://www.tobias-erichsen.de/software/rtpmidi.html">rtpMIDI</a>
+which is very similar to Apple’s implementation) and Linux (using either
+David Moreno’s open-source command line utility <a
+href="https://github.com/davidmoreno/rtpmidid">rtpmidid</a>, or, if you
+prefer a graphical application, McLaren Labs’ commercial <a
+href="https://mclarenlabs.com/rtpmidi/">rtpmidi</a> program). Once the
+RTP MIDI session has been set up, it will show up as a MIDI device on
+the host computer to which you can connect in Purr Data, and then any
+MIDI device connected to the network can be added to the existing
+session (or removed from it) on a whim.</p>
+<p>Regarding audio devices, a similar approach (including networked
+connections) is possible with audio loopback software such as <a
+href="http://www.jackaudio.org/">Jack</a>. But note that Jack doesn’t
+really allow you to change horses mid-race either, so you’ll have to
+turn off Jack audio in Purr Data before you can relaunch Jack with the
+changed device and then enable Jack audio in Purr Data again.</p>
+<section class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1" role="doc-endnote"><p>This operation works best if the “other” objects only have a single out- or inlet, since that makes the outcome unambiguous. Otherwise Purr Data will often prefer creating outgoing connections, in which case you’ll have to hold down the Ctrl key to enforce incoming connections.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1" role="doc-endnote"><p>This operation works best if the
+“other” objects only have a single out- or inlet, since that makes the
+outcome unambiguous. Otherwise Purr Data will often prefer creating
+outgoing connections, in which case you’ll have to hold down the Ctrl
+key to enforce incoming connections.<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
