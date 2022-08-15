@@ -1524,7 +1524,12 @@ session (or removed from it) on a whim.</p>
 connections) is possible with audio loopback software such as <a href="http://www.jackaudio.org/">Jack</a>. But note that Jack doesn’t
 really allow you to change horses mid-race either, so you’ll have to
 turn off Jack audio in Purr Data before you can relaunch Jack with the
-changed device and then enable Jack audio in Purr Data again.</p>
+changed device and then enable Jack audio in Purr Data again. Under
+Linux, a much better solution is RedHat’s <a href="https://pipewire.org/">Pirewire</a> which can completely replace
+Jack and integrate Jack devices with ALSA and Pulseaudio, while
+retaining low latency. Pipewire is a real game-changer in the Linux
+audio world, but it is still under heavy development and being rolled
+out to major Linux distributions right now.</p>
 <section class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
