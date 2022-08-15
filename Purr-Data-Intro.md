@@ -195,19 +195,20 @@ A recent addition are the extended subpatch and abstraction creation and saving 
 
 ### Auto-Completion
 
-Another major addition to Purr Data, contributed by Gabriela Bittencourt in the Google Summer of Code 2021, is the new auto-completion facility. This is a big time-saver for both novices and seasoned Pd users. While this feature is still considered a bit experimental, it works amazingly well already. At present this is only available in the JGU pre-releases from the GitHub mirror, but it will hopefully soon land in Purr Data 2.17.1.
+Another major addition to Purr Data, contributed by Gabriela Bittencourt in the Google Summer of Code 2021, is the new auto-completion facility. This is a big time-saver for both novices and seasoned Pd users. While this feature is still considered a bit experimental, it works amazingly well already. At present this is only available in the JGU pre-releases from the GitHub mirror, but it will hopefully soon be included in the next official release.
 
 If you know any code editors or shell auto-completion, then most likely you're already familiar with how this works. As soon as you start typing into an empty object box, auto-completion will assist you by offering possible completions of object names and arguments in a little popup menu. The list of available completions gets updated as you type. You can either select a completion from the menu, or cycle through the available options with the Tab key. Purr Data's auto-completion ties in with its help system, so the completion table is well-populated from the get-go, but it also learns new completions as you create object instances, and you can remove existing completions with the Ctrl+Y key combination.
 
-Note that in order to save screen real-estate, the popup only contains the first few options. At present the menu cannot be scrolled, but it is possible to cycle through *all* available completions with the Tab key.
+Note that in order to save screen real-estate, the popup only contains a few options, but it is possible to cycle through *all* available completions with the Tab key. This also scrolls the popup as needed.
 
 Currently the following mouse and key bindings are implemented:
 
 - Clicking with the left mouse button in the popup menu performs the selected completion.
 - Pressing the cursor down key once allows you to traverse the popup menu with the cursor up/down keys, and to select an option with the Return key.
 - The Tab key cycles through all the available completions, Shift+Tab does the same in reverse order.
+- Alt+Home and Alt+End quickly take you to the first and last completion, respectively.
 - The Esc key makes the popup disappear until you start typing again.
-- Ctrl+Y removes ("yanks") a completion. You'll be prompted in the Pd console that you have to type Ctrl+Y again to confirm; typing Esc or any other key aborts the operation. This is most useful to remove object and argument completions that you entered yourself. (While it can be used to remove completions from the help index, these will be re-added later when the help index is rebuilt.)
+- Ctrl+Y removes ("yanks") a completion. You'll be notified in the Pd console that you have to type Ctrl+Y again to confirm; typing Esc or any other key aborts the operation. This is most useful to remove object and argument completions that you entered yourself. (While it can be used to remove completions from the help index, these will be re-added later when the help index is rebuilt.)
 
 Configuration options for the auto-completion facility can be found on the GUI tab in the preferences dialog (cf. [GUI and Startup Options] and [@fig:fig3], left). If you want to use auto-completion, you first have to enable it there, as it is currently disabled by default. The other option, "match completions by object name prefix", lets you narrow the scope of the available object name completions. If it is enabled, only object names with an identical prefix are shown. Otherwise, matches that contain the text you typed *anywhere* in the object name will be listed. The latter is most useful for Pd novices, and hence is the default. However, if you're an expert user and just want a quicker way of entering object names, you may want to opt for the prefix option, which is more precise but will only work well if you already know most common Pd object names by heart.
 

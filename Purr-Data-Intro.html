@@ -1211,7 +1211,7 @@ auto-completion facility. This is a big time-saver for both novices and
 seasoned Pd users. While this feature is still considered a bit
 experimental, it works amazingly well already. At present this is only
 available in the JGU pre-releases from the GitHub mirror, but it will
-hopefully soon land in Purr Data 2.17.1.</p>
+hopefully soon be included in the next official release.</p>
 <p>If you know any code editors or shell auto-completion, then most
 likely you’re already familiar with how this works. As soon as you start
 typing into an empty object box, auto-completion will assist you by
@@ -1224,9 +1224,9 @@ get-go, but it also learns new completions as you create object
 instances, and you can remove existing completions with the Ctrl+Y key
 combination.</p>
 <p>Note that in order to save screen real-estate, the popup only
-contains the first few options. At present the menu cannot be scrolled,
-but it is possible to cycle through <em>all</em> available completions
-with the Tab key.</p>
+contains a few options, but it is possible to cycle through <em>all</em>
+available completions with the Tab key. This also scrolls the popup as
+needed.</p>
 <p>Currently the following mouse and key bindings are implemented:</p>
 <ul>
 <li>Clicking with the left mouse button in the popup menu performs the
@@ -1236,9 +1236,11 @@ menu with the cursor up/down keys, and to select an option with the
 Return key.</li>
 <li>The Tab key cycles through all the available completions, Shift+Tab
 does the same in reverse order.</li>
+<li>Alt+Home and Alt+End quickly take you to the first and last
+completion, respectively.</li>
 <li>The Esc key makes the popup disappear until you start typing
 again.</li>
-<li>Ctrl+Y removes (“yanks”) a completion. You’ll be prompted in the Pd
+<li>Ctrl+Y removes (“yanks”) a completion. You’ll be notified in the Pd
 console that you have to type Ctrl+Y again to confirm; typing Esc or any
 other key aborts the operation. This is most useful to remove object and
 argument completions that you entered yourself. (While it can be used to
