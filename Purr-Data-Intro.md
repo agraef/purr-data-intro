@@ -249,15 +249,25 @@ Besides these, you can also copy externals to the `extra` subdirectory of your P
 
 For singleton externals it will usually be enough if you just copy them into one of these folders and then relaunch Purr Data. External libraries containing a collection of different externals, on the other hand, will typically require that you also load the library at startup, using the available startup configuration options in the preferences (see [GUI and Startup Options] above). 
 
+### Where are my configuration files?
+
+This is indeed a bit confusing across all Pd flavors, so some remarks are in order. Purr Data, owing to its Pd-extended heritage, stores configuration data in various places, depending on the host system and the kind of configuration data.
+
+- Linux: Both user preferences and the cached data for the help and completion indices are in the `~/.purr-data` folder in your home directory.
+- Mac: User preferences are in the `~/Library/Preferences/org.puredata.pd-l2ork.plist` file in your home directory, while help and completion data lives in `~/.purr-data`.
+- Windows: User preferences are stored in the Windows registry, while help and completion data lives in `%AppData%\Purr-Data` (usually located in a hidden `AppData\Roaming` subdirectory of your Windows "home directory" where all your personal data is stored, but you can just type the path as shown here in File Explorer and it will take you there).
+
+Normally you shouldn't have to mess with this data, but it's good to know it's there, e.g., in case you want to reset Purr Data to its default configuration, see [Resetting the preferences] below.
+
+Note that you can always just remove the help and completion index data to reset those to their defaults, since they will be recreated automatically. The help index is stored in the `search.index` and  `search.stamps` files, while the completion index lives in `completions.json`. Also, your help browser bookmarks can be found in the `bookmarks.json` file. Note that the latter two are both in JSON a.k.a. "JavaScript Object Notation" format, which is a language-independent data interchange format like XML, but using JavaScript-like syntax. The bookmark file is formatted in a human-friendly way so that you can easily edit it if needed, while the completion data isn't, and you probably shouldn't mess with it. (However, if you are a seasoned JavaScript/JSON user, then you probably know some tools like [jq](https://stedolan.github.io/jq/) to work around this.)
+
 ### Resetting the preferences
 
 It happens to the best of us that we mess up our Pd configuration so badly that it is beyond repair. In such a case you probably want to go back to Purr Data's default setup and start from a clean slate again. While Purr Data's preferences dialog does not provide a button for this (yet), there are other ways to accomplish this. They depend on the particular platform, however.
 
 - On Linux, do `rm -rf ~/.purr-data` in the terminal.
-
 - On the Mac, do `rm ~/Library/Preferences/org.puredata.pd-l2ork.plist` in the terminal.
-
-- On Windows, the easiest way is to just reinstall the Purr Data package and make sure that you remove the previous installation when prompted. This will also clear out the registry entries and leave you with the default configuration. However, you can also launch the `regedit` program and manually remove the `HKEY_CURRENT_USER\Software\Purr-Data` or `HKEY_LOCAL_MACHINE\Software\Purr-Data` registry key and all its subkeys.
+- On Windows, the easiest way is to just reinstall the Purr Data package and make sure that you remove the previous installation when prompted. This will also clear out the registry entries and leave you with the default configuration.^[Note that on Windows, a quick and dirty way to get rid of your user preferences is to launch the `regedit` program and manually remove the `HKEY_CURRENT_USER\SOFTWARE\Purr-Data` registry key and all its subkeys. Be warned, however, that this will leave you with a completely empty library configuration with *no* preloaded libraries at all. This may sometimes be what you want, if you prefer to build your own library configuration, but there's a better way which retains the library configuration. For that you first need to back up your configuration data after a fresh install. Launch `regedit`, right-click the `HKEY_CURRENT_USER\SOFTWARE\Purr-Data` key, and export it to a file. Et voilà, if you need to reset your user preferences in the future, just launch `regedit` again, delete the `HKEY_CURRENT_USER\SOFTWARE\Purr-Data` key, and import the backup you created.]
 
 Then just relaunch Purr Data. Your preferences should now be in pristine state again, and all the default search paths and startup libraries will be restored. Your audio and MIDI device configuration, and the other bits and bobs that you changed in the preferences will be gone as well, so you'll have to redo those.
 

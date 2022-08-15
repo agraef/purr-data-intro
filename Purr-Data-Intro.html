@@ -1360,6 +1360,45 @@ hand, will typically require that you also load the library at startup,
 using the available startup configuration options in the preferences
 (see <a href="#gui-and-startup-options">GUI and Startup Options</a>
 above).</p>
+<h3 id="where-are-my-configuration-files">Where are my configuration
+files?</h3>
+<p>This is indeed a bit confusing across all Pd flavors, so some remarks
+are in order. Purr Data, owing to its Pd-extended heritage, stores
+configuration data in various places, depending on the host system and
+the kind of configuration data.</p>
+<ul>
+<li>Linux: Both user preferences and the cached data for the help and
+completion indices are in the <code>~/.purr-data</code> folder in your
+home directory.</li>
+<li>Mac: User preferences are in the
+<code>~/Library/Preferences/org.puredata.pd-l2ork.plist</code> file in
+your home directory, while help and completion data lives in
+<code>~/.purr-data</code>.</li>
+<li>Windows: User preferences are stored in the Windows registry, while
+help and completion data lives in <code>%AppData%\Purr-Data</code>
+(usually located in a hidden <code>AppData\Roaming</code> subdirectory
+of your Windows “home directory” where all your personal data is stored,
+but you can just type the path as shown here in File Explorer and it
+will take you there).</li>
+</ul>
+<p>Normally you shouldn’t have to mess with this data, but it’s good to
+know it’s there, e.g., in case you want to reset Purr Data to its
+default configuration, see <a href="#resetting-the-preferences">Resetting the preferences</a>
+below.</p>
+<p>Note that you can always just remove the help and completion index
+data to reset those to their defaults, since they will be recreated
+automatically. The help index is stored in the <code>search.index</code>
+and <code>search.stamps</code> files, while the completion index lives
+in <code>completions.json</code>. Also, your help browser bookmarks can
+be found in the <code>bookmarks.json</code> file. Note that the latter
+two are both in JSON a.k.a. “JavaScript Object Notation” format, which
+is a language-independent data interchange format like XML, but using
+JavaScript-like syntax. The bookmark file is formatted in a
+human-friendly way so that you can easily edit it if needed, while the
+completion data isn’t, and you probably shouldn’t mess with it.
+(However, if you are a seasoned JavaScript/JSON user, then you probably
+know some tools like <a href="https://stedolan.github.io/jq/">jq</a> to
+work around this.)</p>
 <h3 id="resetting-the-preferences">Resetting the preferences</h3>
 <p>It happens to the best of us that we mess up our Pd configuration so
 badly that it is beyond repair. In such a case you probably want to go
@@ -1368,19 +1407,14 @@ While Purr Data’s preferences dialog does not provide a button for this
 (yet), there are other ways to accomplish this. They depend on the
 particular platform, however.</p>
 <ul>
-<li><p>On Linux, do <code>rm -rf ~/.purr-data</code> in the
-terminal.</p></li>
-<li><p>On the Mac, do
+<li>On Linux, do <code>rm -rf ~/.purr-data</code> in the terminal.</li>
+<li>On the Mac, do
 <code>rm ~/Library/Preferences/org.puredata.pd-l2ork.plist</code> in the
-terminal.</p></li>
-<li><p>On Windows, the easiest way is to just reinstall the Purr Data
+terminal.</li>
+<li>On Windows, the easiest way is to just reinstall the Purr Data
 package and make sure that you remove the previous installation when
 prompted. This will also clear out the registry entries and leave you
-with the default configuration. However, you can also launch the
-<code>regedit</code> program and manually remove the
-<code>HKEY_CURRENT_USER\Software\Purr-Data</code> or
-<code>HKEY_LOCAL_MACHINE\Software\Purr-Data</code> registry key and all
-its subkeys.</p></li>
+with the default configuration.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 </ul>
 <p>Then just relaunch Purr Data. Your preferences should now be in
 pristine state again, and all the default search paths and startup
@@ -1538,6 +1572,22 @@ out to major Linux distributions right now.</p>
 outcome unambiguous. Otherwise Purr Data will often prefer creating
 outgoing connections, in which case you’ll have to hold down the Ctrl
 key to enforce incoming connections.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Note that on Windows, a quick and
+dirty way to get rid of your user preferences is to launch the
+<code>regedit</code> program and manually remove the
+<code>HKEY_CURRENT_USER\SOFTWARE\Purr-Data</code> registry key and all
+its subkeys. Be warned, however, that this will leave you with a
+completely empty library configuration with <em>no</em> preloaded
+libraries at all. This may sometimes be what you want, if you prefer to
+build your own library configuration, but there’s a better way which
+retains the library configuration. For that you first need to back up
+your configuration data after a fresh install. Launch
+<code>regedit</code>, right-click the
+<code>HKEY_CURRENT_USER\SOFTWARE\Purr-Data</code> key, and export it to
+a file. Et voilà, if you need to reset your user preferences in the
+future, just launch <code>regedit</code> again, delete the
+<code>HKEY_CURRENT_USER\SOFTWARE\Purr-Data</code> key, and import the
+backup you created.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 </body>
