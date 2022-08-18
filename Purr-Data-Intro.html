@@ -1415,6 +1415,19 @@ completion data isn’t, and you probably shouldn’t mess with it.
 (However, if you are a seasoned JavaScript/JSON user, then you probably
 know some tools like <a href="https://stedolan.github.io/jq/">jq</a> to
 work around this.)</p>
+<p>The completion and help indices should normally be re-generated
+automatically if any of the installed help patches are updated, e.g., if
+you upgrade to a new Purr Data version. However, you can also
+re-generate both indices at any time if needed, following these steps:
+Open the Preferences dialog and switch to the GUI tab; disable
+auto-completions and press the Apply button; enable auto-completions
+again and press the Ok button. Both indices should then be re-created
+immediately. Note that existing completions will not be affected by
+this, but the index will be updated if any new completions can be
+gathered from the help patches. If you want to completely reset the
+completions, you’ll have to exit Purr Data, remove the completions.json
+file, and restart Purr Data, after which the completion and help indices
+will both be re-created from scratch.</p>
 <h3 id="resetting-the-preferences">Resetting the preferences</h3>
 <p>It happens to the best of us that we mess up our Pd configuration so
 badly that it is beyond repair. In such a case you probably want to go
