@@ -150,7 +150,7 @@ The bookmarks are stored in JSON format in the user's configuration directory (w
 
 The GUI tab in the preferences dialog (cf. [GUI and Startup Options] and [@fig:fig3], left) offers some options to configure the scope of the keyword search. Note that in order to perform keyword searches, the help browser first needs to construct an index of all the help patches and their keywords. This is either done on the fly, when the help browser is first opened during a Purr Data session (this is the default), or when the application is launched. As of Purr Data 2.14.1, the help index is cached in the user's configuration directory, along with the bookmark data (see [Bookmarks] above), and only rebuilt from scratch when needed (i.e., if the contents of the indexed directories changes).
 
-Once the index has been built and cached, the help browser will always come up quickly on subsequent invocations. But depending on how many patches you are indexing, creating the index may take a while (anywhere from less than a second to several seconds on modern hardware), so changing these options *will* have an impact on indexing time. This is mitigated by the fact that indexing will only have to be done every once in a while (after a fresh install or an upgrade of Purr Data, or when the scope of indexed patches is changed in the configuration). But if you rarely use the help browser at all, then you may want to ensure that the "prepare the help index at application start" option is unchecked (which is the default).
+Once the index has been built and cached, the help browser will always come up quickly on subsequent invocations. But depending on how many patches you are indexing, creating the index may take a while (anywhere from less than a second to several seconds on modern hardware), so changing these options *will* have an impact on indexing time. This is mitigated by the fact that indexing will only have to be done every once in a while (after a fresh install or an upgrade of Purr Data, or when the scope of indexed patches is changed in the configuration).
 
 There are two options which let you change the scope of indexed patches (changing these options will take effect as soon as you relaunch the help browser, and trigger creation of a new index file):
 
@@ -158,6 +158,8 @@ There are two options which let you change the scope of indexed patches (changin
 - The "help browser also searches the help path" option, when checked, lets you tailor the keyword search to the externals you're working with, so that you won't be swamped with keyword matches from externals you never use. These externals may be located anywhere you choose, including the extra/ hierarchy, but note that if you've already unchecked the "help browser only searches the doc folder" option, then there's no need to also explicitly add subdirectories of extra/. In either case, the directories to be searched with this option are set using Purr Data's *help path* (having them in the library search path is *not* enough). You do this using Purr Data's `-helppath` option which can be added to the "startup flags" field at the bottom of the Startup tab. E.g., on Linux you may want to add something like `-helppath ~/pd-l2ork-externals` (that directory is often used on Linux for custom and personal external collections).
 
 Finally, note that in the latest versions of Purr Data, there's a new auto-completion facility (see [Auto-Completion] below) which depends on the help index, so its options affect the indexing process as well. Specifically, if auto-completion is enabled by the user, then indexing will always happen as soon as possible, as if the "prepare the help index at application start" option was checked. This is necessary to ensure that the help index data needed by auto-completion is available and up-to-date.
+
+At the bottom of the GUI preferences you can also find a checkbox and a button which can be used to reset both help and completion indexes if needed. This is described in more detail, along with the corresponding index files, in [Where are my configuration files?] in the [Tips and Tricks] section below.
 
 ## Pd-l2ork and Purr Data Goodies
 
@@ -183,7 +185,7 @@ Purr Data has a help patch for this incredibly useful facility, which I have als
 
 ### Subpatch and Abstraction Features
 
-A recent addition are the extended subpatch and abstraction creation and saving facilities, which were contributed by Guillem Bartrina during the Google Summer of Code 2020:
+A recent addition are the extended subpatch and abstraction creation and saving facilities, which were contributed by Guillem Bartrina during the Google Summer of Code (GSoC) 2020:
 
 - A new "Encapsulate" option in the Edit menu lets you turn a collection of selected objects into a corresponding one-off subpatch in a fully automatic way. This finally makes creating one-offs from parts of your patches a very quick and easy operation.
 
@@ -195,26 +197,24 @@ A recent addition are the extended subpatch and abstraction creation and saving 
 
 ### Auto-Completion
 
-Another major addition to Purr Data, contributed by Gabriela Bittencourt in the Google Summer of Code 2021, is the new auto-completion facility. This is a big time-saver for both novices and seasoned Pd users.
+Another major addition to Purr Data, contributed by Gabriela Bittencourt in GSoC 2021, is the new auto-completion facility. Also, Ayush Anand added important usability improvements to this feature during his GSoC 2024 project. This is a big time-saver for both novices and seasoned Pd users.
 
-If you know any code editors or shell auto-completion, then most likely you're already familiar with how this works. As soon as you start typing into an empty object box, auto-completion will assist you by offering possible completions of object names and arguments in a little popup menu. The list of available completions gets updated as you type. You can either select a completion from the menu, or cycle through the available options with the Tab key. Purr Data's auto-completion ties in with its help system, so the completion table is well-populated from the get-go, but it also learns new completions as you create object instances, and you can remove existing completions with the Ctrl+Y key combination.
-
-Note that in order to save screen real-estate, the popup only contains a few options, but it is possible to cycle through *all* available completions with the Tab key. This also scrolls the popup as needed.
+If you know any code editors or shell auto-completion, then most likely you're already familiar with how this works. As soon as you start typing into an empty object box, auto-completion will assist you by offering possible completions of object names and arguments in a little popup menu. The list of available completions gets updated as you type, and the completion text is highlighted in the menu. You can either select a completion from the menu, or cycle through the available options with the cursor up and down keys (this also scrolls the menu as needed). Purr Data's auto-completion ties in with its help system, so the completion table is well-populated from the get-go, but it also learns new completions as you create object instances, and you can remove existing completions with the Ctrl+Y key combination.
 
 Currently the following mouse and key bindings are implemented:
 
-- Clicking with the left mouse button in the popup menu performs the selected completion.
+- Pressing the Tab key or clicking with the left mouse button in the popup menu performs the selected completion.
 - Pressing the cursor down key once allows you to traverse the popup menu with the cursor up/down keys, and to select an option with the Return key.
-- The Tab key cycles through all the available completions, Shift+Tab does the same in reverse order.
-- Alt+Home and Alt+End quickly take you to the first and last completion, respectively. (Note that on a Mac keyboard without Home and End keys you can use Fn+Alt combined with the left and right cursor keys instead.)
 - The Esc key makes the popup disappear until you start typing again.
-- Ctrl+Y removes ("yanks") a completion. You'll be notified in the Pd console that you have to type Ctrl+Y again to confirm; typing Esc or any other key aborts the operation. This is most useful to remove object and argument completions that you entered yourself. (While it can be used to remove completions from the help index, these will be re-added later when the help index is rebuilt.)
+- Ctrl+Y removes ("yanks") a completion. You'll be notified in the Pd console that you have to type Ctrl+Y again to confirm; typing Esc or any other key aborts the operation. Note that this operation affects the current completion as shown in the object box, not the currently selected menu item. This is most useful to remove object and argument completions that you entered yourself. (While it can be used to remove completions from the help index, these will be re-added later when the help index is rebuilt.)
 
 Configuration options for the auto-completion facility can be found on the GUI tab in the preferences dialog (cf. [GUI and Startup Options] and [@fig:fig3], left). In the latest releases, auto-completion is enabled by default; you can uncheck the first option to disable it.
 
-The second option, "match completions by object name prefix", also known as "expert mode", lets you narrow the scope of the available object name completions. If it is enabled, only matches for the object name prefix that you typed are shown (same as in bash). Otherwise, matches may contain the text you typed *anywhere* in the object name, not just at the beginning. This is also colloquially referred to as "newbie mode" and is the default, since it makes it easy to discover objects, which is nice if you don't know exactly what you're looking for. As there is a plethora of built-in and external objects available in Purr Data, newbie mode is in fact a good option for newbies and experts alike, but expert mode is more efficient if you already know most common Pd object names by heart. Note that in either case the completion engine uses "fuzzy", i.e., approximate string matching which tolerates minor typos.
+The second option, "match completions by object name prefix" lets you narrow the scope of the available object name completions. If it is enabled, only matches for the object name prefix that you typed are shown (same as in bash). Otherwise, matches may contain the text you typed *anywhere* in the object name, not just at the beginning. This makes it easy to discover objects, which is nice if you don't know exactly what you're looking for. As there is a plethora of built-in and external objects available in Purr Data, this mode is in fact a good option for newbies and experts alike, but prefix mode is more efficient if you already know most common Pd object names by heart. Note that in either case the completion engine uses "fuzzy", i.e., approximate string matching which tolerates minor typos.
 
 The third option, "sort completions by relevance", doesn't affect which completions are shown, but the order in which they are listed. In the current implementation, built-in ("vanilla") objects will generally be preferred, as are (to a lesser extent) objects which you use more often (as determined by live usage data which is updated every time you instantiate an object). Otherwise, completions will be shown in an alphabetical order.
+
+The fourth option, "show tooltips for objects", displays tooltips with short descriptions of the objects in the menu as you hover over them with the mouse. This will also be helpful for beginners, but can be disabled if you find it too distracting. Also note that not all objects have descriptions in the help index, so no tooltip will be shown in such cases.
 
 ## Purr Data and Pd-Lua
 
@@ -258,7 +258,7 @@ For singleton externals it will usually be enough if you just copy them into one
 
 This is indeed a bit confusing across all Pd flavors, so some remarks are in order. Purr Data, owing to its Pd-extended heritage, stores configuration data in various places, depending on the host system and the kind of configuration data.
 
-- Linux: Both user preferences and the cached data for the help and completion indices are in the `~/.purr-data` folder in your home directory.
+- Linux: Both user preferences and the cached data for the help and completion indexes are in the `~/.purr-data` folder in your home directory.
 - Mac: User preferences are in the `~/Library/Preferences/org.puredata.purr-data.plist` file in your home directory, while help and completion data lives in `~/.purr-data`.
 - Windows: User preferences are stored in the Windows registry, while help and completion data lives in `%AppData%\Purr-Data` (usually located in a hidden `AppData\Roaming` subdirectory of your Windows "home directory" where all your personal data is stored, but you can just type the path as shown here in File Explorer and it will take you there).
 
@@ -266,7 +266,7 @@ Normally you shouldn't have to mess with this data, but it's good to know it's t
 
 Note that you can always just remove the help and completion index data to reset those to their defaults, since they will be recreated automatically. The help index is stored in the `search.index` and  `search.stamps` files, while the completion index lives in `completions.json`. Also, your help browser bookmarks can be found in the `bookmarks.json` file. Note that the latter two are both in JSON a.k.a. "JavaScript Object Notation" format, which is a language-independent data interchange format like XML, but using JavaScript-like syntax. The bookmark file is formatted in a human-friendly way so that you can easily edit it if needed, while the completion data isn't, and you probably shouldn't mess with it. (However, if you are a seasoned JavaScript/JSON user, then you probably know some tools like [jq](https://stedolan.github.io/jq/) to work around this.)
 
-The completion and help indices should normally be re-generated automatically if any of the installed help patches are updated, e.g., if you upgrade to a new Purr Data version. However, you can also re-generate both indices at any time if needed, following these steps: Open the Preferences dialog and switch to the GUI tab; disable auto-completions and press the Apply button; enable auto-completions again and press the Ok button. Both indices should then be re-created immediately. Note that existing completions will not be affected by this, but the index will be updated if any new completions can be gathered from the help patches. If you want to completely reset the completions, you'll have to exit Purr Data, remove the completions.json file, and restart Purr Data, after which the completion and help indices will both be re-created from scratch.
+The completion and help indexes should normally be re-generated automatically if any of the installed help patches are updated, e.g., if you upgrade to a new Purr Data version. However, you can also re-generate both indexes at any time if needed, using the "Reset indexes" button at the bottom of the GUI preferences (see [GUI and Startup Options] above). Both indexes should then be re-created immediately. Note that existing completions will not be affected by this, but the index will be updated if any new completions can be gathered from the help patches. If you want to completely reset the completions, check the "clear completions" toggle before pushing the "Reset indexes" button. The completion and help indexes will then both be re-created from scratch.
 
 ### Resetting the preferences
 
