@@ -1428,6 +1428,18 @@ if any new completions can be gathered from the help patches. If you
 want to completely reset the completions, check the “clear completions”
 toggle before pushing the “Reset indexes” button. The completion and
 help indexes will then both be re-created from scratch.</p>
+<p>Finally, nw.js also stores its own configuration data in various
+places, depending on the host system:</p>
+<ul>
+<li>Linux: <code>~/.config/purr-data</code></li>
+<li>Mac: <code>~/Library/Application Support/purr-data</code></li>
+<li>Windows: <code>%LOCALAPPDATA%/purr-data</code></li>
+</ul>
+<p>Again, normally, you don’t want to mess with this, but you may have
+to reset the data in some circumstances, e.g., if you downgrade to an
+older Purr Data version which ships with an earlier nw.js release. You
+can do so by just removing the configuration directory for your type of
+system before launching Purr Data.</p>
 <h3 id="resetting-the-preferences">Resetting the preferences</h3>
 <p>It happens to the best of us that we mess up our Pd configuration so
 badly that it is beyond repair. In such a case you probably want to go

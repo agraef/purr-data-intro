@@ -270,6 +270,14 @@ Note that you can always just remove the help and completion index data to reset
 
 The completion and help indexes should normally be re-generated automatically if any of the installed help patches are updated, e.g., if you upgrade to a new Purr Data version. However, you can also re-generate both indexes at any time if needed, using the "Reset indexes" button at the bottom of the GUI preferences (see [GUI and Startup Options] above). Both indexes should then be re-created immediately. Note that existing completions will not be affected by this, but the index will be updated if any new completions can be gathered from the help patches. If you want to completely reset the completions, check the "clear completions" toggle before pushing the "Reset indexes" button. The completion and help indexes will then both be re-created from scratch.
 
+Finally, nw.js also stores its own configuration data in various places, depending on the host system:
+
+- Linux: `~/.config/purr-data`
+- Mac: `~/Library/Application Support/purr-data`
+- Windows: `%LOCALAPPDATA%/purr-data`
+
+Again, normally, you don't want to mess with this, but you may have to reset the data in some circumstances, e.g., if you downgrade to an older Purr Data version which ships with an earlier nw.js release. You can do so by just removing the configuration directory for your type of system before launching Purr Data.
+
 ### Resetting the preferences
 
 It happens to the best of us that we mess up our Pd configuration so badly that it is beyond repair. In such a case you probably want to go back to Purr Data's default setup and start from a clean slate again. While Purr Data's preferences dialog does not provide a button for this (yet), there are other ways to accomplish this. They depend on the particular platform, however.
