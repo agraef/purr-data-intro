@@ -98,7 +98,7 @@ The GUI theme can be selected on the "GUI" tab (see [@fig:fig3], left). The chan
 
 ![GUI and Startup options.](prefs-gui+startup.png){#fig:fig3}
 
-The final tab in the preferences dialog is the "Startup" tab ([@fig:fig3], right), which lets you edit the lists of library paths and startup libraries, as well as the additional options the program is to be invoked with. By default, Purr Data loads most bundled external libraries at startup and adds the corresponding directories to its library search path. If you don't need all of these, you can remove individual search paths and/or libraries using the "Search Paths" and "Libraries" lists on the Startup tab. Just click on a search path or library and click the `Delete` button. It is also possible to select an item and add your own search paths and external libraries with the `New` button, or change an existing entry with the `Edit` button.
+The "Startup" tab ([@fig:fig3], right) lets you edit the lists of library paths and startup libraries, as well as the additional options the program is to be invoked with. By default, Purr Data loads most bundled external libraries at startup and adds the corresponding directories to its library search path. If you don't need all of these, you can remove individual search paths and/or libraries using the "Search Paths" and "Libraries" lists on the Startup tab. Just click on a search path or library and click the `Delete` button. It is also possible to select an item and add your own search paths and external libraries with the `New` button, or change an existing entry with the `Edit` button.
 
 At the bottom of the Startup tab there is a "startup flags" field which lets you specify which additional options the program should be invoked with. This is commonly used to add options like `-legacy` (which enforces bug compatibility with vanilla Pd) as well as the `-path` and `-lib` options which provide an alternative way to add search paths and external libraries. For instance, to add the pd-faustgen2 extension to the startup libraries, the Startup Flags field may contain something like the following: `-lib faustgen2~`
 
@@ -107,6 +107,16 @@ Any desired startup options can be set that way, i.e., anything that Pd usually 
 As with the other configuration options, remember to press the `Ok` button in order to have your changes recorded in permanent storage. This will also close the dialog.
 
 Finally, note that if your configuration gets seriously messed up, there are ways to reset Purr Data to its default configuration, see [Resetting the preferences] in the [Tips and Tricks] section.
+
+## Reporting Bugs
+
+The final tab in the preferences dialog is the "Feedback" tab, which was added by Ayush Anand for Purr Data 2.19.4 during his GSoC 2024 project ([@fig:feedback]).
+
+![Providing Feedback.](prefs-feedback.png){#fig:feedback width=50% height=50%}
+
+After filling out the form, clicking the `Submit` button takes you to the "New issue" page on Purr Data's GitHub mirror in your web browser, with the information that you provided already filled in, so that you can just push the "Submit new issue" button and be done with it. Please note that this requires that you're logged into your GitHub account (if not then the GitHub page will first prompt you to log in). Thus a **GitHub account is needed** to submit your feedback.
+
+You're encouraged to use this whenever you discover a bug or some usability issue, or would like to provide any kind of feedback related to the program. Please provide as much information as you can about the issue that you have, following the instructions in the form as good as you can, otherwise the Purr Data developers may not be able to help you and your bug report might just be deleted.
 
 ## Getting Help
 
