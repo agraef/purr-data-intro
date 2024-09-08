@@ -13,7 +13,7 @@ Computer Music Dept., Institute of Art History and Musicology
 Johannes Gutenberg University (JGU) Mainz, Germany  
 September 2024
 
-This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)  
+This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Other formats: [Markdown](https://github.com/agraef/pd-lua/blob/master/tutorial/pd-lua-intro.md) source, [PDF](Purr-Data-Intro.pdf)  
 Permanent link: <https://agraef.github.io/purr-data-intro/>
 
 **Purr Data** is an improved version of Miller Puckette's interactive computer music and multimedia software **Pd**. This document provides new or prospective Purr Data users with a gentle introduction to the program and some helpful information to get started.
