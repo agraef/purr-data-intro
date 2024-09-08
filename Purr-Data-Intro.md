@@ -1,12 +1,19 @@
+---
+author: Albert Gräf
+title: Meet the Cat
+footer: ${title} - ${pageNo} / ${pageCount}
+---
+
+
+
 # Meet the Cat: A Quick Introduction to Purr Data
 
-Albert Gräf <<aggraef@gmail.com>>  
+Albert Gräf \<<aggraef@gmail.com>\>  
 Computer Music Dept., Institute of Art History and Musicology  
 Johannes Gutenberg University (JGU) Mainz, Germany  
-August 2024
+September 2024
 
-This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
-Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)  
+This document is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Other formats: [Markdown](Purr-Data-Intro.md) source, [PDF](Purr-Data-Intro.pdf)  
 Permanent link: <https://agraef.github.io/purr-data-intro/>
 
 **Purr Data** is an improved version of Miller Puckette's interactive computer music and multimedia software **Pd**. This document provides new or prospective Purr Data users with a gentle introduction to the program and some helpful information to get started.
@@ -25,9 +32,12 @@ Despite the many and substantial improvements it offered, Pd-l2ork's GUI was sti
 
 In 2015 Jonathan Wilkes stepped in and started creating **Purr Data** to address these problems. In a nutshell, Purr Data is Pd-l2ork with the Tcl/Tk GUI part ripped out and replaced with modern web technology. To these ends, it uses an open-source framework called [nw.js](https://nwjs.io/) a.k.a. "node-webkit", which is essentially a stand-alone web browser engine ([Chromium](http://www.chromium.org/)) combined with a JavaScript runtime ([Node.js](http://nodejs.org/)). While the latter was originally invented for developing server-side web applications, frameworks like nw.js allow the two to be used in concert to create fully-fledged and portable desktop applications. Using nw.js ensures that Purr Data runs on Linux, Mac and Windows, looking the same on all supported platforms, and it paves the way to leverage standard web technologies such as [JavaScript](https://en.wikipedia.org/wiki/JavaScript), [HTML5](https://www.w3.org/TR/html5/), [CSS3](https://www.w3.org/Style/CSS/) and [SVG](https://www.w3.org/TR/SVG/).
 
-Purr Data's GUI is written entirely in JavaScript, which is a much more advanced programming language than Tcl with an abundance of libraries and support materials. This makes the further development of Purr Data's graphical user interface a lot easier now that the initial GUI port is done. Patches are implemented as HTML5 SVG documents which offer better responsiveness and graphical capabilities than Tk windows. They can also be themed using CSS and zoomed like any browser window, improving usability. Purr Data also looks better and is easier on the eyes than classic Pd-l2ork, let alone vanilla Pd, especially on high-dpi displays (cf. [@fig:fig1]).
+Purr Data's GUI is written entirely in JavaScript, which is a much more advanced programming language than Tcl with an abundance of libraries and support materials. This makes the further development of Purr Data's graphical user interface a lot easier now that the initial GUI port is done. Patches are implemented as HTML5 SVG documents which offer better responsiveness and graphical capabilities than Tk windows. They can also be themed using CSS and zoomed like any browser window, improving usability. Purr Data also looks better and is easier on the eyes than classic Pd-l2ork, let alone vanilla Pd, especially on high-dpi displays (cf. [Fig. 1](#fig1)).
 
-![Purr Data running on macOS.](purr-data.png){#fig:fig1}
+<figure>
+  <img id="fig1" src="purr-data.png" alt="Purr Data running on macOS." style="width:100%">
+  <center><figcaption>Fig. 1 - Purr Data running on macOS.</figcaption></center>
+</figure>
 
 Purr Data's nw.js GUI also has some disadvantages. First, some of the included externals still rely on Tcl code, so their GUI features will not work in Purr Data until they get ported to the new GUI. Second, the size of the binary package is considerably larger than with Pd-extended since it also includes the full nw.js binary distribution. (This is a valid concern with many of the so-called "portable desktop applications" being offered these days.) Third, the browser engine has a much higher memory footprint than Tcl/Tk which might be an issue on embedded platforms with *very* tight memory constraints. While none of these issues should normally be a real show-stopper on the supported platforms, it is worth keeping them in mind.
 
@@ -45,8 +55,7 @@ Quite obviously the name is a play on "Pure Data" on which "Purr Data" is ultima
 
 We also refer to Bukvic's original Pd-l2ork version as Pd-l2ork 1.0 or "classic" Pd-l2ork. Note that Purr Data still clearly shows its Pd-l2ork heritage. It shares a lot of code with Pd-l2ork (essentially all the non-GUI parts), and the executable, library directory etc. are all still named after pd-l2ork as well.
 
-<center><img src="purr.png" alt="logo" style="width: 10%; height: 10%" /></center>
-\begin{center}\includegraphics[width=20mm]{purr.png}\end{center}
+![](purr.png)
 
 ## Where to Get It
 
@@ -66,7 +75,7 @@ You can also right-click on a patch (.pd) file, choose "Open With" and then sele
 
 In any case, Purr Data should then launch its main "console" window which logs all messages from the program. If you opened a patch file, it will be shown in a separate "canvas" window.
 
-Purr Data understands basically the same set of command line options as vanilla Pd or Pd-l2ork. On Linux, you can find out about these by running `purr-data -help` from the command line. (This isn't easy to do on Mac and Windows, since the program executable is stowed away somewhere in the application folder.) Some common options which can be placed into the startup flags are `-path` and `-lib`, see section [GUI and Startup Options] below.
+Purr Data understands basically the same set of command line options as vanilla Pd or Pd-l2ork. On Linux, you can find out about these by running `purr-data -help` from the command line. (This isn't easy to do on Mac and Windows, since the program executable is stowed away somewhere in the application folder.) Some common options which can be placed into the startup flags are `-path` and `-lib`, see section [GUI and Startup Options](#gui-and-startup-options) below.
 
 ### Single Application Instance
 
@@ -74,7 +83,7 @@ Unlike vanilla Pd, Purr Data normally runs as a *single application instance*. I
 
 ### Multiple Application Instances
 
-As of version 2.3.2, Purr Data can also be invoked with the `-unique` flag to create multiple application instances. On Linux, you can do this by just specifying the `-unique` option on the command line or by editing the desktop icon you use to launch Purr Data. On Mac and Windows (as well as Linux), you can put this option into the startup flags in the preferences, see section [GUI and Startup Options] below. (Don't forget to remove the option from the startup flags again when it is not needed any more, in order to revert to the normal single application instance behavior.)
+As of version 2.3.2, Purr Data can also be invoked with the `-unique` flag to create multiple application instances. On Linux, you can do this by just specifying the `-unique` option on the command line or by editing the desktop icon you use to launch Purr Data. On Mac and Windows (as well as Linux), you can put this option into the startup flags in the preferences, see section [GUI and Startup Options](#gui-and-startup-options) below. (Don't forget to remove the option from the startup flags again when it is not needed any more, in order to revert to the normal single application instance behavior.)
 
 For most applications this shouldn't be needed, and the single application instance will be most convenient. But there are some situations in which you will want to run several instances of Purr Data instead. Because Purr Data's real-time processing is all done in a single process associated with the application instance, a single application instance cannot take advantage of the multi-processing capabilities on modern multi-core systems. Some common use cases for multi-processing are if your Pd application involves both audio and graphics processing (typically using the Gem library), or if you have several independent audio processes which you'd like to be run in parallel. In such cases you will want to use the `-unique` option to launch two or more instances of Purr Data, each with their own sets of Pd patches which will then run on different instances of the real-time engine.
 
@@ -84,35 +93,44 @@ When you launch Purr Data for the first time, most likely you will have to confi
 
 ### Audio and MIDI Devices
 
-The screenshot in [@fig:fig2] shows how the "Audio" and "MIDI" tabs in this dialog look like on the Mac. For most purposes it should be sufficient to just select the audio and MIDI inputs and outputs that you want to use from the corresponding dropdown lists. Pressing the `Apply` button applies the settings *without* closing the dialog or saving the options permanently. If you want to make your changes permanent, you must use the `Ok` button instead. This also closes the dialog.
+The screenshot in [Fig. 2](#fig2) shows how the "Audio" and "MIDI" tabs in this dialog look like on the Mac. For most purposes it should be sufficient to just select the audio and MIDI inputs and outputs that you want to use from the corresponding dropdown lists. Pressing the `Apply` button applies the settings *without* closing the dialog or saving the options permanently. If you want to make your changes permanent, you must use the `Ok` button instead. This also closes the dialog.
 
 You can redo this procedure at any time if needed. Note that it is usually possible to select multiple input and output devices, but this depends on the platform and the selected audio/MIDI back-end or "API". Also note that on Linux (using the ALSA API), the MIDI tab will only allow you to set the number of ALSA MIDI input/output ports to be created; you then still have to use a MIDI patchbay program such as [qjackctl](https://qjackctl.sourceforge.io/) to connect these ports to the hardware devices as needed.
 
-![Audio and MIDI setup.](prefs-audio+midi.png){#fig:fig2}
+<figure>
+  <img id="fig2" src="prefs-audio+midi.png" alt="Audio and MIDI setup." style="width:100%">
+  <center><figcaption>Fig. 2 - Audio and MIDI setup.</figcaption></center>
+</figure>
 
-The setup on Windows works in a similar fashion. More information for Linux users can be found in the [wiki](https://github.com/agraef/purr-data/wiki/Installation#linux-users). One minor annoyance of the Pd engine is that it does *not* rescan the devices if you connect new external audio or MIDI gear while Purr Data is already running. It's often possible to work around this, however, please check [Device connections] in the [Tips and Tricks] section below.
+The setup on Windows works in a similar fashion. More information for Linux users can be found in the [wiki](https://github.com/agraef/purr-data/wiki/Installation#linux-users). One minor annoyance of the Pd engine is that it does *not* rescan the devices if you connect new external audio or MIDI gear while Purr Data is already running. It's often possible to work around this, however, please check [Device connections](#device-connections) in the [Tips and Tricks](#tips-and-tricks) section below.
 
 ### GUI and Startup Options
 
-The GUI theme can be selected on the "GUI" tab (see [@fig:fig3], left). The changes will be applied immediately. Purr Data provides various different GUI themes out of the box. Note that the GUI themes are in fact just CSS files in Purr Data's library directory, so if you're familiar with HTML5 and CSS then you can easily change them or create your own. As of Purr Data version 2.16.0, the "snap to grid" option enables the edit mode grid, which helps positioning objects by placing them on grid points, and lets you see at a glance when edit mode is active. Another useful option on the GUI tab is "save/load zoom level with patch". Purr Data can zoom any patch window to 16 different levels, and this option, when enabled, allows you to store the current zoom level when a patch is saved, and then later restore the zoom level when the patch gets reloaded. The remaining options on the GUI tab are related to the help browser and the auto-completion facility, we'll discuss these in [Configuring The Help Browser] and [Auto-Completion] below.
+The GUI theme can be selected on the "GUI" tab (see [Fig. 3](#fig3), left). The changes will be applied immediately. Purr Data provides various different GUI themes out of the box. Note that the GUI themes are in fact just CSS files in Purr Data's library directory, so if you're familiar with HTML5 and CSS then you can easily change them or create your own. As of Purr Data version 2.16.0, the "snap to grid" option enables the edit mode grid, which helps positioning objects by placing them on grid points, and lets you see at a glance when edit mode is active. Another useful option on the GUI tab is "save/load zoom level with patch". Purr Data can zoom any patch window to 16 different levels, and this option, when enabled, allows you to store the current zoom level when a patch is saved, and then later restore the zoom level when the patch gets reloaded. The remaining options on the GUI tab are related to the help browser and the auto-completion facility, we'll discuss these in [Configuring The Help Browser](#configuring-the-help-browser) and [Auto-Completion](#auto-completion) below.
 
-![GUI and Startup options.](prefs-gui+startup.png){#fig:fig3}
+<figure>
+  <img id="fig3" src="prefs-gui+startup.png" alt="GUI and Startup options." style="width:100%">
+  <center><figcaption>Fig. 3 - GUI and Startup options.</figcaption></center>
+</figure>
 
-The "Startup" tab ([@fig:fig3], right) lets you edit the lists of library paths and startup libraries, as well as the additional options the program is to be invoked with. By default, Purr Data loads most bundled external libraries at startup and adds the corresponding directories to its library search path. If you don't need all of these, you can remove individual search paths and/or libraries using the "Search Paths" and "Libraries" lists on the Startup tab. Just click on a search path or library and click the `Delete` button. It is also possible to select an item and add your own search paths and external libraries with the `New` button, or change an existing entry with the `Edit` button.
+The "Startup" tab ([Fig. 3](#fig3), right) lets you edit the lists of library paths and startup libraries, as well as the additional options the program is to be invoked with. By default, Purr Data loads most bundled external libraries at startup and adds the corresponding directories to its library search path. If you don't need all of these, you can remove individual search paths and/or libraries using the "Search Paths" and "Libraries" lists on the Startup tab. Just click on a search path or library and click the `Delete` button. It is also possible to select an item and add your own search paths and external libraries with the `New` button, or change an existing entry with the `Edit` button.
 
 At the bottom of the Startup tab there is a "startup flags" field which lets you specify which additional options the program should be invoked with. This is commonly used to add options like `-legacy` (which enforces bug compatibility with vanilla Pd) as well as the `-path` and `-lib` options which provide an alternative way to add search paths and external libraries. For instance, to add the pd-faustgen2 extension to the startup libraries, the Startup Flags field may contain something like the following: `-lib faustgen2~`
 
-Any desired startup options can be set that way, i.e., anything that Pd usually accepts on the command line. However, note that the startup flags require that you relaunch Purr Data for the options to take effect (the same is true if you change the list of startup libraries). Also, while setting paths and libraries via the startup flags is often convenient, there are some downsides to having these options in two different places, see ["Sticky" preferences] in the [Tips and Tricks] section below.
+Any desired startup options can be set that way, i.e., anything that Pd usually accepts on the command line. However, note that the startup flags require that you relaunch Purr Data for the options to take effect (the same is true if you change the list of startup libraries). Also, while setting paths and libraries via the startup flags is often convenient, there are some downsides to having these options in two different places, see ["Sticky" preferences](#sticky-preferences) in the [Tips and Tricks](#tips-and-tricks) section below.
 
 As with the other configuration options, remember to press the `Ok` button in order to have your changes recorded in permanent storage. This will also close the dialog.
 
-Finally, note that if your configuration gets seriously messed up, there are ways to reset Purr Data to its default configuration, see [Resetting the preferences] in the [Tips and Tricks] section.
+Finally, note that if your configuration gets seriously messed up, there are ways to reset Purr Data to its default configuration, see [Resetting the preferences](#resetting-the-preferences) in the [Tips and Tricks](#tips-and-tricks) section.
 
 ## Reporting Bugs
 
-The final tab in the preferences dialog is the "Feedback" tab, which was added by Ayush Anand for Purr Data 2.19.4 during his GSoC 2024 project ([@fig:feedback]).
+The final tab in the preferences dialog is the "Feedback" tab, which was added by Ayush Anand for Purr Data 2.19.4 during his GSoC 2024 project ([Fig. 4](#fig4)).
 
-![Providing Feedback.](prefs-feedback.png){#fig:feedback width=50% height=50%}
+<figure>
+  <img id="fig4" src="prefs-feedback.png" alt="Providing Feedback." style="width:100%">
+  <center><figcaption>Fig. 4 - Providing Feedback.</figcaption></center>
+</figure>
 
 After filling out the form, clicking the `Submit` button takes you to the "New issue" page on Purr Data's GitHub mirror in your web browser, with the information that you provided already filled in, so that you can just push the "Submit new issue" button and be done with it. Please note that this requires that you're logged into your GitHub account (if not then the GitHub page will first prompt you to log in). Thus a **GitHub account is needed** to submit your feedback.
 
@@ -130,15 +148,18 @@ Purr Data's central point of entry to the help system is its *Help Browser*, dis
 
 ### The Help Browser
 
-Using the Help / Help Browser menu option (shortcut: Ctrl+B, or Cmd+B on the Mac) fires up Purr Data's help browser, which looks deceptively simple (see [@fig:fig4]) and is actually quite easy to use, but offers a lot of functionality under the hood. You can search for object names or keywords by typing them in the search entry field at the top of the browser, or you can browse the available documentation sections in the browser's *home screen*, which is what gets shown initially below the search entry, by just clicking on one of the section titles.
+Using the Help / Help Browser menu option (shortcut: Ctrl+B, or Cmd+B on the Mac) fires up Purr Data's help browser, which looks deceptively simple (see [Fig. 5](#fig5)) and is actually quite easy to use, but offers a lot of functionality under the hood. You can search for object names or keywords by typing them in the search entry field at the top of the browser, or you can browse the available documentation sections in the browser's *home screen*, which is what gets shown initially below the search entry, by just clicking on one of the section titles.
 
-![Help browser.](browser+search.png){#fig:fig4}
+<figure>
+  <img id="fig5" src="browser+search.png" alt="Help browser." style="width:100%">
+  <center><figcaption>Fig. 5 - Help browser.</figcaption></center>
+</figure>
 
-On the right in [@fig:fig4] you can see how the display changes after you entered some search term like "audio fft". As indicated, you can enter multiple search terms and they will all be searched for in one go (which amounts to matching any of the given search terms, i.e., all patches will be shown for which at least one of the search terms matches). The found help patches will be shown in the list (with short descriptions of the patches and other information, if it is available). You can then click on one of the patches to open it in a canvas window. Clicking on the "x" symbol in the search entry returns you to the home screen.
+On the right in [Fig. 5](#fig5) you can see how the display changes after you entered some search term like "audio fft". As indicated, you can enter multiple search terms and they will all be searched for in one go (which amounts to matching any of the given search terms, i.e., all patches will be shown for which at least one of the search terms matches). The found help patches will be shown in the list (with short descriptions of the patches and other information, if it is available). You can then click on one of the patches to open it in a canvas window. Clicking on the "x" symbol in the search entry returns you to the home screen.
 
 The latest version of the help browser now also supports "incremental search", which means that the search results are continually updated as you type, so hitting the Enter key after entering the search terms isn't needed any more.
 
-Note that to keep things simple and not to overwhelm novice users with too much information, the search function only covers the "official" documentation (the doc/ hierarchy) by default. There are ways to change the scope of the keyword search in the GUI preferences, see [Configuring The Help Browser] below. But in any case it is also possible to explore all the other help patches which are available in the extra/ hierarchy (which contains all the 3rd party abstractions and externals), by employing the little folder icon to the right of the search entry. This will open a file browser (initially on the doc/ folder) which can then be used to browse *all* the available help patches located *anywhere* on your hard drive. When looking for help patches in the extra/ hierarchy, which is a sibling of doc/, simply navigate to that directory in the file browser and click on one of its subdirectories containing the various abstractions and externals. Double-clicking on a help patch will open the patch in its own window, and then also show the corresponding directory in the help browser, so that additional help patches from the same folder can be accessed without any further ado.
+Note that to keep things simple and not to overwhelm novice users with too much information, the search function only covers the "official" documentation (the doc/ hierarchy) by default. There are ways to change the scope of the keyword search in the GUI preferences, see [Configuring The Help Browser](#configuring-the-help-browser) below. But in any case it is also possible to explore all the other help patches which are available in the extra/ hierarchy (which contains all the 3rd party abstractions and externals), by employing the little folder icon to the right of the search entry. This will open a file browser (initially on the doc/ folder) which can then be used to browse *all* the available help patches located *anywhere* on your hard drive. When looking for help patches in the extra/ hierarchy, which is a sibling of doc/, simply navigate to that directory in the file browser and click on one of its subdirectories containing the various abstractions and externals. Double-clicking on a help patch will open the patch in its own window, and then also show the corresponding directory in the help browser, so that additional help patches from the same folder can be accessed without any further ado.
 
 If you already know the name of a subdirectory with interesting help patches, you can also just type its name in the search entry (including the doc/ or extra/ prefix) to have the corresponding folder displayed in the help browser. For instance, typing "extra/mrpeach" provides a quick way to access the help patches for the mrpeach externals. If you have help patches which live outside the program directory (e.g., somewhere in your home directory), you can also type an absolute directory name to access these.
 
@@ -148,17 +169,20 @@ Note that in any case, you can always return to the home screen of the help brow
 
 As of Purr Data 2.14.1, the help browser offers a simple but effective bookmark feature which lets you add directories with Pd patches to the browser's home screen, where they will be shown in their own "Bookmarks" section at the bottom of the home screen.
 
-To add a new bookmark, first navigate to the directory that you'd like to add (using, e.g., the file browser, or by just typing the directory name into the search entry), and then push the little bookmark icon to the right of the file browser icon. A little red cross on the bookmark icon will indicate that the directory has been bookmarked, and that pushing the bookmark icon again will remove that bookmark (see [@fig:fig5], left). The keyboard shortcuts Ctrl+D (Add bookmark) and Ctrl+Shift+D (Remove bookmark) can be used as well.
+To add a new bookmark, first navigate to the directory that you'd like to add (using, e.g., the file browser, or by just typing the directory name into the search entry), and then push the little bookmark icon to the right of the file browser icon. A little red cross on the bookmark icon will indicate that the directory has been bookmarked, and that pushing the bookmark icon again will remove that bookmark (see [Fig. 6](#fig6), left). The keyboard shortcuts Ctrl+D (Add bookmark) and Ctrl+Shift+D (Remove bookmark) can be used as well.
 
-![Bookmarking.](browser+bookmarks.png){#fig:fig5}
+<figure>
+  <img id="fig6" src="browser+bookmarks.png" alt="Bookmarking." style="width:100%">
+  <center><figcaption>Fig. 6 - Bookmarking.</figcaption></center>
+</figure>
 
-You can then press Esc to return to the home screen, where the bookmarked directory will now be shown under the "Bookmarks" section at the bottom of the browser window (you'll probably have to scroll down to see it). Note that the "Bookmarks" section header will only be displayed if there are any bookmarks to show (see [@fig:fig5], right).
+You can then press Esc to return to the home screen, where the bookmarked directory will now be shown under the "Bookmarks" section at the bottom of the browser window (you'll probably have to scroll down to see it). Note that the "Bookmarks" section header will only be displayed if there are any bookmarks to show (see [Fig. 6](#fig6), right).
 
 The bookmarks are stored in JSON format in the user's configuration directory (which is located in the home directory, i.e., `~/.purr-data` on Linux and Mac, and `%AppData%\Purr-Data` on Windows). This file is in a human-readable and easily editable format, so if needed you can rearrange your bookmarks to your liking by editing this file in your favorite text editor.
 
 ### Configuring The Help Browser
 
-The GUI tab in the preferences dialog (cf. [GUI and Startup Options] and [@fig:fig3], left) offers some options to configure the scope of the keyword search. Note that in order to perform keyword searches, the help browser first needs to construct an index of all the help patches and their keywords. This is either done on the fly, when the help browser is first opened during a Purr Data session (this is the default), or when the application is launched. As of Purr Data 2.14.1, the help index is cached in the user's configuration directory, along with the bookmark data (see [Bookmarks] above), and only rebuilt from scratch when needed (i.e., if the contents of the indexed directories changes).
+The GUI tab in the preferences dialog (cf. [GUI and Startup Options](#gui-and-startup-options) and [Fig. 3](#fig3), left) offers some options to configure the scope of the keyword search. Note that in order to perform keyword searches, the help browser first needs to construct an index of all the help patches and their keywords. This is either done on the fly, when the help browser is first opened during a Purr Data session (this is the default), or when the application is launched. As of Purr Data 2.14.1, the help index is cached in the user's configuration directory, along with the bookmark data (see [Bookmarks](#bookmarks) above), and only rebuilt from scratch when needed (i.e., if the contents of the indexed directories changes).
 
 Once the index has been built and cached, the help browser will always come up quickly on subsequent invocations. But depending on how many patches you are indexing, creating the index may take a while (anywhere from less than a second to several seconds on modern hardware), so changing these options *will* have an impact on indexing time. This is mitigated by the fact that indexing will only have to be done every once in a while (after a fresh install or an upgrade of Purr Data, or when the scope of indexed patches is changed in the configuration).
 
@@ -167,9 +191,9 @@ There are two options which let you change the scope of indexed patches (changin
 - If "help browser only searches the doc folder" is checked (which is the default), then keyword searches are confined to the doc/ hierarchy. This is the fastest option and will be sufficient for novice users at least, as it covers all the official documentation that ships with Purr Data. However, if you're an expert user and frequently use 3rd party externals living in the extra/ hierarchy, then you may want to uncheck this option to have all the remaining subdirectories in Purr Data's library directory indexed as well (note that this may slow down the indexing considerably).
 - The "help browser also searches the help path" option, when checked, lets you tailor the keyword search to the externals you're working with, so that you won't be swamped with keyword matches from externals you never use. These externals may be located anywhere you choose, including the extra/ hierarchy, but note that if you've already unchecked the "help browser only searches the doc folder" option, then there's no need to also explicitly add subdirectories of extra/. In either case, the directories to be searched with this option are set using Purr Data's *help path* (having them in the library search path is *not* enough). You do this using Purr Data's `-helppath` option which can be added to the "startup flags" field at the bottom of the Startup tab. E.g., on Linux you may want to add something like `-helppath ~/pd-l2ork-externals` (that directory is often used on Linux for custom and personal external collections).
 
-Finally, note that in the latest versions of Purr Data, there's a new auto-completion facility (see [Auto-Completion] below) which depends on the help index, so its options affect the indexing process as well. Specifically, if auto-completion is enabled by the user, then indexing will always happen as soon as possible, as if the "prepare the help index at application start" option was checked. This is necessary to ensure that the help index data needed by auto-completion is available and up-to-date.
+Finally, note that in the latest versions of Purr Data, there's a new auto-completion facility (see [Auto-Completion](#auto-completion) below) which depends on the help index, so its options affect the indexing process as well. Specifically, if auto-completion is enabled by the user, then indexing will always happen as soon as possible, as if the "prepare the help index at application start" option was checked. This is necessary to ensure that the help index data needed by auto-completion is available and up-to-date.
 
-At the bottom of the GUI preferences you can also find a checkbox and a button which can be used to reset both help and completion indexes if needed. This is described in more detail, along with the corresponding index files, in [Where are my configuration files?] in the [Tips and Tricks] section below.
+At the bottom of the GUI preferences you can also find a checkbox and a button which can be used to reset both help and completion indexes if needed. This is described in more detail, along with the corresponding index files, in [Where are my configuration files?](#where-are-my-configuration-files) in the [Tips and Tricks](#tips-and-tricks) section below.
 
 ## Pd-l2ork and Purr Data Goodies
 
@@ -218,7 +242,7 @@ Currently the following mouse and key bindings are implemented:
 - The Esc key makes the popup disappear until you start typing again.
 - Ctrl+Y removes ("yanks") a completion. You'll be notified in the Pd console that you have to type Ctrl+Y again to confirm; typing Esc or any other key aborts the operation. Note that this operation affects the current completion as shown in the object box, not the currently selected menu item. This is most useful to remove object and argument completions that you entered yourself. (While it can be used to remove completions from the help index, these will be re-added later when the help index is rebuilt.)
 
-Configuration options for the auto-completion facility can be found on the GUI tab in the preferences dialog (cf. [GUI and Startup Options] and [@fig:fig3], left). In the latest releases, auto-completion is enabled by default; you can uncheck the first option to disable it. The other options are:
+Configuration options for the auto-completion facility can be found on the GUI tab in the preferences dialog (cf. [GUI and Startup Options](#gui-and-startup-options) and [Fig. 3](#fig3), left). In the latest releases, auto-completion is enabled by default; you can uncheck the first option to disable it. The other options are:
 
 - The second option, "match completions by object name prefix" lets you narrow the scope of the available object name completions. If it is enabled, only matches for the object name prefix that you typed are shown (same as in bash). Otherwise, matches may contain the text you typed *anywhere* in the object name, not just at the beginning. This makes it easy to discover objects, which is nice if you don't know exactly what you're looking for. As there is a plethora of built-in and external objects available in Purr Data, this mode is in fact a good option for newbies and experts alike, but prefix mode is more efficient if you already know most common Pd object names by heart. Note that in either case the completion engine uses "fuzzy", i.e., approximate string matching by default, which tolerates minor typos.
 
@@ -252,7 +276,7 @@ Version 2.14.1 also introduced the *edit mode grid* as a better means to indicat
 
 ### Install classic Pd-l2ork alongside Purr Data
 
-On Linux there are some situations where you may want to run *both* classic Pd-l2ork and Purr Data on the same system. This may be useful, e.g., if you need some feature of Pd-l2ork like its K12 mode which hasn't been ported to Purr Data yet. In order to do this, you need one of the JGU packages of Purr Data (see [Where to Get It] above). These will install into a separate directory (normally `/opt/purr-data`) so that the pathnames of the binaries and libraries in the package do not clash with those from a classic Pd-l2ork installation under `/usr`.
+On Linux there are some situations where you may want to run *both* classic Pd-l2ork and Purr Data on the same system. This may be useful, e.g., if you need some feature of Pd-l2ork like its K12 mode which hasn't been ported to Purr Data yet. In order to do this, you need one of the JGU packages of Purr Data (see [Where to Get It](#where-to-get-it) above). These will install into a separate directory (normally `/opt/purr-data`) so that the pathnames of the binaries and libraries in the package do not clash with those from a classic Pd-l2ork installation under `/usr`.
 
 ### Installing externals
 
@@ -264,7 +288,7 @@ Purr Data already bundles many if not most of the 3rd party externals commonly u
 
 Besides these, you can also copy externals to the `extra` subdirectory of your Purr Data application folder, but this folder can be hard to find, and it isn't really recommended to install stuff there, because it makes it hard to figure out which externals you added yourself.
 
-For singleton externals it will usually be enough if you just copy them into one of these folders and then relaunch Purr Data. External libraries containing a collection of different externals, on the other hand, will typically require that you also load the library at startup, using the available startup configuration options in the preferences (see [GUI and Startup Options] above). 
+For singleton externals it will usually be enough if you just copy them into one of these folders and then relaunch Purr Data. External libraries containing a collection of different externals, on the other hand, will typically require that you also load the library at startup, using the available startup configuration options in the preferences (see [GUI and Startup Options](#gui-and-startup-options) above). 
 
 ### Where are my configuration files?
 
@@ -274,11 +298,11 @@ This is indeed a bit confusing across all Pd flavors, so some remarks are in ord
 - Mac: User preferences are in the `~/Library/Preferences/org.puredata.purr-data.plist` file in your home directory, while help and completion data lives in `~/.purr-data`.
 - Windows: User preferences are stored in the Windows registry, while help and completion data lives in `%AppData%\Purr-Data` (usually located in a hidden `AppData\Roaming` subdirectory of your Windows "home directory" where all your personal data is stored, but you can just type the path as shown here in File Explorer and it will take you there).
 
-Normally you shouldn't have to mess with this data, but it's good to know it's there, e.g., in case you want to reset Purr Data to its default configuration, see [Resetting the preferences] below.
+Normally you shouldn't have to mess with this data, but it's good to know it's there, e.g., in case you want to reset Purr Data to its default configuration, see [Resetting the preferences](#resetting-the-preferences) below.
 
 Note that you can always just remove the help and completion index data to reset those to their defaults, since they will be recreated automatically. The help index is stored in the `search.index` and  `search.stamps` files, while the completion index lives in `completions.json`. Also, your help browser bookmarks can be found in the `bookmarks.json` file. Note that the latter two are both in JSON a.k.a. "JavaScript Object Notation" format, which is a language-independent data interchange format like XML, but using JavaScript-like syntax. The bookmark file is formatted in a human-friendly way so that you can easily edit it if needed, while the completion data isn't, and you probably shouldn't mess with it. (However, if you are a seasoned JavaScript/JSON user, then you probably know some tools like [jq](https://stedolan.github.io/jq/) to work around this.)
 
-The completion and help indexes should normally be re-generated automatically if any of the installed help patches are updated, e.g., if you upgrade to a new Purr Data version. However, you can also re-generate both indexes at any time if needed, using the "Reset indexes" button at the bottom of the GUI preferences (see [GUI and Startup Options] above). Both indexes should then be re-created immediately. Note that existing completions will not be affected by this, but the index will be updated if any new completions can be gathered from the help patches. If you want to completely reset the completions, check the "clear completions" toggle before pushing the "Reset indexes" button. The completion and help indexes will then both be re-created from scratch.
+The completion and help indexes should normally be re-generated automatically if any of the installed help patches are updated, e.g., if you upgrade to a new Purr Data version. However, you can also re-generate both indexes at any time if needed, using the "Reset indexes" button at the bottom of the GUI preferences (see [GUI and Startup Options](#gui-and-startup-options) above). Both indexes should then be re-created immediately. Note that existing completions will not be affected by this, but the index will be updated if any new completions can be gathered from the help patches. If you want to completely reset the completions, check the "clear completions" toggle before pushing the "Reset indexes" button. The completion and help indexes will then both be re-created from scratch.
 
 Finally, nw.js also stores its own configuration data in various places, depending on the host system:
 
@@ -294,7 +318,7 @@ It happens to the best of us that we mess up our Pd configuration so badly that 
 
 - On Linux, do `rm -rf ~/.purr-data` in the terminal.
 - On the Mac, do `rm ~/Library/Preferences/org.puredata.purr-data.plist` in the terminal.
-- On Windows, the easiest way is to just reinstall the Purr Data package and make sure that you remove the previous installation when prompted. This will also clear out the registry entries and leave you with the default configuration.^[Note that on Windows, a quick and dirty way to get rid of your user preferences is to launch the `regedit` program and manually remove the `HKEY_CURRENT_USER\SOFTWARE\Purr-Data` registry key and all its subkeys. Be warned, however, that this will leave you with a completely empty library configuration with *no* preloaded libraries at all. This may sometimes be what you want, if you prefer to build your own library configuration, but there's a better way which retains the library configuration. For that you first need to back up your configuration data after a fresh install. Launch `regedit`, right-click the `HKEY_CURRENT_USER\SOFTWARE\Purr-Data` key, and export it to a file. Et voilà, if you need to reset your user preferences in the future, just launch `regedit` again, delete the `HKEY_CURRENT_USER\SOFTWARE\Purr-Data` key, and import the backup you created.]
+- On Windows, launch the `regedit` program and manually remove the `HKEY_CURRENT_USER\SOFTWARE\Purr-Data` registry key and all its subkeys.
 
 Then just relaunch Purr Data. Your preferences should now be in pristine state again, and all the default search paths and startup libraries will be restored. Your audio and MIDI device configuration, and the other bits and bobs that you changed in the preferences will be gone as well, so you'll have to redo those.
 
@@ -312,13 +336,13 @@ As far as I can tell, this was only reported on macOS so far. The symptom is tha
 
 The exact causes are unknown right now, but it seems that this behavior may be caused by bad 3rd party externals causing the realtime engine to hang or crash during startup. The GUI then waits for the incoming connection from the engine which never gets established, which makes it hang in turn.
 
-As it's impossible to launch the GUI and remove the offending external in the preferences dialog in this rather unfortunate situation, the only known solution to this problem is to reset the configuration (see [Resetting the preferences] above), after which Purr Data hopefully launches without any hitches again. If you're feeling adventurous, you may then start adding your local externals one by one until the GUI hangs again, at which point you will have identified the culprit, so that you can remove it from your system.
+As it's impossible to launch the GUI and remove the offending external in the preferences dialog in this rather unfortunate situation, the only known solution to this problem is to reset the configuration (see [Resetting the preferences](#resetting-the-preferences) above), after which Purr Data hopefully launches without any hitches again. If you're feeling adventurous, you may then start adding your local externals one by one until the GUI hangs again, at which point you will have identified the culprit, so that you can remove it from your system.
 
 ### Purr Data starts up very slowly
 
 Again, this seems to be a Mac-specific issue. Very old (pre-2.0) Mac versions of Purr Data had the defect that old search paths and startup libraries from previous installations would keep piling up in the configuration until eventually Purr Data's startup would become *very* slow. This has been fixed in the 2.0 version (and startup time on the Mac has generally been improved as well), but if you're still using an old configuration from the pre-2.0 days, then you might still see remnants of this issue even in the 2.0 version.
 
-One thing you can try in this case is to launch the preferences dialog, press `Ok` and then quit and relaunch Purr Data. If that doesn't help, reset the configuration as explained under [Resetting the preferences] above. (If that doesn't help either, then you probably have a different issue which you should report on Purr Data's [issue tracker](https://git.purrdata.net/jwilkes/purr-data/issues).)
+One thing you can try in this case is to launch the preferences dialog, press `Ok` and then quit and relaunch Purr Data. If that doesn't help, reset the configuration as explained under [Resetting the preferences](#resetting-the-preferences) above. (If that doesn't help either, then you probably have a different issue which you should report on Purr Data's [issue tracker](https://github.com/agraef/purr-data/issues).)
 
 ### Legacy Tcl commands in externals
 
@@ -328,7 +352,7 @@ Every so often you may run into warnings about "legacy Tcl commands" in Purr Dat
 legacy tcl command at 201 of ../shared/hammer/file.c: hammereditor_close .86439b0 0
 ~~~
 
-In most cases these should be harmless, but they may indicate a missing piece of GUI functionality due to Tcl code which has not been ported to Purr Data's new nw.js GUI yet. In any case, feel free to report such messages at Purr Data's [issue tracker](https://git.purrdata.net/jwilkes/purr-data/issues), so that hopefully someone from the development team can look into them. A proper bug report should at least include the message itself and the Pd object it relates to. If some special steps are needed to reproduce the message, you should report these as well. Also, please do make sure *first* that the specific message you're seeing has not been reported in the issue tracker already.
+In most cases these should be harmless, but they may indicate a missing piece of GUI functionality due to Tcl code which has not been ported to Purr Data's new nw.js GUI yet. In any case, feel free to report such messages at Purr Data's [issue tracker](https://github.com/agraef/purr-data/issues), so that hopefully someone from the development team can look into them. A proper bug report should at least include the message itself and the Pd object it relates to. If some special steps are needed to reproduce the message, you should report these as well. Also, please do make sure *first* that the specific message you're seeing has not been reported in the issue tracker already.
 
 ### Device connections
 
